@@ -1,0 +1,48 @@
+server:
+  port: 9453
+spring:
+  datasource:
+    druid:
+      #基本属性 url、user、password
+      url: jdbc:mysql://localhost:3306/around?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+      username: root
+      #java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools you_password 加密密码命令
+      #生成public-key和加密后的密码
+      password: root
+#      connection-properties: config.decrypt=true;config.decrypt.key=${public-key}
+      filter:
+        config:
+          enabled: true
+  redis:
+    host: localhost
+    port: 6379
+    password: root
+    timeout: 1s
+    lettuce:
+      shutdown-timeout: 5s
+      pool:
+        max-idle: 20
+        min-idle: 1
+        max-active: 8
+  mail:
+    host: smtp.qq.com
+    #QQ邮箱
+    username: 940121265@qq.com
+    #授权码
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+mybatis:
+  configuration:
+    cache-enabled: false
+#public-key:
+hiclassmate:
+  power-enable:
+    # 缓存数据库 hardsearch mysql， redis redis
+    datacache: redis
+    reflections: com.haigle.around.admin.controller
