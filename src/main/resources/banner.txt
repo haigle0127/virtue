@@ -1,0 +1,8 @@
+${AnsiColor.BRIGHT_CYAN}
+   ___________________________  ______   _________
+   ___    |__  __ \_  __ \_  / / /__  | / /__  __ \
+   __  /| |_  /_/ /  / / /  / / /__   |/ /__  / / /
+   _  ___ |  _, _// /_/ // /_/ / _  /|  / _  /_/ /
+   /_/  |_/_/ |_| \____/ \____/  /_/ |_/  /_____/
+
+   ${AnsiColor.BRIGHT_RED}欢迎启动 AROUND, 本程序由HAIGLETECH监制.  ${AnsiColor.GREEN}:: powered by springboot ${AnsiColor.GREEN}(v2.2.0.RELEASE) ${AnsiColor.BLUE}::
