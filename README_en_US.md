@@ -15,6 +15,15 @@
   <a href="https://projectlombok.org/">
     <img src="https://img.shields.io/badge/lombok-1.18.8-gray" alt="lombok">
   </a>
+  <a href="http://druid.apache.org/">
+    <img src="https://img.shields.io/badge/druid-1.1.20-purple" alt="druid">
+  </a>
+  <a href="https://www.mysql.com/">
+    <img src="https://img.shields.io/badge/mysql-5.7-%234479a1" alt="mysql">
+  </a>
+  <a href="https://redis.io/">
+    <img src="https://img.shields.io/badge/redis-5.X-red" alt="redis">
+  </a>
 </p>
 
 [简体中文](./README.md) | English
@@ -32,25 +41,21 @@ The more you think about it, the harder it will be to make a good design. Our fr
 
 ## Structure
 
-## 结构
-
-<!--
-    around
-    | 
-    |———com.haigle.around
-    |	├── admin --------------------- 后台管理接口      
-    |	├── app ------------------------业务接口预留
-    |	├── common  ----------------- 框架整合核心模块
-    |   ├── config --------------------- spring配置模块
-    |
-    |── resource
-    |	├── i18n ----------------------- 支持国际化
-    |	├── application.yml ---------- 基本配置文件
-    |	├── application-dev.yml ----- 开发环境配置文件
-    |	├── application-pro.yml ----- 生产配置文件
--->
-
-![登录页面 | center](https://haigle.gitee.io/static_resources/around/image/项目结构.png)
+```
+around
+| 
+|———com.haigle.around
+|	├── admin --------------------- 后台管理接口      
+|	├── app ------------------------业务接口预留
+|	├── common  ----------------- 框架整合核心模块
+|   ├── config --------------------- spring配置模块
+|
+|── resource
+|	├── i18n ----------------------- 支持国际化
+|	├── application.yml ---------- 基本配置文件
+|	├── application-dev.yml ----- 开发环境配置文件
+|	├── application-pro.yml ----- 生产配置文件
+```
 
 ## Development environment
 
