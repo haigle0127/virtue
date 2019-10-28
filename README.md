@@ -77,6 +77,6 @@ around
 
 ## License
 
-[MIT](https://gitee.com/haigle/around/master/LICENSE)
+[MIT](https://gitee.com/haigle/around/blob/master/LICENSE)
 
 around © 1993-2019.  [haigletech](www.haigle.cn)监制.

@@ -77,6 +77,6 @@ Developers are advised to use the following environments to avoid version proble
 
 ## License
 
-[MIT](https://github.com/haigle0127/around/master/LICENSE)
+[MIT](https://github.com/haigle0127/around/blob/master/LICENSE)
 
 around © 1993-2019.  [haigletech](www.haigle.cn)Producer.
