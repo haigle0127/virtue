@@ -1,7 +1,7 @@
 package com.haigle.around.common.interceptor.advice;
 
 import com.haigle.around.common.interceptor.exception.*;
-import com.haigle.around.common.interceptor.model.ApiResult;
+import com.haigle.around.common.interceptor.model.ApiResultI18n;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class ControllerValidateAdvice {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
-    private ApiResult apiResult;
+    private ApiResultI18n apiResult;
 
     @Value("${spring.profiles.active}")
     private String profile;
@@ -43,7 +43,7 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:39
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ApiResult bindException(MethodArgumentNotValidException e) {
+    public ApiResultI18n bindException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         return apiResult.setMessage(901, Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
     }
@@ -55,7 +55,7 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:39
      */
     @ExceptionHandler(NoTokenException.class)
-    public ApiResult noTokenException() {
+    public ApiResultI18n noTokenException() {
         return apiResult.setMessage(401, "exception.not_token");
     }
 
@@ -67,7 +67,7 @@ public class ControllerValidateAdvice {
      */
     @ExceptionHandler(TokenExpiredException.class)
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
-    public ApiResult tokenException() {
+    public ApiResultI18n tokenException() {
         return apiResult.setMessage(402, "exception.token.expired");
     }
 
@@ -78,7 +78,7 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:40
      */
     @ExceptionHandler(NoPermissionAccessException.class)
-    public ApiResult noPermissionException(HttpServletResponse httpServletResponse, NoPermissionAccessException e) {
+    public ApiResultI18n noPermissionException(HttpServletResponse httpServletResponse, NoPermissionAccessException e) {
         httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
         httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
         return apiResult.setMessage(200, "exception.not_permission.access");
@@ -92,7 +92,7 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 14:41
      */
     @ExceptionHandler(UploadFileException.class)
-    public ApiResult uploadFileException(UploadFileException e) {
+    public ApiResultI18n uploadFileException(UploadFileException e) {
         logger.error(ERROR_TITLE, e);
         return apiResult.setMessage(402, "exception.file.upload.fail");
     }
@@ -105,7 +105,7 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 14:39
      */
     @ExceptionHandler(RedisException.class)
-    public ApiResult redisException(RedisException e) {
+    public ApiResultI18n redisException(RedisException e) {
         logger.error(ERROR_TITLE, e);
         return apiResult.setMessage(402, "exception.redis.error");
     }
@@ -119,7 +119,7 @@ public class ControllerValidateAdvice {
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResult noPermissionException(RuntimeException e) {
+    public ApiResultI18n noPermissionException(RuntimeException e) {
 
         /*
          * 其他异常
