@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.haigle.around.common.interceptor.PermissionInterceptor;
-import com.haigle.around.common.interceptor.model.ApiResult;
+import com.haigle.around.common.interceptor.model.ApiResultI18n;
 import com.haigle.around.config.Constant;
 import com.haigle.around.config.i18n.interceptor.CustomLocaleChangeInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -115,8 +115,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ApiResult apiResult(){
-        return new ApiResult();
+    public ApiResultI18n apiResultI18n(){
+        return new ApiResultI18n();
     }
 
 }
