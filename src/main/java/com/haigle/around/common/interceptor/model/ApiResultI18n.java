@@ -16,7 +16,7 @@ import java.util.Locale;
  * @date 2019/03/04 22:57
  */
 @ToString
-public class ApiResultI18n<T> implements Serializable {
+public class ApiResultI18n implements Serializable {
 
     private static final long serialVersionUID = -740780238124331993L;
     private static final Object OBJECT = null;
@@ -46,7 +46,7 @@ public class ApiResultI18n<T> implements Serializable {
     /**
      * 返回数据集
      */
-    private T data;
+//    private T data;
 
     public ApiResultI18n(int code, String message, boolean success) {
         this.code = code;
@@ -59,10 +59,10 @@ public class ApiResultI18n<T> implements Serializable {
         this.success = success;
     }
 
-    public ApiResultI18n(boolean success, T data) {
-        this.data = data;
-        this.success = success;
-    }
+//    public ApiResultI18n(boolean success, T data) {
+//        this.data = data;
+//        this.success = success;
+//    }
 
     public ApiResultI18n(boolean success) {
         this.success = success;
@@ -83,28 +83,28 @@ public class ApiResultI18n<T> implements Serializable {
         return message;
     }
 
-    public ApiResultI18n<T> setMessage(String message) {
+    public ApiResultI18n setMessage(String message) {
         this.message = getMessage(message);
         return this;
     }
-
-    public ApiResultI18n<T> setMessage(int code, String message) {
+//
+    public ApiResultI18n setMessage(int code, String message) {
         this.code = code;
         this.message = getMessage(message);
         return this;
     }
-
-    public ApiResultI18n<T> setMessage(String message, boolean success) {
-        this.code = 200;
-        this.message = getMessage(message);
-        this.success = success;
-        return this;
-    }
-
-    public ApiResultI18n<T> setMessage(String message, Object... obj) {
-        this.message = MessageFormat.format(getMessage(message), obj);
-        return this;
-    }
+//
+//    public ApiResultI18n<T> setMessage(String message, boolean success) {
+//        this.code = 200;
+//        this.message = getMessage(message);
+//        this.success = success;
+//        return this;
+//    }
+//
+//    public ApiResultI18n<T> setMessage(String message, Object... obj) {
+//        this.message = MessageFormat.format(getMessage(message), obj);
+//        return this;
+//    }
 
     public boolean isSuccess() {
         return success;
@@ -114,13 +114,13 @@ public class ApiResultI18n<T> implements Serializable {
         this.success = success;
     }
 
-    public T getData() {
-        return data;
-    }
-
-    public ApiResultI18n<T> setData(T data) {
-        this.data = data;
-        return this;
-    }
+//    public T getData() {
+//        return data;
+//    }
+//
+//    public ApiResultI18n<T> setData(T data) {
+//        this.data = data;
+//        return this;
+//    }
 
 }
