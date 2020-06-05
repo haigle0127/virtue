@@ -1,8 +1,7 @@
 package com.haigle.around.common.interceptor.permission.authentication.provider;
 
-import com.haigle.around.admin.dao.AdminUserDao;
+import com.haigle.around.admin.rbac.dao.AdminUserDao;
 import com.haigle.around.common.interceptor.permission.authentication.PowerPermission;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
