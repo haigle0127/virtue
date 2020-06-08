@@ -2,12 +2,7 @@ package com.haigle.around.common.interceptor.model;
 
 
 import lombok.ToString;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-
-import javax.annotation.Resource;
 import java.text.MessageFormat;
-import java.util.Locale;
 
 /**
  * 接口回参数实体-国际化
@@ -18,12 +13,6 @@ import java.util.Locale;
 public class ApiResultDataI18n<T> extends ApiResultI18n {
 
     private static final long serialVersionUID = -740780238124331993L;
-    private static final Object OBJECT = null;
-
-
-    private int code = 200;
-    private String message = "";
-    private boolean success;
 
     /**
      * 返回数据集
@@ -42,6 +31,19 @@ public class ApiResultDataI18n<T> extends ApiResultI18n {
 
     public ApiResultDataI18n<T> setData(T data) {
         this.data = data;
+        return this;
+    }
+
+
+    public ApiResultDataI18n<T> setMessage(String message, boolean success) {
+        this.code = 200;
+        this.message = getMessage(message);
+        this.success = success;
+        return this;
+    }
+
+    public ApiResultDataI18n<T> setMessage(String message, Object... obj) {
+        this.message = MessageFormat.format(getMessage(message), obj);
         return this;
     }
 
