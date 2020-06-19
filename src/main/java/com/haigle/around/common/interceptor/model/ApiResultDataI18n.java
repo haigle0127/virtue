@@ -34,17 +34,4 @@ public class ApiResultDataI18n<T> extends ApiResultI18n {
         return this;
     }
 
-
-    public ApiResultDataI18n<T> setMessage(String message, boolean success) {
-        this.code = 200;
-        this.message = getMessage(message);
-        this.success = success;
-        return this;
-    }
-
-    public ApiResultDataI18n<T> setMessage(String message, Object... obj) {
-        this.message = MessageFormat.format(getMessage(message), obj);
-        return this;
-    }
-
 }
