@@ -1,6 +1,6 @@
 package com.haigle.around.common.interceptor.permission.authentication.provider;
 
-import com.haigle.around.admin.rbac.dao.AdminUserDao;
+import com.haigle.around.admin.sys.dao.AdminUserDao;
 import com.haigle.around.common.interceptor.permission.authentication.PowerPermission;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;

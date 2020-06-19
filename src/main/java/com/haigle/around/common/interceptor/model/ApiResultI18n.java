@@ -7,6 +7,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.Locale;
 
 /**
@@ -80,6 +81,18 @@ public class ApiResultI18n implements Serializable {
     public ApiResultI18n setMessage(int code, String message) {
         this.code = code;
         this.message = getMessage(message);
+        return this;
+    }
+
+    public ApiResultI18n setMessage(String message, boolean success) {
+        this.code = 200;
+        this.message = getMessage(message);
+        this.success = success;
+        return this;
+    }
+
+    public ApiResultI18n setMessage(String message, Object... obj) {
+        this.message = MessageFormat.format(getMessage(message), obj);
         return this;
     }
 
