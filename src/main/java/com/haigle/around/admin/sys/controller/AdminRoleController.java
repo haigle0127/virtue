@@ -1,6 +1,6 @@
 package com.haigle.around.admin.sys.controller;
 
-import com.haigle.around.admin.sys.entity.Query.AdminSearchNameQuery;
+import com.haigle.around.admin.sys.entity.query.AdminSearchNameQuery;
 import com.haigle.around.admin.sys.service.AdminMenuService;
 import com.haigle.around.admin.sys.service.AdminRoleService;
 import com.haigle.around.common.base.validator.Delete;

@@ -73,15 +73,16 @@ public class ControllerValidateAdvice {
 
     /**
      * 没有权限访问，403
+     * 更改权限规则时，看是否必要加上参数 HttpServletResponse httpServletResponse, 并：
+     * // httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
+     * // httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
      * @return ApiResult
      * @author haigle
      * @date 2018/11/28 10:40
      */
     @ExceptionHandler(NoPermissionAccessException.class)
-    public ApiResultI18n noPermissionException(HttpServletResponse httpServletResponse, NoPermissionAccessException e) {
-        httpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
-        httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
-        return apiResult.setMessage(200, "exception.not_permission.access");
+    public ApiResultI18n noPermissionException(NoPermissionAccessException e) {
+        return apiResult.setMessage("exception.not_permission.access", false);
     }
 
     /**

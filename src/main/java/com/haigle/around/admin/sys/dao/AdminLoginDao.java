@@ -1,6 +1,6 @@
 package com.haigle.around.admin.sys.dao;
 
-import com.haigle.around.admin.sys.entity.ao.AdminLoginAo;
+import com.haigle.around.admin.sys.entity.query.AdminLoginQuery;
 import com.haigle.around.admin.sys.entity.po.AdminRegisterPo;
 import com.haigle.around.admin.sys.entity.po.AdminUserLoginPo;
 import org.apache.ibatis.annotations.Insert;
@@ -25,7 +25,7 @@ public interface AdminLoginDao {
      * @date 2019/3/6 10:39
      */
     @Select("select * from sys_user where email = #{account}")
-    AdminUserLoginPo getUserByEmail(AdminLoginAo adminLoginAo);
+    AdminUserLoginPo getUserByEmail(AdminLoginQuery adminLoginAo);
 
     /**
      * 根据邮箱获取信息
@@ -35,7 +35,7 @@ public interface AdminLoginDao {
      * @date 2019/9/4 13:01
      */
     @Select("select * from sys_user where phone = #{account}")
-    AdminUserLoginPo getUserByPhone(AdminLoginAo adminLoginAo);
+    AdminUserLoginPo getUserByPhone(AdminLoginQuery adminLoginAo);
 
     /**
      * 根据邮箱获取信息
@@ -45,7 +45,7 @@ public interface AdminLoginDao {
      * @date 2019/9/4 13:01
      */
     @Select("select * from sys_user where username = #{account}")
-    AdminUserLoginPo getUserByUserName(AdminLoginAo adminLoginAo);
+    AdminUserLoginPo getUserByUserName(AdminLoginQuery adminLoginAo);
 
     /**
      * 判断是否有用户

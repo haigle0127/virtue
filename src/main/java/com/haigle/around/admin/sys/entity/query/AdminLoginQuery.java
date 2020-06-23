@@ -1,4 +1,4 @@
-package com.haigle.around.admin.sys.entity.ao;
+package com.haigle.around.admin.sys.entity.query;
 
 import com.haigle.around.common.base.validator.*;
 import io.swagger.annotations.ApiModel;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
  */
 @ApiModel
 @Data
-public class AdminLoginAo {
+public class AdminLoginQuery {
 
     @ApiModelProperty(value = "账号", example = "940121265@qq.com")
     @NotBlank(message = "account.not_blank", groups = {Update.class})

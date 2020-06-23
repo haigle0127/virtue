@@ -1,7 +1,7 @@
 package com.haigle.around.admin.sys.controller;
 
 import com.haigle.around.admin.sys.entity.po.AdminPaiPo;
-import com.haigle.around.admin.sys.entity.ao.AdminLoginAo;
+import com.haigle.around.admin.sys.entity.query.AdminLoginQuery;
 import com.haigle.around.admin.sys.entity.ao.AdminRegisterAo;
 import com.haigle.around.admin.sys.entity.po.AdminUserLoginPo;
 import com.haigle.around.admin.sys.service.AdminLoginService;
@@ -55,7 +55,7 @@ public class AdminLoginController extends BaseI18n {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResultI18n login(@Validated(LoginByEmail.class) @RequestBody AdminLoginAo adminLoginAo) {
+    public ApiResultI18n login(@Validated(LoginByEmail.class) @RequestBody AdminLoginQuery adminLoginAo) {
 
         AdminUserLoginPo adminUserLoginPo = adminLoginService.login(adminLoginAo);
         if(adminUserLoginPo != null) {
@@ -64,9 +64,9 @@ public class AdminLoginController extends BaseI18n {
             if(inputPassword.equals(userPassword)) {
                 return new ApiResultDataI18n<>(true, JwtUtils.sign(adminUserLoginPo.getId().toString()));
             }
-            return new ApiResultI18n("password.error", false);
+            return apiResultI18n.setMessage(10120,"password.error", false);
         }
-        return new ApiResultI18n("account.error", false);
+        return apiResultI18n.setMessage(10121, "account.error", false);
 
     }
 
@@ -93,18 +93,18 @@ public class AdminLoginController extends BaseI18n {
 
         //检验邮箱是否存在
         if (adminLoginService.emailIsExist(adminRegisterAo.getEmail())) {
-            return new ApiResultI18n("email.is_exist", false);
+            return apiResultI18n.setMessage("email.is_exist", false);
         }
         AdminPaiPo adminPaiPo = adminPaiService.getPaiPo(adminRegisterAo.getEmail());
         if(adminPaiPo == null) {
-            return new ApiResultI18n("captcha.not_sent", false);
+            return apiResultI18n.setMessage("captcha.not_sent", false);
 
         }
         if(adminPaiPo.getLabel().equals(adminRegisterAo.getCaptcha())) {
             adminPaiService.delete(adminRegisterAo.getEmail());
             return new ApiResultDataI18n<>(true, adminLoginService.save(adminRegisterAo));
         }
-        return new ApiResultI18n("captcha.error", false);
+        return apiResultI18n.setMessage("captcha.error", false);
     }
 
     /**
@@ -117,15 +117,15 @@ public class AdminLoginController extends BaseI18n {
     public ApiResultI18n sendEmailCode(@NotNull(message = "email.not_blank") @RequestParam("email") String email) {
 
         if(!email.matches(REGEX_EMAIL)) {
-            return new ApiResultI18n("email.format.error", false);
+            return apiResultI18n.setMessage("email.format.error", false);
         }
 
         //检验邮箱是否存在
         if (adminLoginService.emailIsExist(email)) {
-            return new ApiResultI18n("email.is_exist", false);
+            return apiResultI18n.setMessage("email.is_exist", false);
         }
         adminLoginService.sendEmailCode(email);
-        return new ApiResultI18n("captcha.success.sent", false);
+        return apiResultI18n.setMessage("captcha.success.sent", false);
     }
 
     @ApiOperation("退出登录")

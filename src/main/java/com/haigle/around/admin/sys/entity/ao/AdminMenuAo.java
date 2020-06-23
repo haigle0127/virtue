@@ -30,12 +30,12 @@ public class AdminMenuAo {
 
     @ApiModelProperty(value = "菜单名称", required = true)
     @NotBlank(message = "menu.name.not_blank", groups = {Save.class, Update.class})
-    @Size(max = 20,min = 1,message = "menu.name.max20", groups = {Save.class, Update.class})
+    @Size(max = 20, min = 1,message = "menu.name.max20", groups = {Save.class, Update.class})
     private String name;
 
     @ApiModelProperty(value = "菜单别名", required = true)
     @NotBlank(message = "menu.ename.not_blank", groups = {Save.class, Update.class})
-    @Size(max = 20,min = 1,message = "menu.ename.max20", groups = {Save.class, Update.class})
+    @Size(max = 20, min = 1, message = "menu.ename.max20", groups = {Save.class, Update.class})
     private String ename;
 
     @ApiModelProperty(value = "权限标识")

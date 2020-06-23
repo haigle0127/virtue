@@ -8,7 +8,7 @@ import com.haigle.around.common.interceptor.model.ApiResultDataI18n;
 import com.haigle.around.common.interceptor.permission.annotation.Permissions;
 import com.haigle.around.common.interceptor.model.ApiResultI18n;
 import com.haigle.around.common.interceptor.model.BaseI18n;
-import com.haigle.around.common.interceptor.model.ServiceResult;
+import com.haigle.around.common.interceptor.model.service.ServiceResult;
 import com.haigle.around.common.util.JwtUtils;
 import com.haigle.around.config.Constant;
 import io.swagger.annotations.Api;

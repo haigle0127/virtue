@@ -1,7 +1,7 @@
 package com.haigle.around.admin.sys.service.impl;
 
 import com.haigle.around.admin.sys.dao.AdminRoleDao;
-import com.haigle.around.admin.sys.entity.Query.AdminSearchNameQuery;
+import com.haigle.around.admin.sys.entity.query.AdminSearchNameQuery;
 import com.haigle.around.admin.sys.service.AdminRoleService;
 import com.haigle.around.common.base.page.Page;
 import com.haigle.around.common.interceptor.annotation.Commit;

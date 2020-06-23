@@ -1,6 +1,6 @@
 package com.haigle.around.admin.sys.service;
 
-import com.haigle.around.admin.sys.entity.Query.AdminSearchNameQuery;
+import com.haigle.around.admin.sys.entity.query.AdminSearchNameQuery;
 import com.haigle.around.common.base.page.Page;
 import com.haigle.around.admin.sys.entity.ao.AdminRoleAo;
 import com.haigle.around.admin.sys.entity.vo.AdminRoleVo;

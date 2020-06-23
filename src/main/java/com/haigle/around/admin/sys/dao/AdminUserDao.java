@@ -116,7 +116,7 @@ public interface AdminUserDao {
      * @date 2019-06-09 14:32
      */
     @Select("SELECT sr.name FROM sys_role sr " +
-            "LEFT JOIN sys_user_role sur ON sur.user_id = sr.id " +
+            "LEFT JOIN sys_user_role sur ON sur.role_id = sr.id " +
             "WHERE sur.user_id = #{uid} ")
     List<String> getRoleList(Long uid);
 
