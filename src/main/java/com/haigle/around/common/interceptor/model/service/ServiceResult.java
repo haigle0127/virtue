@@ -1,4 +1,4 @@
-package com.haigle.around.common.interceptor.model;
+package com.haigle.around.common.interceptor.model.service;
 
 import java.io.Serializable;
 
@@ -7,16 +7,11 @@ import java.io.Serializable;
  * @author haigle
  * @date 2019/9/6 15:18
  */
-public class ServiceResult<T> implements Serializable {
+public class ServiceResult implements Serializable {
 
-    private int code = 200;
-    private String message = "";
-    private boolean success;
-
-    /**
-     * 返回数据集
-     */
-    private T data;
+    protected int code = 200;
+    protected String message = "";
+    protected boolean success;
 
     public ServiceResult(int code, String message, boolean success) {
         this.code = code;
@@ -26,11 +21,6 @@ public class ServiceResult<T> implements Serializable {
 
     public ServiceResult(String message, boolean success) {
         this.message = message;
-        this.success = success;
-    }
-
-    public ServiceResult(boolean success, T data) {
-        this.data = data;
         this.success = success;
     }
 
@@ -57,18 +47,18 @@ public class ServiceResult<T> implements Serializable {
         this.message = message;
     }
 
-    public ServiceResult<T> setMessage(String message) {
+    public ServiceResult setMessage(String message) {
         this.message = message;
         return this;
     }
 
-    public ServiceResult<T> setMessage(int code, String message) {
+    public ServiceResult setMessage(int code, String message) {
         this.code = code;
         this.message = message;
         return this;
     }
 
-    public ServiceResult<T> setMessage(String message, boolean success) {
+    public ServiceResult setMessage(String message, boolean success) {
         this.message = message;
         this.success = success;
         return this;
@@ -80,15 +70,6 @@ public class ServiceResult<T> implements Serializable {
 
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public ServiceResult<T> setData(T data) {
-        this.data = data;
-        return this;
     }
 
 }

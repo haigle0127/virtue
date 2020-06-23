@@ -1,6 +1,6 @@
 package com.haigle.around.admin.sys.service.impl;
 
-import com.haigle.around.admin.sys.entity.Query.AdminSearchNameQuery;
+import com.haigle.around.admin.sys.entity.query.AdminSearchNameQuery;
 import com.haigle.around.admin.sys.entity.ao.AdminUserAo;
 import com.haigle.around.admin.sys.entity.dto.AdminUserDto;
 import com.haigle.around.admin.sys.entity.po.AdminTreePo;
@@ -10,7 +10,7 @@ import com.haigle.around.admin.sys.dao.AdminUserDao;
 import com.haigle.around.admin.sys.service.AdminUserService;
 import com.haigle.around.common.base.page.Page;
 import com.haigle.around.common.interceptor.annotation.Commit;
-import com.haigle.around.common.interceptor.model.ServiceResult;
+import com.haigle.around.common.interceptor.model.service.ServiceResult;
 import com.haigle.around.common.util.DesUtils;
 import com.haigle.around.common.util.SnowFlake;
 import com.haigle.around.common.util.StringUtils;

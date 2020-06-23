@@ -91,6 +91,13 @@ public class ApiResultI18n implements Serializable {
         return this;
     }
 
+    public ApiResultI18n setMessage(int code, String message, boolean success) {
+        this.code = code;
+        this.message = getMessage(message);
+        this.success = success;
+        return this;
+    }
+
     public ApiResultI18n setMessage(String message, Object... obj) {
         this.message = MessageFormat.format(getMessage(message), obj);
         return this;

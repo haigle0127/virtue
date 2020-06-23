@@ -1,6 +1,6 @@
 package com.haigle.around.admin.sys.controller;
 
-import com.haigle.around.admin.sys.entity.Query.AdminSearchNameQuery;
+import com.haigle.around.admin.sys.entity.query.AdminSearchNameQuery;
 import com.haigle.around.admin.sys.entity.ao.AdminUserAo;
 import com.haigle.around.admin.sys.service.AdminUserService;
 import com.haigle.around.common.base.validator.Save;
@@ -8,7 +8,7 @@ import com.haigle.around.common.base.validator.Update;
 import com.haigle.around.common.interceptor.model.ApiResultDataI18n;
 import com.haigle.around.common.interceptor.permission.annotation.Permissions;
 import com.haigle.around.common.interceptor.model.BaseI18n;
-import com.haigle.around.common.interceptor.model.ServiceResult;
+import com.haigle.around.common.interceptor.model.service.ServiceResult;
 import com.haigle.around.common.util.JwtUtils;
 import com.haigle.around.config.Constant;
 import com.haigle.around.common.interceptor.model.ApiResultI18n;
@@ -58,9 +58,9 @@ public class AdminUserController extends BaseI18n {
     public ApiResultI18n save(@Validated(Save.class) @RequestBody AdminUserAo adminUserAo, @RequestHeader(Constant.TOKEN) String token) {
         ServiceResult serviceResult = adminUserService.save(adminUserAo, JwtUtils.getSubject(token));
         if(!serviceResult.isSuccess()) {
-            return new ApiResultI18n(serviceResult.getMessage(), false);
+            return apiResultI18n.setMessage(serviceResult.getMessage(), false);
         }
-        return new ApiResultI18n(SAVE_SUCCESS, true);
+        return apiResultI18n.setMessage(SAVE_SUCCESS, true);
     }
 
     /**
@@ -75,9 +75,9 @@ public class AdminUserController extends BaseI18n {
     public ApiResultI18n update(@Validated(Update.class) @RequestBody AdminUserAo adminUserAo, @RequestHeader(Constant.TOKEN) String token) {
         ServiceResult serviceResult = adminUserService.update(adminUserAo, JwtUtils.getSubject(token));
         if(!serviceResult.isSuccess()) {
-            return new ApiResultI18n(serviceResult.getMessage(), false);
+            return apiResultI18n.setMessage(serviceResult.getMessage(), false);
         }
-        return new ApiResultI18n(UPDATE_SUCCESS, true);
+        return apiResultI18n.setMessage(UPDATE_SUCCESS, true);
     }
 
     /**
@@ -91,7 +91,7 @@ public class AdminUserController extends BaseI18n {
     @PostMapping("/delete")
     public ApiResultI18n delete(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
         adminUserService.delete(id);
-        return new ApiResultI18n(DELETE_SUCCESS, true);
+        return apiResultI18n.setMessage(DELETE_SUCCESS, true);
     }
 
     /**

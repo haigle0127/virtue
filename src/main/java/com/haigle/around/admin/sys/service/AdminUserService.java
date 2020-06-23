@@ -1,11 +1,11 @@
 package com.haigle.around.admin.sys.service;
 
-import com.haigle.around.admin.sys.entity.Query.AdminSearchNameQuery;
+import com.haigle.around.admin.sys.entity.query.AdminSearchNameQuery;
 import com.haigle.around.admin.sys.entity.ao.AdminUserAo;
 import com.haigle.around.admin.sys.entity.vo.AdminTreeVo;
 import com.haigle.around.admin.sys.entity.vo.AdminUserVo;
 import com.haigle.around.common.base.page.Page;
-import com.haigle.around.common.interceptor.model.ServiceResult;
+import com.haigle.around.common.interceptor.model.service.ServiceResult;
 
 import java.util.List;
 

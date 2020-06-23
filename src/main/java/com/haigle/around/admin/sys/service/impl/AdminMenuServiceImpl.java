@@ -7,7 +7,7 @@ import com.haigle.around.admin.sys.entity.vo.AdminTreeVo;
 import com.haigle.around.admin.sys.entity.vo.AdminMenuVo;
 import com.haigle.around.admin.sys.service.AdminMenuService;
 import com.haigle.around.common.interceptor.annotation.Commit;
-import com.haigle.around.common.interceptor.model.ServiceResult;
+import com.haigle.around.common.interceptor.model.service.ServiceResult;
 import com.haigle.around.common.util.SnowFlake;
 import org.springframework.stereotype.Service;
 

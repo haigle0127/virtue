@@ -1,4 +1,4 @@
-package com.haigle.around.admin.sys.entity.Query;
+package com.haigle.around.admin.sys.entity.query;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

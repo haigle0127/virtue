@@ -1,6 +1,6 @@
 package com.haigle.around.admin.sys.service;
 
-import com.haigle.around.admin.sys.entity.ao.AdminLoginAo;
+import com.haigle.around.admin.sys.entity.query.AdminLoginQuery;
 import com.haigle.around.admin.sys.entity.ao.AdminRegisterAo;
 import com.haigle.around.admin.sys.entity.po.AdminUserLoginPo;
 
@@ -18,7 +18,7 @@ public interface AdminLoginService {
      * @author haigle
      * @date 2019/3/6 9:58
      */
-    AdminUserLoginPo login(AdminLoginAo adminLoginAo);
+    AdminUserLoginPo login(AdminLoginQuery adminLoginAo);
 
     /**
      * 邮箱是否已被使用

@@ -2,7 +2,7 @@ package com.haigle.around.admin.sys.service.impl;
 
 import com.haigle.around.admin.sys.dao.AdminLoginDao;
 import com.haigle.around.common.interceptor.annotation.Commit;
-import com.haigle.around.admin.sys.entity.ao.AdminLoginAo;
+import com.haigle.around.admin.sys.entity.query.AdminLoginQuery;
 import com.haigle.around.admin.sys.entity.ao.AdminRegisterAo;
 import com.haigle.around.admin.sys.entity.po.AdminRegisterPo;
 import com.haigle.around.admin.sys.entity.po.AdminUserLoginPo;
@@ -40,7 +40,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     private AdminPaiDao adminPaiDao;
 
     @Override
-    public AdminUserLoginPo login(AdminLoginAo adminLoginAo) {
+    public AdminUserLoginPo login(AdminLoginQuery adminLoginAo) {
         if(adminLoginAo.getAccount().matches(REGEX_EMAIL)) {
             return adminLoginDao.getUserByEmail(adminLoginAo);
         }
