@@ -105,7 +105,7 @@ public interface AdminUserDao {
             @Result(column = "id", property = "id"),
             @Result(id = true, property = "roles", column = "id", many = @Many(select = "getMenuList"))
     })
-    @Select("SELECT id, username, email, phone, avatar, introduction, birth, school, education, company FROM sys_user WHERE id = #{uid}")
+    @Select("SELECT id, username, email, phone, avatar, introduction, birth, school, education FROM sys_user WHERE id = #{uid}")
     AdminUserVo getUserWithRoleMenuListById(Long uid);
 
     /**
