@@ -18,6 +18,7 @@ import java.util.Set;
 public class RedisPowerPermission implements PowerPermission {
 
     private static final String PREFIX_KEY = "user-";
+
     @Resource
     private RedisTemplate<String, List<String>> redisTemplate;
 

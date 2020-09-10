@@ -24,7 +24,7 @@ public class EnableProperties {
     /**
      * 反射，扫描权限包
      */
-    private String reflections = "com.haigle.around.admin.controller";
+    private String reflections = "com.haigle.around.*.controller";
 
     public EnableProperties() {
 

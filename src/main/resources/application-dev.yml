@@ -14,7 +14,7 @@ spring:
         config:
           enabled: true
   redis:
-    host: localhost
+    host: 127.0.0.1
     port: 6379
     password: root
     timeout: 1s
@@ -44,5 +44,5 @@ mybatis:
 hiclassmate:
   power-enable:
     # 缓存数据库 hardsearch mysql， redis redis
-    datacache: hardsearch
-    reflections: com.haigle.around.admin.controller
+    datacache: redis
+    reflections: com.haigle.around.*.controller
