@@ -60,6 +60,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 解决Long、BigInteger类型id在前端丢失精度问题
+     *
      * @author haigle
      * @date 2018/5/31 15:04
      */
