@@ -3,6 +3,7 @@
     <contextName>logback</contextName>
     <property name="log.path" value="../logs"/>
 
+    <!-- 测试环境+开发环境（多个使用逗号隔开） -->
     <springProfile name="test,dev">
         <!-- 彩色日志格式 -->
         <property name="log.pattern.color"
@@ -21,13 +22,27 @@
                 <pattern>${log.pattern.color}</pattern>
             </layout>
         </appender>
+
+        <!--设置为OFF,即屏蔽; 留下sqltiming作为INFO级别输出-->
+        <logger name="jdbc.connection" level="OFF"/>
+        <logger name="jdbc.resultset" level="OFF"/>
+        <logger name="jdbc.resultsettable" level="OFF"/>
+        <logger name="jdbc.audit" level="OFF"/>
+        <logger name="jdbc.sqltiming" level="INFO"/>
+        <logger name="jdbc.sqlonly" level="OFF"/>
+
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+
     </springProfile>
 
-    <springProfile name="pro,server">
+    <!-- 生产环境 -->
+    <springProfile name="pro">
         <!--输出到文件-->
         <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${log.path}/around.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <fileNamePattern>${log.path}/shop.%d{yyyy-MM-dd}.log</fileNamePattern>
                 <maxHistory>30</maxHistory>
                 <totalSizeCap>1GB</totalSizeCap>
             </rollingPolicy>
@@ -35,23 +50,18 @@
                 <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
             </encoder>
         </appender>
-    </springProfile>
-    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
-    <springProfile name="test,dev">
-        <root level="info">
-            <appender-ref ref="console"/>
-        </root>
-        <!--<logger name="com.peak.tally.api.**" level="debug" >
-            <appender-ref ref="console" />
-        </logger>-->
-    </springProfile>
-    <!-- 生产环境. -->
-    <springProfile name="pro">
+
         <root level="warn">
             <appender-ref ref="file"/>
+            <!-- <appender-ref ref="httpAppender"/> -->
         </root>
-        <!--<logger name="com.peak.tally.api.**" level="ERROR">
-            <appender-ref ref="file" />
-        </logger>-->
     </springProfile>
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+<!--    <springProfile name="test,dev">-->
+<!--        <root level="info">-->
+<!--            <appender-ref ref="console"/>-->
+<!--        </root>-->
+<!--    </springProfile>-->
+
 </configuration>
