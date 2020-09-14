@@ -52,4 +52,4 @@ hiclassmate:
   power-enable:
     # 缓存数据库 hardsearch mysql， redis redis
     datacache: hardsearch
-    reflections: com.haigle.around.admin.controller
+    reflections: cn.haigle.around.admin.controller
