@@ -1,8 +1,8 @@
 package cn.haigle.around.admin.menu.service;
 
 import cn.haigle.around.admin.menu.entity.ao.AdminMenuAO;
-import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
 import cn.haigle.around.admin.menu.entity.vo.AdminMenuVO;
+import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
 import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 
 import java.util.List;
@@ -35,21 +35,19 @@ public interface AdminMenuService {
      * 保存菜单
      * @param adminMenuAO AdminMenuAO
      * @param uid 操作人ID
-     * @return ServiceResult
      * @author haigle
      * @date 2019/8/23 13:17
      */
-    ServiceResult save(AdminMenuAO adminMenuAO, Long uid);
+    void save(AdminMenuAO adminMenuAO, Long uid);
 
     /**
      *更新菜单
      * @param adminMenuAO AdminMenuAO
      * @param uid 操作人ID
-     * @return ServiceResult
      * @author haigle
      * @date 2019/8/23 13:17
      */
-    ServiceResult update(AdminMenuAO adminMenuAO, Long uid);
+    void update(AdminMenuAO adminMenuAO, Long uid);
 
     /**
      * 删除菜单
@@ -58,15 +56,6 @@ public interface AdminMenuService {
      * @date 2019/8/23 13:18
      */
     void delete(Long id);
-
-    /**
-     * 判断菜单是否存在子集
-     * @param parentId 菜单原有ID
-     * @return boolean
-     * @author haigle
-     * @date 2019/8/29 13:25
-     */
-    boolean getIsChildren(Long parentId);
 
     /**
      * 获取菜单ID列表

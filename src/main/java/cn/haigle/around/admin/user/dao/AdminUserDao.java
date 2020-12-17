@@ -1,10 +1,10 @@
 package cn.haigle.around.admin.user.dao;
 
+import cn.haigle.around.admin.menu.entity.bo.AdminTreeBO;
 import cn.haigle.around.admin.user.dao.provider.AdminUserDaoSqlProvider;
 import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
 import cn.haigle.around.admin.user.entity.dto.AdminUserDTO;
-import cn.haigle.around.admin.menu.entity.bo.AdminTreeBO;
-import cn.haigle.around.admin.user.entity.vo.AdminUserVo;
+import cn.haigle.around.admin.user.entity.vo.AdminUserVO;
 import cn.haigle.around.common.base.page.Page;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -33,7 +33,7 @@ public interface AdminUserDao {
             @Result(id = true, property = "roles", column = "id", many = @Many(select = "getRoleList"))
     })
     @SelectProvider(type = AdminUserDaoSqlProvider.class, method = "list")
-    List<AdminUserVo> list(Page<AdminUserVo> page, String name);
+    List<AdminUserVO> list(Page<AdminUserVO> page, String name);
 
     /**
      * 获取管理用户总数
@@ -44,7 +44,7 @@ public interface AdminUserDao {
      * @date 2019-08-14 21:12
      */
     @SelectProvider(type = AdminUserDaoSqlProvider.class, method = "getTotal")
-    int getTotal(Page<AdminUserVo> page, String name);
+    int getTotal(Page<AdminUserVO> page, String name);
 
     /**
      * 新增用户
@@ -105,8 +105,8 @@ public interface AdminUserDao {
             @Result(column = "id", property = "id"),
             @Result(id = true, property = "roles", column = "id", many = @Many(select = "getMenuList"))
     })
-    @Select("SELECT id, username, email, phone, avatar, introduction, birth, school, education FROM sys_user WHERE id = #{uid}")
-    AdminUserVo getUserWithRoleMenuListById(Long uid);
+    @Select("SELECT id, username, email, phone, avatar, introduction, birth, education FROM sys_user WHERE id = #{uid}")
+    AdminUserVO getUserWithRoleMenuListById(Long uid);
 
     /**
      * 查询用户角色

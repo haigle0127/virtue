@@ -1,19 +1,15 @@
 package cn.haigle.around.admin.login.controller;
 
-import cn.haigle.around.admin.login.entity.bo.AdminPaiBO;
-import cn.haigle.around.admin.login.entity.query.AdminLoginQuery;
+import cn.haigle.around.admin.login.entity.ao.AdminLoginAO;
 import cn.haigle.around.admin.login.entity.ao.AdminRegisterAO;
-import cn.haigle.around.admin.login.entity.bo.AdminUserLoginBO;
+import cn.haigle.around.admin.login.entity.bo.AdminPaiBO;
 import cn.haigle.around.admin.login.service.AdminLoginService;
 import cn.haigle.around.admin.login.service.AdminPaiService;
 import cn.haigle.around.common.base.validator.LoginByEmail;
 import cn.haigle.around.common.base.validator.Save;
-import cn.haigle.around.common.interceptor.model.ApiResultDataI18n;
-import cn.haigle.around.common.interceptor.model.ApiResultI18n;
-import cn.haigle.around.admin.user.service.AdminUserService;
-import cn.haigle.around.common.interceptor.model.BaseI18n;
+import cn.haigle.around.common.interceptor.model.ApiResult;
+import cn.haigle.around.common.interceptor.model.message.CodeStatus;
 import cn.haigle.around.common.interceptor.permission.authentication.PowerPermission;
-import cn.haigle.around.common.util.DesUtils;
 import cn.haigle.around.common.util.JwtUtils;
 import cn.haigle.around.config.Constant;
 import io.swagger.annotations.Api;
@@ -34,13 +30,10 @@ import static cn.haigle.around.common.util.AccountValidatorUtils.REGEX_EMAIL;
 @Api(tags = "登录注册")
 @RestController
 @RequestMapping(Constant.API)
-public class AdminLoginController extends BaseI18n {
+public class AdminLoginController {
 
     @Resource(name = "adminLoginService")
     private AdminLoginService adminLoginService;
-
-    @Resource(name = "adminUserService")
-    private AdminUserService adminUserService;
 
     @Resource(name = "adminPaiService")
     private AdminPaiService adminPaiService;
@@ -55,19 +48,8 @@ public class AdminLoginController extends BaseI18n {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResultI18n login(@Validated(LoginByEmail.class) @RequestBody AdminLoginQuery adminLoginQuery) {
-
-        AdminUserLoginBO adminUserLoginBO = adminLoginService.login(adminLoginQuery);
-        if(adminUserLoginBO != null) {
-            String inputPassword = adminLoginQuery.getPassword();
-            String userPassword = DesUtils.decrypt(adminUserLoginBO.getPassword(), adminUserLoginBO.getSalt());
-            if(inputPassword.equals(userPassword)) {
-                return new ApiResultDataI18n<>(true, JwtUtils.sign(adminUserLoginBO.getId().toString()));
-            }
-            return apiResultI18n.setMessage(10120,"password.error", false);
-        }
-        return apiResultI18n.setMessage(10121, "account.error", false);
-
+    public ApiResult login(@Validated(LoginByEmail.class) @RequestBody AdminLoginAO ao) {
+        return new ApiResult<>(adminLoginService.login(ao), CodeStatus.OK);
     }
 
     /**
@@ -78,8 +60,8 @@ public class AdminLoginController extends BaseI18n {
      */
     @ApiOperation("用户信息")
     @GetMapping("/user/info")
-    public ApiResultI18n info(@NotNull(message = "exception.not_token") @RequestHeader(Constant.TOKEN) String token) {
-        return new ApiResultDataI18n<>(true, adminUserService.info(JwtUtils.getSubject(token)));
+    public ApiResult info(@RequestHeader(Constant.TOKEN) String token) {
+        return new ApiResult<>(adminLoginService.getAdminUserRoles(JwtUtils.getSubject(token)), CodeStatus.OK);
     }
 
     /**
@@ -89,22 +71,21 @@ public class AdminLoginController extends BaseI18n {
      */
     @ApiOperation("用户注册")
     @PostMapping("/register")
-    public ApiResultI18n register(@Validated(Save.class) AdminRegisterAO adminRegisterAO) {
+    public ApiResult register(@Validated(Save.class) AdminRegisterAO adminRegisterAO) {
 
         //检验邮箱是否存在
         if (adminLoginService.emailIsExist(adminRegisterAO.getEmail())) {
-            return apiResultI18n.setMessage("email.is_exist", false);
+            return new ApiResult<>(CodeStatus.EMAIL_EXIST);
         }
         AdminPaiBO adminPaiPo = adminPaiService.getPaiPo(adminRegisterAO.getEmail());
         if(adminPaiPo == null) {
-            return apiResultI18n.setMessage("captcha.not_sent", false);
-
+            return new ApiResult<>(CodeStatus.CAPTCHA_NOT_SENT);
         }
         if(adminPaiPo.getLabel().equals(adminRegisterAO.getCaptcha())) {
             adminPaiService.delete(adminRegisterAO.getEmail());
-            return new ApiResultDataI18n<>(true, adminLoginService.save(adminRegisterAO));
+            return new ApiResult<>(adminLoginService.save(adminRegisterAO), CodeStatus.OK);
         }
-        return apiResultI18n.setMessage("captcha.error", false);
+        return new ApiResult<>(CodeStatus.CAPTCHA_ERROR);
     }
 
     /**
@@ -114,25 +95,25 @@ public class AdminLoginController extends BaseI18n {
      */
     @ApiOperation("邮箱验证码")
     @PostMapping("/sendEmailCode")
-    public ApiResultI18n sendEmailCode(@NotNull(message = "email.not_blank") @RequestParam("email") String email) {
+    public ApiResult sendEmailCode(@NotNull(message = "邮箱格式不正确") @RequestParam("email") String email) {
 
         if(!email.matches(REGEX_EMAIL)) {
-            return apiResultI18n.setMessage("email.format.error", false);
+            return new ApiResult<>(CodeStatus.EMAIL_FORMAT_ERROR);
         }
 
         //检验邮箱是否存在
         if (adminLoginService.emailIsExist(email)) {
-            return apiResultI18n.setMessage("email.is_exist", false);
+            return new ApiResult<>(CodeStatus.EMAIL_EXIST);
         }
         adminLoginService.sendEmailCode(email);
-        return apiResultI18n.setMessage("captcha.success.sent", false);
+        return new ApiResult<>(CodeStatus.OK);
     }
 
     @ApiOperation("退出登录")
     @PostMapping("/logout")
-    public ApiResultI18n logout(@RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult logout(@RequestHeader(Constant.TOKEN) String token) {
         powerPermission.removePermission((JwtUtils.getSubject(token)));
-        return apiResultI18n.setMessage("logout.success", true);
+        return new ApiResult<>(CodeStatus.OK);
     }
 
 }

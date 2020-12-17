@@ -1,13 +1,19 @@
 package cn.haigle.around.admin.login.service.impl;
 
 import cn.haigle.around.admin.login.dao.AdminLoginDao;
-import cn.haigle.around.common.interceptor.annotation.Commit;
-import cn.haigle.around.admin.login.entity.query.AdminLoginQuery;
+import cn.haigle.around.admin.login.dao.AdminPaiDao;
+import cn.haigle.around.admin.login.entity.ao.AdminLoginAO;
 import cn.haigle.around.admin.login.entity.ao.AdminRegisterAO;
 import cn.haigle.around.admin.login.entity.bo.AdminRegisterBO;
+import cn.haigle.around.admin.login.entity.bo.AdminUserInfoBO;
 import cn.haigle.around.admin.login.entity.bo.AdminUserLoginBO;
+import cn.haigle.around.admin.login.entity.vo.AdminUserRolesVO;
+import cn.haigle.around.admin.login.entity.vo.LoginUserInfoVo;
+import cn.haigle.around.admin.login.exception.NoPermissionAccessException;
+import cn.haigle.around.admin.login.exception.PasswordErrorException;
 import cn.haigle.around.admin.login.service.AdminLoginService;
-import cn.haigle.around.admin.login.dao.AdminPaiDao;
+import cn.haigle.around.admin.login.service.AdminUserPermissionCacheService;
+import cn.haigle.around.common.annotation.transaction.Commit;
 import cn.haigle.around.common.util.DesUtils;
 import cn.haigle.around.common.util.JwtUtils;
 import cn.haigle.around.common.util.SnowFlake;
@@ -18,8 +24,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
-import static cn.haigle.around.common.util.AccountValidatorUtils.REGEX_EMAIL;
 import static cn.haigle.around.common.util.AccountValidatorUtils.REGEX_MOBILE;
 
 /**
@@ -29,6 +35,9 @@ import static cn.haigle.around.common.util.AccountValidatorUtils.REGEX_MOBILE;
  */
 @Service("adminLoginService")
 public class AdminLoginServiceImpl implements AdminLoginService {
+
+    @Resource(name = "adminUserPermissionCacheService")
+    private AdminUserPermissionCacheService adminUserPermissionCacheService;
 
     @Resource(name = "adminLoginDao")
     private AdminLoginDao adminLoginDao;
@@ -40,14 +49,42 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     private AdminPaiDao adminPaiDao;
 
     @Override
-    public AdminUserLoginBO login(AdminLoginQuery adminLoginAo) {
-        if(adminLoginAo.getAccount().matches(REGEX_EMAIL)) {
-            return adminLoginDao.getUserByEmail(adminLoginAo);
+    public LoginUserInfoVo login(AdminLoginAO ao) {
+
+        AdminUserLoginBO user;
+
+        if(ao.getAccount().matches(REGEX_MOBILE)) {
+            user = adminLoginDao.getUserByPhone(ao);
+        } else {
+            user = adminLoginDao.getUserByUserName(ao);
         }
-        if(adminLoginAo.getAccount().matches(REGEX_MOBILE)) {
-            return adminLoginDao.getUserByPhone(adminLoginAo);
+
+        String inputPassword = ao.getPassword();
+        String userPassword = DesUtils.decrypt(user.getPassword(), user.getSalt());
+        if(!inputPassword.equals(userPassword)) {
+            throw new PasswordErrorException();
         }
-        return adminLoginDao.getUserByUserName(adminLoginAo);
+
+        Set<String> permissions = adminUserPermissionCacheService.get(user.getId());
+        if (permissions == null) {
+            throw new NoPermissionAccessException();
+        }
+
+        return new LoginUserInfoVo(JwtUtils.sign(user.getId().toString()));
+
+    }
+
+    @Override
+    public AdminUserRolesVO getAdminUserRoles(Long uid) {
+        AdminUserInfoBO userInfo = adminLoginDao.getAdminUserInfo(uid);
+        return new AdminUserRolesVO()
+                .setUsername(userInfo.getUsername())
+                .setEmail(userInfo.getEmail())
+                .setPhone(userInfo.getPhone())
+                .setAvatar(userInfo.getAvatar())
+                .setBirth(userInfo.getBirth())
+                .setIntroduction(userInfo.getIntroduction())
+                .setRoles(adminUserPermissionCacheService.get(uid));
     }
 
     @Override

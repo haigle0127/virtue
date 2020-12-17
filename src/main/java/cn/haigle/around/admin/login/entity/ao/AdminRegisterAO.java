@@ -1,6 +1,9 @@
 package cn.haigle.around.admin.login.entity.ao;
 
-import cn.haigle.around.common.base.validator.*;
+import cn.haigle.around.common.base.validator.LoginByEmail;
+import cn.haigle.around.common.base.validator.Save;
+import cn.haigle.around.common.base.validator.SendEmailCode;
+import cn.haigle.around.common.base.validator.Update;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 

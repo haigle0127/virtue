@@ -3,10 +3,14 @@ package cn.haigle.around.admin.menu.service.impl;
 import cn.haigle.around.admin.menu.dao.AdminMenuDao;
 import cn.haigle.around.admin.menu.entity.ao.AdminMenuAO;
 import cn.haigle.around.admin.menu.entity.bo.AdminTreeBO;
-import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
 import cn.haigle.around.admin.menu.entity.vo.AdminMenuVO;
+import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
+import cn.haigle.around.admin.menu.exception.ParentIDExistException;
+import cn.haigle.around.admin.menu.exception.ParentNotException;
+import cn.haigle.around.admin.menu.exception.PowerExistException;
 import cn.haigle.around.admin.menu.service.AdminMenuService;
-import cn.haigle.around.common.interceptor.annotation.Commit;
+import cn.haigle.around.admin.user.exception.UserExistException;
+import cn.haigle.around.common.annotation.transaction.Commit;
 import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 import cn.haigle.around.common.util.SnowFlake;
 import org.springframework.stereotype.Service;
@@ -78,11 +82,8 @@ public class AdminMenuServiceImpl implements AdminMenuService {
 
     @Commit
     @Override
-    public ServiceResult save(AdminMenuAO adminMenuAO, Long uid) {
-        ServiceResult serviceResult = validatorSaveMenu(adminMenuAO);
-        if(!serviceResult.isSuccess()) {
-            return serviceResult;
-        }
+    public void save(AdminMenuAO adminMenuAO, Long uid) {
+        validatorSaveMenu(adminMenuAO);
         Long menuId = SnowFlake.getInstance();
         adminMenuAO.setId(menuId);
         if(adminMenuAO.getParentId() != 0L) {
@@ -93,22 +94,20 @@ public class AdminMenuServiceImpl implements AdminMenuService {
         }
         adminMenuDao.deleteRoleMenu(adminMenuAO.getParentId());
         adminMenuDao.save(adminMenuAO, uid);
-        return new ServiceResult("common.success", true);
     }
 
     @Override
-    public ServiceResult update(AdminMenuAO adminMenuAO, Long uid) {
-        ServiceResult serviceResult = validatorUpdateMenu(adminMenuAO);
-        if(!serviceResult.isSuccess()) {
-            return serviceResult;
-        }
+    public void update(AdminMenuAO adminMenuAO, Long uid) {
+        validatorUpdateMenu(adminMenuAO);
         adminMenuDao.update(adminMenuAO, uid);
-        return new ServiceResult("common.success", true);
     }
 
     @Commit
     @Override
     public void delete(Long id) {
+        if(adminMenuDao.getIsChildren(id) != null) {
+            throw new ParentNotException();
+        }
         Long parentId = adminMenuDao.menuIsParentId(id);
         if(adminMenuDao.menuChildrenCount(parentId) < 2) {
             adminMenuDao.updateHasChildren(parentId, 0);
@@ -118,35 +117,26 @@ public class AdminMenuServiceImpl implements AdminMenuService {
     }
 
     @Override
-    public boolean getIsChildren(Long parentId) {
-        return adminMenuDao.getIsChildren(parentId) != null;
-    }
-
-    @Override
     public List<Long> getRoleMenuList(Long id) {
         return adminMenuDao.getRoleMenuList(id);
     }
 
-    private ServiceResult validatorSaveMenu(AdminMenuAO adminMenuAO) {
+    private void validatorSaveMenu(AdminMenuAO adminMenuAO) {
         if(validatorIsNotMenu(adminMenuAO.getParentId())) {
-            return new ServiceResult("menu.parent_id.error", false);
+            throw new ParentIDExistException();
         }
         if(adminMenuDao.getIsPower(adminMenuAO.getPower()) != null) {
-            return new ServiceResult("menu.power.exist", false);
+            throw new PowerExistException();
         }
-        return new ServiceResult("common.success", true);
-
     }
 
-    private ServiceResult validatorUpdateMenu(AdminMenuAO adminMenuAO) {
+    private void validatorUpdateMenu(AdminMenuAO adminMenuAO) {
         if(validatorIsNotMenu(adminMenuAO.getParentId())) {
-            return new ServiceResult("menu.parent_id.error", false);
+            throw new ParentIDExistException();
         }
         if(adminMenuDao.getIsPowerNotId(adminMenuAO.getPower(), adminMenuAO.getId()) != null) {
-            return new ServiceResult("menu.power.exist", false);
+            throw new PowerExistException();
         }
-        return new ServiceResult("common.success", true);
-
     }
 
     private boolean validatorIsNotMenu(Long power) {

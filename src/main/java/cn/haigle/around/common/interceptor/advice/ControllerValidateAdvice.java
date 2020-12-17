@@ -1,7 +1,9 @@
 package cn.haigle.around.common.interceptor.advice;
 
 import cn.haigle.around.common.interceptor.exception.*;
+import cn.haigle.around.common.interceptor.model.ApiResult;
 import cn.haigle.around.common.interceptor.model.ApiResultI18n;
+import cn.haigle.around.common.interceptor.model.message.CodeStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,8 +56,8 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:39
      */
     @ExceptionHandler(NoTokenException.class)
-    public ApiResultI18n noTokenException() {
-        return apiResult.setMessage(401, "exception.not_token");
+    public ApiResult noTokenException() {
+        return new ApiResult<>(CodeStatus.TOKEN_ERROR);
     }
 
     /**
@@ -65,9 +67,9 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:39
      */
     @ExceptionHandler(TokenExpiredException.class)
-    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
-    public ApiResultI18n tokenException() {
-        return apiResult.setMessage(402, "exception.token.expired");
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResult tokenException() {
+        return new ApiResult<>(CodeStatus.TOKEN_EXPIRED);
     }
 
     /**
@@ -80,8 +82,8 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:40
      */
     @ExceptionHandler(NoPermissionAccessException.class)
-    public ApiResultI18n noPermissionException(NoPermissionAccessException e) {
-        return apiResult.setMessage("exception.not_permission.access", false);
+    public ApiResult noPermissionException(NoPermissionAccessException e) {
+        return new ApiResult<>(CodeStatus.NOT_PERMISSION_EXPIRED);
     }
 
     /**
@@ -92,22 +94,22 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 14:41
      */
     @ExceptionHandler(UploadFileException.class)
-    public ApiResultI18n uploadFileException(UploadFileException e) {
+    public ApiResult uploadFileException(UploadFileException e) {
         logger.error(ERROR_TITLE, e);
-        return apiResult.setMessage(402, "exception.file.upload.fail");
+        return new ApiResult<>(CodeStatus.FILE_UPLOAD_FAIL_EXPIRED);
     }
 
     /**
-     * redis数据库错误
+     * redis数据库错误 501
      * @param e 错误信息
      * @return ApiResult
      * @author haigle
      * @date 2018/11/28 14:39
      */
     @ExceptionHandler(RedisException.class)
-    public ApiResultI18n redisException(RedisException e) {
+    public ApiResult redisException(RedisException e) {
         logger.error(ERROR_TITLE, e);
-        return apiResult.setMessage(402, "exception.redis.error");
+        return new ApiResult<>(CodeStatus.REDIS_EXPIRED);
     }
 
     /**
@@ -119,7 +121,7 @@ public class ControllerValidateAdvice {
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResultI18n noPermissionException(RuntimeException e) {
+    public ApiResult noPermissionException(RuntimeException e) {
 
         /*
          * 其他异常
@@ -128,10 +130,10 @@ public class ControllerValidateAdvice {
         if (profile.equalsIgnoreCase(DEV)) {
             e.printStackTrace();
             String message = e.getMessage() == null ? "请看控制台的错误提示哟" : e.getMessage();
-            return this.apiResult.setMessage(message);
+            return new ApiResult<>(CodeStatus.EXIST);
         }
         logger.error(ERROR_TITLE, e);
-        return apiResult.setMessage("server.error");
+        return new ApiResult<>(CodeStatus.EXIST);
 
     }
 
