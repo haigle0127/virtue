@@ -41,8 +41,3 @@ mybatis:
   configuration:
     cache-enabled: false
 #public-key:
-hiclassmate:
-  power-enable:
-    # 缓存数据库 hardsearch mysql， redis redis
-    datacache: redis
-    reflections: cn.haigle.around.*.controller

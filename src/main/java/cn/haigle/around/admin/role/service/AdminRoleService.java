@@ -1,9 +1,9 @@
 package cn.haigle.around.admin.role.service;
 
-import cn.haigle.around.common.entity.query.AdminSearchNameQuery;
-import cn.haigle.around.common.base.page.Page;
 import cn.haigle.around.admin.role.entity.ao.AdminRoleAO;
 import cn.haigle.around.admin.role.entity.vo.AdminRoleVO;
+import cn.haigle.around.common.base.page.Page;
+import cn.haigle.around.common.entity.query.NameQuery;
 
 /**
  * 角色接口
@@ -19,7 +19,7 @@ public interface AdminRoleService {
      * @author haigle
      * @date 2019/7/25 14:46
      */
-    Page<AdminRoleVO> list(AdminSearchNameQuery adminSearchNameQuery);
+    Page<AdminRoleVO> list(NameQuery adminSearchNameQuery);
 
     /**
      * 角色保存

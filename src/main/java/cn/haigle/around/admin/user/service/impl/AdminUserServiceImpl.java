@@ -1,15 +1,18 @@
 package cn.haigle.around.admin.user.service.impl;
 
-import cn.haigle.around.common.entity.query.AdminSearchNameQuery;
-import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
-import cn.haigle.around.admin.user.entity.dto.AdminUserDTO;
 import cn.haigle.around.admin.menu.entity.bo.AdminTreeBO;
 import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
-import cn.haigle.around.admin.user.entity.vo.AdminUserVo;
 import cn.haigle.around.admin.user.dao.AdminUserDao;
+import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
+import cn.haigle.around.admin.user.entity.dto.AdminUserDTO;
+import cn.haigle.around.admin.user.entity.vo.AdminUserVO;
+import cn.haigle.around.admin.user.exception.EmailExistException;
+import cn.haigle.around.admin.user.exception.PhoneExistException;
+import cn.haigle.around.admin.user.exception.UserExistException;
 import cn.haigle.around.admin.user.service.AdminUserService;
+import cn.haigle.around.common.annotation.transaction.Commit;
 import cn.haigle.around.common.base.page.Page;
-import cn.haigle.around.common.interceptor.annotation.Commit;
+import cn.haigle.around.common.entity.query.NameQuery;
 import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 import cn.haigle.around.common.util.DesUtils;
 import cn.haigle.around.common.util.SnowFlake;
@@ -17,7 +20,6 @@ import cn.haigle.around.common.util.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,13 +37,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     private AdminUserDao adminUserDao;
 
     @Override
-    public AdminUserVo info(Long uid) {
+    public AdminUserVO info(Long uid) {
         return adminUserDao.getUserWithRoleMenuListById(uid);
     }
 
     @Override
-    public Page<AdminUserVo> list(AdminSearchNameQuery adminSearchNameQuery) {
-        Page<AdminUserVo> page = Page.<AdminUserVo>builder()
+    public Page<AdminUserVO> list(NameQuery adminSearchNameQuery) {
+        Page<AdminUserVO> page = Page.<AdminUserVO>builder()
                 .page(adminSearchNameQuery.getPage())
                 .pageSize(adminSearchNameQuery.getPageSize())
                 .build();
@@ -66,14 +68,14 @@ public class AdminUserServiceImpl implements AdminUserService {
      */
     @Commit
     @Override
-    public ServiceResult save(AdminUserAO adminUserAO, Long uid) {
+    public void save(AdminUserAO adminUserAO, Long uid) {
         synchronized (("name_" + adminUserAO.getUsername()).intern()) {
             synchronized (("phone_" + adminUserAO.getPhone()).intern()) {
                 if (StringUtils.isBlank(adminUserAO.getEmail())) {
-                    return toSave(adminUserAO, uid);
+                    toSave(adminUserAO, uid);
                 } else {
                     synchronized (("email_" + adminUserAO.getEmail()).intern()) {
-                        return toSave(adminUserAO, uid);
+                        toSave(adminUserAO, uid);
                     }
                 }
             }
@@ -82,18 +84,14 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Commit
     @Override
-    public ServiceResult update(AdminUserAO adminUserAO, Long uid) {
+    public void update(AdminUserAO adminUserAO, Long uid) {
 
-        ServiceResult serviceResult = validatorUpdateUser(adminUserAO);
-        if(!serviceResult.isSuccess()) {
-            return serviceResult;
-        }
+        validatorUpdateUser(adminUserAO);
         adminUserDao.update(adminUserAO, uid);
         adminUserDao.deleteUserRole(adminUserAO.getId());
         if(!adminUserAO.getRoleList().isEmpty()) {
             adminUserDao.saveUserRole(adminUserAO.getId(), adminUserAO.getRoleList());
         }
-        return new ServiceResult("common.success", true);
 
     }
 
@@ -120,15 +118,16 @@ public class AdminUserServiceImpl implements AdminUserService {
         return adminUserDao.getUserRoleList(uid);
     }
 
-    private ServiceResult toSave(AdminUserAO adminUserAO, Long uid) {
-        ServiceResult serviceResult = validatorSaveUser(adminUserAO);
-        if(!serviceResult.isSuccess()) {
-            return serviceResult;
-        }
+    private void toSave(AdminUserAO adminUserAO, Long uid) {
+
+        /*
+         * 验证
+         */
+        validatorSaveUser(adminUserAO);
         Long userId = SnowFlake.getInstance();
         adminUserAO.setId(userId);
         String salt = StringUtils.getRandomStr(512);
-        AdminUserDTO adminUserDto = AdminUserDTO.builder()
+        AdminUserDTO adminUserDTO = AdminUserDTO.builder()
                 .id(userId)
                 .username(adminUserAO.getUsername())
                 .email(adminUserAO.getEmail())
@@ -137,44 +136,45 @@ public class AdminUserServiceImpl implements AdminUserService {
                 .roleList(adminUserAO.getRoleList())
                 .salt(salt)
                 .password(DesUtils.encrypt(PASSWORD, salt)).build();
-        adminUserDao.save(adminUserDto, uid);
+        adminUserDao.save(adminUserDTO, uid);
         if(!adminUserAO.getRoleList().isEmpty()) {
             adminUserDao.saveUserRole(userId, adminUserAO.getRoleList());
         }
-        return new ServiceResult("common.success", true);
     }
 
-    private ServiceResult validatorSaveUser(AdminUserAO adminUserAo) {
+    /**
+     * 验证
+     * @param adminUserAo AdminUserAO
+     * @author haigle
+     * @date 2020/12/17 20:37
+     */
+    private void validatorSaveUser(AdminUserAO adminUserAo) {
 
         if(adminUserDao.getIsName(adminUserAo.getUsername()) != null) {
-            return new ServiceResult("user.username.exist", false);
+            throw new UserExistException();
         }
         if(adminUserDao.getIsPhone(adminUserAo.getPhone()) != null) {
-            return new ServiceResult("user.phone.exist", false);
+            throw new PhoneExistException();
         }
         if(!adminUserAo.getEmail().isEmpty()) {
             if(adminUserDao.getIsEmail(adminUserAo.getEmail()) != null) {
-                return new ServiceResult("user.email.exist", false);
+                throw new EmailExistException();
             }
         }
-        return new ServiceResult("common.success", true);
-
     }
 
-    private ServiceResult validatorUpdateUser(AdminUserAO adminUserAO) {
+    private void validatorUpdateUser(AdminUserAO adminUserAO) {
 
         if(adminUserDao.getIsNameNotId(adminUserAO.getUsername(), adminUserAO.getId()) != null) {
-            return new ServiceResult("user.username.exist", false);
+            throw new UserExistException();
         }
         if(adminUserDao.getIsPhoneNotId(adminUserAO.getPhone(), adminUserAO.getId()) != null) {
-            return new ServiceResult("user.phone.exist", false);
+            throw new PhoneExistException();
         }
         if(!adminUserAO.getEmail().isEmpty()) {
             if(adminUserDao.getIsEmailNotId(adminUserAO.getEmail(), adminUserAO.getId()) != null) {
-                return new ServiceResult("user.email.exist", false);
+                throw new EmailExistException();
             }
         }
-        return new ServiceResult("common.success", true);
-
     }
 }

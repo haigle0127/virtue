@@ -1,10 +1,10 @@
 package cn.haigle.around.admin.user.service;
 
-import cn.haigle.around.common.entity.query.AdminSearchNameQuery;
-import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
 import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
-import cn.haigle.around.admin.user.entity.vo.AdminUserVo;
+import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
+import cn.haigle.around.admin.user.entity.vo.AdminUserVO;
 import cn.haigle.around.common.base.page.Page;
+import cn.haigle.around.common.entity.query.NameQuery;
 import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 
 import java.util.List;
@@ -23,36 +23,34 @@ public interface AdminUserService {
      * @author haigle
      * @date 2019-06-09 14:06
      */
-    AdminUserVo info(Long uid);
+    AdminUserVO info(Long uid);
 
     /**
      * 用户列表
-     * @param adminSearchNameQuery 分页搜索
+     * @param adminNameQuery 分页搜索
      * @return Page<AdminUserVo> 分页数据
      * @author haigle
      * @date 2019-08-14 20:20
      */
-    Page<AdminUserVo> list(AdminSearchNameQuery adminSearchNameQuery);
+    Page<AdminUserVO> list(NameQuery adminNameQuery);
 
     /**
      * 添加用户
      * @param adminUserAO 用户信息
      * @param uid 操作用户ID
-     * @return ServiceResult
      * @author haigle
      * @date 2019/9/5 13:56
      */
-    ServiceResult save(AdminUserAO adminUserAO, Long uid);
+    void save(AdminUserAO adminUserAO, Long uid);
 
     /**
      * 更新用户
      * @param adminUserAO 用户信息
      * @param uid 操作用户ID
-     * @return ServiceResult
      * @author haigle
      * @date 2019/9/6 8:45
      */
-    ServiceResult update(AdminUserAO adminUserAO, Long uid);
+    void update(AdminUserAO adminUserAO, Long uid);
 
     /**
      * 删除用户

@@ -1,8 +1,9 @@
 package cn.haigle.around.admin.login.service;
 
-import cn.haigle.around.admin.login.entity.query.AdminLoginQuery;
+import cn.haigle.around.admin.login.entity.ao.AdminLoginAO;
 import cn.haigle.around.admin.login.entity.ao.AdminRegisterAO;
-import cn.haigle.around.admin.login.entity.bo.AdminUserLoginBO;
+import cn.haigle.around.admin.login.entity.vo.AdminUserRolesVO;
+import cn.haigle.around.admin.login.entity.vo.LoginUserInfoVo;
 
 /**
  * 登录、注册功能
@@ -13,12 +14,21 @@ public interface AdminLoginService {
 
     /**
      * 登录服务
-     * @param adminLoginQuery AdminLoginQuery
-     * @return UserLoginPo
+     * @param ao AdminLoginAO
+     * @return LoginUserInfoVo
      * @author haigle
      * @date 2019/3/6 9:58
      */
-    AdminUserLoginBO login(AdminLoginQuery adminLoginQuery);
+    LoginUserInfoVo login(AdminLoginAO ao);
+
+    /**
+     * 用户信息
+     * @param uid 用户ID
+     * @return AdminUserRolesVO 用户信息
+     * @author haigle
+     * @date 2019-06-09 14:06
+     */
+    AdminUserRolesVO getAdminUserRoles(Long uid);
 
     /**
      * 邮箱是否已被使用

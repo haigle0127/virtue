@@ -1,13 +1,13 @@
 package cn.haigle.around.admin.role.service.impl;
 
 import cn.haigle.around.admin.role.dao.AdminRoleDao;
-import cn.haigle.around.common.entity.query.AdminSearchNameQuery;
-import cn.haigle.around.admin.role.service.AdminRoleService;
-import cn.haigle.around.common.base.page.Page;
-import cn.haigle.around.common.interceptor.annotation.Commit;
-import cn.haigle.around.common.util.SnowFlake;
 import cn.haigle.around.admin.role.entity.ao.AdminRoleAO;
 import cn.haigle.around.admin.role.entity.vo.AdminRoleVO;
+import cn.haigle.around.admin.role.service.AdminRoleService;
+import cn.haigle.around.common.annotation.transaction.Commit;
+import cn.haigle.around.common.base.page.Page;
+import cn.haigle.around.common.entity.query.NameQuery;
+import cn.haigle.around.common.util.SnowFlake;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,7 +24,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
     private AdminRoleDao adminRoleDao;
 
     @Override
-    public Page<AdminRoleVO> list(AdminSearchNameQuery adminSearchNameQuery) {
+    public Page<AdminRoleVO> list(NameQuery adminSearchNameQuery) {
         Page<AdminRoleVO> page = Page.<AdminRoleVO>builder()
                 .page(adminSearchNameQuery.getPage())
                 .pageSize(adminSearchNameQuery.getPageSize())
@@ -58,7 +58,5 @@ public class AdminRoleServiceImpl implements AdminRoleService {
     }
 
     @Override
-    public void delete(Long id) {
-        adminRoleDao.delete(id);
-    }
+    public void delete(Long id) { adminRoleDao.delete(id);}
 }

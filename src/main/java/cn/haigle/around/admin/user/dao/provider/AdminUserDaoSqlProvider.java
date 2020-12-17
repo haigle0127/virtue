@@ -2,7 +2,7 @@ package cn.haigle.around.admin.user.dao.provider;
 
 import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
 import cn.haigle.around.admin.user.entity.dto.AdminUserDTO;
-import cn.haigle.around.admin.user.entity.vo.AdminUserVo;
+import cn.haigle.around.admin.user.entity.vo.AdminUserVO;
 import cn.haigle.around.common.base.page.Page;
 import cn.haigle.around.common.dao.DaoProvider;
 import cn.haigle.around.common.util.StringUtils;
@@ -21,16 +21,16 @@ public class AdminUserDaoSqlProvider extends DaoProvider {
     private static final String PRIMARY_KEY_VALUE = "#{m.id}";
 
     private static final String TABLE_REPORT = "sys_user";
-    private static final String[] TABLE_REPORT_COLUMNS = {"username", "phone", "email",};
+    private static final String[] TABLE_REPORT_COLUMNS = {"username", "phone", "email"};
     private static final String[] TABLE_REPORT_VALUES = {"#{m.username}", "#{m.phone}", "#{m.email}"};
     private static final String[] TABLE_REPORT_UPDATE_COLUMNS = {"password", "salt"};
     private static final String[] TABLE_REPORT_UPDATE_VALUES = {"#{m.password}", "#{m.salt}"};
 
     private static final String TABLE_REPORT_NEXT = "sys_user_role";
 
-    private static final String[] TITLE = {"id", "username", "email", "phone", "avatar", "introduction", "birth", "school", "education", "organize_id", "create_time"};
+    private static final String[] TITLE = {"id", "username", "email", "phone", "avatar", "introduction", "birth", "education", "organize_id", "create_time"};
 
-    public String list(Page<AdminUserVo> page, String name) {
+    public String list(Page<AdminUserVO> page, String name) {
         SQL sql = new SQL();
         sql.SELECT(TITLE)
                 .FROM(TABLE_REPORT);
@@ -42,7 +42,7 @@ public class AdminUserDaoSqlProvider extends DaoProvider {
         return sqlString + " limit #{page.col}, #{page.pageSize}";
     }
 
-    public String getTotal(Page<AdminUserVo> page, String name) {
+    public String getTotal(Page<AdminUserVO> page, String name) {
         SQL sql = new SQL();
         sql.SELECT("count(*)")
                 .FROM(TABLE_REPORT);

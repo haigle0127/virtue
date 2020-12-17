@@ -1,9 +1,9 @@
 package cn.haigle.around.admin.role.dao;
 
 import cn.haigle.around.admin.role.dao.provider.AdminRoleDaoProvider;
-import cn.haigle.around.common.base.page.Page;
 import cn.haigle.around.admin.role.entity.ao.AdminRoleAO;
 import cn.haigle.around.admin.role.entity.vo.AdminRoleVO;
+import cn.haigle.around.common.base.page.Page;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;

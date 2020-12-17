@@ -1,4 +1,4 @@
-package cn.haigle.around.common.interceptor.annotation;
+package cn.haigle.around.common.annotation.transaction;
 
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;

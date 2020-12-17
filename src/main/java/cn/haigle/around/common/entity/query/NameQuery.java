@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AdminSearchNameQuery {
+public class NameQuery {
 
     /**
      * 当前页

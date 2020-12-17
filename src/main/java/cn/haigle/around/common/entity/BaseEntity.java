@@ -24,8 +24,8 @@ import java.time.LocalDateTime;
 public class BaseEntity{
 
     @org.springframework.data.annotation.Id
-    @NotNull(message = "common.delete.primaryKey.null", groups = {Delete.class})
-    @NotNull(message = "common.operate.primaryKey.null", groups = {Id.class})
+    @NotNull(message = "请选择要删除的数据", groups = {Delete.class})
+    @NotNull(message = "请选择要操作的数据", groups = {Id.class})
     @ApiModelProperty(value = "主键", example = "1234567890")
     private Long id;
 
