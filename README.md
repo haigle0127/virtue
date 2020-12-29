@@ -27,6 +27,7 @@
 [around](https://gitee.com/haigle/around) 是一个权限管理解决方案，它基于springboot实现，遵循阿里java开发手册，代码实现相对于springmvc更加优雅。缓存可以不基于任何缓存复杂臃肿的缓存系统，但是简单的实现了自带的redis缓存。在配置里可以关闭，也可以自定义任何缓存系统，来实现你心目中的样子。权限模块是实现了springframework的HandlerInterceptor这个servlet过滤器接口进行控制，实现完全接管。后端的前端框架技术采用 [vue-element-admin](https://panjiachen.gitee.io/vue-element-admin-site/zh) 开源前端框架，它基于 [vue](https://cn.vuejs.org)（构建数据驱动的 web 界面的渐进式框架），[element-ui](https://element.eleme.cn) （基于 Vue 2.0 的桌面端组件库）。
 想的越多，就越难做出好的设计，我们的框架目前还不够成熟，但是我们希望做的这个小小的产品希望可以帮助你完成一切你想完成的事。
 
+1.0版本是around服务端，此后这个版本需要maven管理。
 ***
 
 **联系我们：鹅群672036656**
@@ -72,4 +73,4 @@ around
 
 [MIT](https://gitee.com/haigle/around/blob/master/LICENSE)
 
-around © 1993-2021.  [haigletech](www.haigle.cn)监制.
+around © 2015-2021.  [haigletech](www.haigle.cn)监制.
