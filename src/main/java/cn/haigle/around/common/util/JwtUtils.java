@@ -1,5 +1,6 @@
 package cn.haigle.around.common.util;
 
+import cn.haigle.around.common.interceptor.exception.TokenExpiredException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -77,7 +78,7 @@ public class JwtUtils {
             String uid = Jwts.parser().setSigningKey(getKeyInstance()).parseClaimsJws(token).getBody().getSubject();
             return Long.valueOf(uid);
         } catch (Exception e) {
-            return null;
+            throw new TokenExpiredException();
         }
     }
 

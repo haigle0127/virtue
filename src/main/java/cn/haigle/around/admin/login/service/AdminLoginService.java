@@ -2,7 +2,7 @@ package cn.haigle.around.admin.login.service;
 
 import cn.haigle.around.admin.login.entity.ao.AdminLoginAO;
 import cn.haigle.around.admin.login.entity.ao.AdminRegisterAO;
-import cn.haigle.around.admin.login.entity.vo.AdminUserRolesVO;
+import cn.haigle.around.admin.login.entity.vo.AdminUserAndRolesVO;
 import cn.haigle.around.admin.login.entity.vo.LoginUserInfoVo;
 
 /**
@@ -24,11 +24,11 @@ public interface AdminLoginService {
     /**
      * 用户信息
      * @param uid 用户ID
-     * @return AdminUserRolesVO 用户信息
+     * @return getAdminUserAndRoles 用户信息
      * @author haigle
      * @date 2019-06-09 14:06
      */
-    AdminUserRolesVO getAdminUserRoles(Long uid);
+    AdminUserAndRolesVO getAdminUserAndRoles(Long uid);
 
     /**
      * 邮箱是否已被使用

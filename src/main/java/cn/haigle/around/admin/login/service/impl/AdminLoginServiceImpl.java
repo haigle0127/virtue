@@ -7,10 +7,11 @@ import cn.haigle.around.admin.login.entity.ao.AdminRegisterAO;
 import cn.haigle.around.admin.login.entity.bo.AdminRegisterBO;
 import cn.haigle.around.admin.login.entity.bo.AdminUserInfoBO;
 import cn.haigle.around.admin.login.entity.bo.AdminUserLoginBO;
-import cn.haigle.around.admin.login.entity.vo.AdminUserRolesVO;
+import cn.haigle.around.admin.login.entity.vo.AdminUserAndRolesVO;
 import cn.haigle.around.admin.login.entity.vo.LoginUserInfoVo;
 import cn.haigle.around.admin.login.exception.NoPermissionAccessException;
 import cn.haigle.around.admin.login.exception.PasswordErrorException;
+import cn.haigle.around.admin.login.exception.UserNotExistException;
 import cn.haigle.around.admin.login.service.AdminLoginService;
 import cn.haigle.around.admin.login.service.AdminUserPermissionCacheService;
 import cn.haigle.around.common.annotation.transaction.Commit;
@@ -27,6 +28,7 @@ import javax.annotation.Resource;
 import java.util.Set;
 
 import static cn.haigle.around.common.util.AccountValidatorUtils.REGEX_MOBILE;
+import static cn.haigle.around.common.util.AccountValidatorUtils.REGEX_EMAIL;
 
 /**
  * 登录注册 服务实现
@@ -55,8 +57,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         if(ao.getAccount().matches(REGEX_MOBILE)) {
             user = adminLoginDao.getUserByPhone(ao);
+        }else if(ao.getAccount().matches(REGEX_EMAIL)) {
+            user = adminLoginDao.getUserByEmail(ao);
         } else {
             user = adminLoginDao.getUserByUserName(ao);
+        }
+
+        if(user == null) {
+            throw new UserNotExistException();
         }
 
         String inputPassword = ao.getPassword();
@@ -75,9 +83,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     }
 
     @Override
-    public AdminUserRolesVO getAdminUserRoles(Long uid) {
+    public AdminUserAndRolesVO getAdminUserAndRoles(Long uid) {
         AdminUserInfoBO userInfo = adminLoginDao.getAdminUserInfo(uid);
-        return new AdminUserRolesVO()
+        return new AdminUserAndRolesVO()
                 .setUsername(userInfo.getUsername())
                 .setEmail(userInfo.getEmail())
                 .setPhone(userInfo.getPhone())
