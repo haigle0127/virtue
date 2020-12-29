@@ -21,13 +21,13 @@ public class Page<T> implements Serializable {
      * 当前页
      */
     @ApiModelProperty(value = "当前页")
-    private int page = 1;
+    private int page;
 
     /**
      * 每页记录数
      */
     @ApiModelProperty(value = "每页记录数")
-    private int pageSize = 30;
+    private int pageSize;
 
     /**
      * 总记录数

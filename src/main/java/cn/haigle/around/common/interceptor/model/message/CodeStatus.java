@@ -24,6 +24,7 @@ public enum CodeStatus {
     EXIST(500, "服务错误，各种错误，你就找吧"),
     REDIS_EXPIRED(501, "Redis数据库错误"),
     FILE_UPLOAD_FAIL_EXPIRED(521, "上传失败"),
+    VARIFY_FIELD_ERROR(901, "验证错误"),
 
     /**
      * {@code 401 Unauthorized}.

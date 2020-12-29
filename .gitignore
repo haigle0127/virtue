@@ -1,4 +1,4 @@
-/target/
+target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -17,16 +17,26 @@
 *.iml
 *.ipr
 .json
+*.rar
+*.log
 
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-/build/
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+logs/
 
 ### Maven ###
 .mvn
 mvnw
 mvnw.cmd
+
+### Gradle ###
+/src/main/resources/application-local.yml
+.gradle
+gradle
+/gradlew
+/gradlew.bat
