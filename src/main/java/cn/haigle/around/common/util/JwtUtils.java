@@ -6,8 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -62,7 +62,7 @@ public class JwtUtils {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.PS256;
         //使用ISSUER
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(ISSUER);
+        byte[] apiKeySecretBytes = Base64.getEncoder().encode(ISSUER.getBytes());
 
         return new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
     }

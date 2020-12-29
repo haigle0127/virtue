@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import cn.haigle.around.common.interceptor.PermissionInterceptor;
-import cn.haigle.around.common.interceptor.model.ApiResultI18n;
 import cn.haigle.around.config.Constant;
 import cn.haigle.around.config.i18n.interceptor.CustomLocaleChangeInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -12,14 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * web相关配置（前后分离需要加注解@EnableWebMvc）
@@ -101,23 +97,6 @@ public class WebConfig implements WebMvcConfigurer {
          * 权限
          */
         registry.addInterceptor(permissionInterceptor()).addPathPatterns(Constant.ADMIN+"/**").addPathPatterns(Constant.API+"/**");
-    }
-
-    /**
-     * i18n国际化
-     * @author haigle
-     * @date 2019/7/29 14:15
-     */
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.CHINA);
-        return slr;
-    }
-
-    @Bean
-    public ApiResultI18n apiResultI18n(){
-        return new ApiResultI18n();
     }
 
 }

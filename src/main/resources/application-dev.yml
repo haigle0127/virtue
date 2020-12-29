@@ -2,17 +2,10 @@ server:
   port: 9453
 spring:
   datasource:
-    druid:
-      #基本属性 url、user、password
-      url: jdbc:mysql://localhost:3306/around?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
-      username: root
-      #java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools you_password 加密密码命令
-      #生成public-key和加密后的密码
-      password: root
-#      connection-properties: config.decrypt=true;config.decrypt.key=${public-key}
-      filter:
-        config:
-          enabled: true
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:mysql://localhost:3306/around?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
   redis:
     host: 127.0.0.1
     port: 6379
@@ -26,9 +19,7 @@ spring:
         max-active: 8
   mail:
     host: smtp.qq.com
-    #QQ邮箱
     username: 940121265@qq.com
-    #授权码
     password:
     properties:
       mail:
@@ -40,4 +31,3 @@ spring:
 mybatis:
   configuration:
     cache-enabled: false
-#public-key:

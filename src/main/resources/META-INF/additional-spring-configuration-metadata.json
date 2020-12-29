@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "public-key",
+      "type": "java.lang.String",
+      "description": "阿里druid密码解析公钥."
+  }
+] }

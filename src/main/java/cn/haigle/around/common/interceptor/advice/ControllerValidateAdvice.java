@@ -2,7 +2,6 @@ package cn.haigle.around.common.interceptor.advice;
 
 import cn.haigle.around.common.interceptor.exception.*;
 import cn.haigle.around.common.interceptor.model.ApiResult;
-import cn.haigle.around.common.interceptor.model.ApiResultI18n;
 import cn.haigle.around.common.interceptor.model.message.CodeStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.annotation.Resource;
 import java.util.Objects;
 
 /**
@@ -26,9 +24,6 @@ import java.util.Objects;
 public class ControllerValidateAdvice {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Resource
-    private ApiResultI18n apiResult;
 
     @Value("${spring.profiles.active}")
     private String profile;
@@ -44,9 +39,9 @@ public class ControllerValidateAdvice {
      * @date 2018/11/28 10:39
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ApiResultI18n bindException(MethodArgumentNotValidException e) {
+    public ApiResult bindException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
-        return apiResult.setMessage(901, Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        return new ApiResult<>(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage(), CodeStatus.VARIFY_FIELD_ERROR);
     }
 
     /**

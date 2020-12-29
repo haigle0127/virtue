@@ -1,4 +1,4 @@
-package cn.haigle.around;
+package cn.haigle.around.config.swagger2;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
