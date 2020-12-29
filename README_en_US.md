@@ -4,25 +4,19 @@
 
 <p align="center">
   <a href="https://spring.io/projects/spring-boot/">
-    <img src="https://img.shields.io/badge/springboot-2.2.0-green" alt="springboot">
+    <img src="https://img.shields.io/badge/springboot-2.4.0-green" alt="springboot">
   </a>
  <a href="https://mybatis.org/mybatis-3/">
-    <img src="https://img.shields.io/badge/mybatis-3.X-red" alt="mybatis">
+    <img src="https://img.shields.io/badge/mybatis-3-red" alt="mybatis">
   </a>
    <a href="https://swagger.io">
-    <img src="https://img.shields.io/badge/swagger2-2.9.2-bule" alt="swagger2">
-  </a>
-  <a href="https://projectlombok.org/">
-    <img src="https://img.shields.io/badge/lombok-1.18.8-gray" alt="lombok">
-  </a>
-  <a href="http://druid.apache.org/">
-    <img src="https://img.shields.io/badge/druid-1.1.20-purple" alt="druid">
+    <img src="https://img.shields.io/badge/swagger2-3-bule" alt="swagger2">
   </a>
   <a href="https://www.mysql.com/">
-    <img src="https://img.shields.io/badge/mysql-5.7-%234479a1" alt="mysql">
+    <img src="https://img.shields.io/badge/mysql-8-%234479a1" alt="mysql">
   </a>
   <a href="https://redis.io/">
-    <img src="https://img.shields.io/badge/redis-5.X-red" alt="redis">
+    <img src="https://img.shields.io/badge/redis-red" alt="redis">
   </a>
 </p>
 

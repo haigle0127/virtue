@@ -19,7 +19,7 @@ import java.util.Set;
  */
 @Accessors(chain = true)
 @Data
-public class AdminUserRolesVO {
+public class AdminUserAndRolesVO {
 
     private String username;
     private String email;

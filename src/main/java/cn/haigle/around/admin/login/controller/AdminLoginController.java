@@ -61,7 +61,7 @@ public class AdminLoginController {
     @ApiOperation("用户信息")
     @GetMapping("/user/info")
     public ApiResult info(@RequestHeader(Constant.TOKEN) String token) {
-        return new ApiResult<>(adminLoginService.getAdminUserRoles(JwtUtils.getSubject(token)), CodeStatus.OK);
+        return new ApiResult<>(adminLoginService.getAdminUserAndRoles(JwtUtils.getSubject(token)), CodeStatus.OK);
     }
 
     /**

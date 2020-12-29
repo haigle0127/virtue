@@ -8,9 +8,9 @@
         <version>2.3.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.haigle</groupId>
+    <groupId>cn.haigle</groupId>
     <artifactId>around</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>around</name>
     <description>AROUND project for Spring Boot</description>
 
