@@ -1,6 +1,7 @@
 package cn.haigle.around.common.util;
 
 import cn.haigle.around.common.interceptor.exception.TokenExpiredException;
+
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -47,7 +48,6 @@ public class JwtUtils {
                 // 发行者（可以理解为创建人）
                 .setIssuer(ISSUER)
                 .signWith(SignatureAlgorithm.HS256, getKeyInstance());
-
         return builder.compact();
     }
 

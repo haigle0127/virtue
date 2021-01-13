@@ -56,11 +56,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         AdminUserLoginBO user;
 
         if(ao.getAccount().matches(REGEX_MOBILE)) {
-            user = adminLoginDao.getUserByPhone(ao);
+            user = adminLoginDao.getUserByPhone(ao.getAccount());
         }else if(ao.getAccount().matches(REGEX_EMAIL)) {
-            user = adminLoginDao.getUserByEmail(ao);
+            user = adminLoginDao.getUserByEmail(ao.getAccount());
         } else {
-            user = adminLoginDao.getUserByUserName(ao);
+            user = adminLoginDao.getUserByUserName(ao.getAccount());
         }
 
         if(user == null) {
