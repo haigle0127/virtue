@@ -22,33 +22,33 @@ public interface AdminLoginDao {
 
     /**
      * 根据邮箱获取信息
-     * @param ao name->email
+     * @param account->email
      * @return AdminUserLoginPo 用户所有信息
      * @author haigle
      * @date 2019/3/6 10:39
      */
     @Select("select * from sys_user where email = #{account}")
-    AdminUserLoginBO getUserByEmail(AdminLoginAO ao);
+    AdminUserLoginBO getUserByEmail(String account);
 
     /**
      * 根据邮箱获取信息
-     * @param ao name->phone
+     * @param account->phone
      * @return AdminUserLoginPo 用户所有信息
      * @author haigle
      * @date 2019/9/4 13:01
      */
     @Select("select * from sys_user where phone = #{account}")
-    AdminUserLoginBO getUserByPhone(AdminLoginAO ao);
+    AdminUserLoginBO getUserByPhone(String account);
 
     /**
      * 根据邮箱获取信息
-     * @param ao name
+     * @param account String
      * @return AdminUserLoginPo 用户所有信息
      * @author haigle
      * @date 2019/9/4 13:01
      */
     @Select("select * from sys_user where username = #{account}")
-    AdminUserLoginBO getUserByUserName(AdminLoginAO ao);
+    AdminUserLoginBO getUserByUserName(String account);
 
     /**
      * 获取用户登陆信息
