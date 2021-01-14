@@ -51,7 +51,7 @@ public class ApiResult<T> implements Serializable {
         return message;
     }
 
-    public void setMessage(int code) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
