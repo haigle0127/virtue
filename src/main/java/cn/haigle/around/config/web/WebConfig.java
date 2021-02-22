@@ -35,7 +35,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+//                .allowedOrigins("*")
+//                .allowedOriginPatterns("*")
                 .allowedMethods("*")
                 .allowedHeaders("Lang", "content-type", Constant.TOKEN, "Access-Control-Allow-Origin", "Content-Type,X-Requested-With", "accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers")
                 .maxAge(3600);

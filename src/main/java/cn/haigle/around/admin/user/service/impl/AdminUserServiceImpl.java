@@ -13,7 +13,6 @@ import cn.haigle.around.admin.user.service.AdminUserService;
 import cn.haigle.around.common.annotation.transaction.Commit;
 import cn.haigle.around.common.base.page.Page;
 import cn.haigle.around.common.entity.query.NameQuery;
-import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 import cn.haigle.around.common.util.DesUtils;
 import cn.haigle.around.common.util.SnowFlake;
 import cn.haigle.around.common.util.StringUtils;
