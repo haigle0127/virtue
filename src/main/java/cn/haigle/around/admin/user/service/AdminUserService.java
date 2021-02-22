@@ -5,7 +5,6 @@ import cn.haigle.around.admin.user.entity.ao.AdminUserAO;
 import cn.haigle.around.admin.user.entity.vo.AdminUserVO;
 import cn.haigle.around.common.base.page.Page;
 import cn.haigle.around.common.entity.query.NameQuery;
-import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 
 import java.util.List;
 

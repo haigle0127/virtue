@@ -3,7 +3,6 @@ package cn.haigle.around.admin.menu.service;
 import cn.haigle.around.admin.menu.entity.ao.AdminMenuAO;
 import cn.haigle.around.admin.menu.entity.vo.AdminMenuVO;
 import cn.haigle.around.admin.menu.entity.vo.AdminTreeVO;
-import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 
 import java.util.List;
 

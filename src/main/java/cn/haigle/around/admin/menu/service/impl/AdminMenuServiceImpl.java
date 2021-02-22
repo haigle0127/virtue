@@ -11,7 +11,6 @@ import cn.haigle.around.admin.menu.exception.PowerExistException;
 import cn.haigle.around.admin.menu.service.AdminMenuService;
 import cn.haigle.around.admin.user.exception.UserExistException;
 import cn.haigle.around.common.annotation.transaction.Commit;
-import cn.haigle.around.common.interceptor.model.service.ServiceResult;
 import cn.haigle.around.common.util.SnowFlake;
 import org.springframework.stereotype.Service;
 
