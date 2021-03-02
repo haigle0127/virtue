@@ -1,6 +1,5 @@
 package cn.haigle.around.admin.login.dao;
 
-import cn.haigle.around.admin.login.entity.ao.AdminLoginAO;
 import cn.haigle.around.admin.login.entity.bo.AdminRegisterBO;
 import cn.haigle.around.admin.login.entity.bo.AdminUserInfoBO;
 import cn.haigle.around.admin.login.entity.bo.AdminUserLoginBO;
@@ -41,14 +40,14 @@ public interface AdminLoginDao {
     AdminUserLoginBO getUserByPhone(String account);
 
     /**
-     * 根据邮箱获取信息
+     * 根据账号获取信息
      * @param account String
      * @return AdminUserLoginPo 用户所有信息
      * @author haigle
      * @date 2019/9/4 13:01
      */
-    @Select("select * from sys_user where username = #{account}")
-    AdminUserLoginBO getUserByUserName(String account);
+    @Select("select * from sys_user where account = #{account}")
+    AdminUserLoginBO getUserByAccount(String account);
 
     /**
      * 获取用户登陆信息

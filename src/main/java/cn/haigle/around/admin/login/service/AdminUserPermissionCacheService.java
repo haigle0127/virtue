@@ -67,4 +67,6 @@ public interface AdminUserPermissionCacheService {
      * @date 2020/11/29 19:04
      */
     void removeAll(Long ...ids);
+
+
 }

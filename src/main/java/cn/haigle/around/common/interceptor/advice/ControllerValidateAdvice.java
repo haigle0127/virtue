@@ -6,6 +6,7 @@ import cn.haigle.around.common.interceptor.model.message.CodeStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -78,6 +79,7 @@ public class ControllerValidateAdvice {
      */
     @ExceptionHandler(NoPermissionAccessException.class)
     public ApiResult noPermissionException(NoPermissionAccessException e) {
+        logger.error(ERROR_TITLE, e);
         return new ApiResult<>(CodeStatus.NOT_PERMISSION_EXPIRED);
     }
 
@@ -103,6 +105,19 @@ public class ControllerValidateAdvice {
      */
     @ExceptionHandler(RedisException.class)
     public ApiResult redisException(RedisException e) {
+        logger.error(ERROR_TITLE, e);
+        return new ApiResult<>(CodeStatus.REDIS_EXPIRED);
+    }
+
+    /**
+     * redis数据库错误(未连接) 501
+     * @param e 错误信息
+     * @return ApiResult
+     * @author haigle
+     * @date 2018/11/28 14:39
+     */
+    @ExceptionHandler(RedisConnectionFailureException.class)
+    public ApiResult redisException(RedisConnectionFailureException e) {
         logger.error(ERROR_TITLE, e);
         return new ApiResult<>(CodeStatus.REDIS_EXPIRED);
     }

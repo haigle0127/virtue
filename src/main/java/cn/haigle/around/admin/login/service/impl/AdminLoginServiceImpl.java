@@ -9,12 +9,12 @@ import cn.haigle.around.admin.login.entity.bo.AdminUserInfoBO;
 import cn.haigle.around.admin.login.entity.bo.AdminUserLoginBO;
 import cn.haigle.around.admin.login.entity.vo.AdminUserAndRolesVO;
 import cn.haigle.around.admin.login.entity.vo.LoginUserInfoVo;
-import cn.haigle.around.admin.login.exception.NoPermissionAccessException;
 import cn.haigle.around.admin.login.exception.PasswordErrorException;
 import cn.haigle.around.admin.login.exception.UserNotExistException;
 import cn.haigle.around.admin.login.service.AdminLoginService;
 import cn.haigle.around.admin.login.service.AdminUserPermissionCacheService;
 import cn.haigle.around.common.annotation.transaction.Commit;
+import cn.haigle.around.common.interceptor.exception.NoPermissionAccessException;
 import cn.haigle.around.common.util.DesUtils;
 import cn.haigle.around.common.util.JwtUtils;
 import cn.haigle.around.common.util.SnowFlake;
@@ -60,7 +60,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }else if(ao.getAccount().matches(REGEX_EMAIL)) {
             user = adminLoginDao.getUserByEmail(ao.getAccount());
         } else {
-            user = adminLoginDao.getUserByUserName(ao.getAccount());
+            user = adminLoginDao.getUserByAccount(ao.getAccount());
         }
 
         if(user == null) {
@@ -92,7 +92,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                 .setAvatar(userInfo.getAvatar())
                 .setBirth(userInfo.getBirth())
                 .setIntroduction(userInfo.getIntroduction())
-                .setRoles(adminUserPermissionCacheService.get(uid));
+                .setRoles(adminUserPermissionCacheService.get(uid))
+                .setPermissions(adminUserPermissionCacheService.get(uid));
     }
 
     @Override
