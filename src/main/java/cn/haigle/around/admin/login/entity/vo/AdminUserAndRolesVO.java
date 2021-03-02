@@ -38,8 +38,13 @@ public class AdminUserAndRolesVO {
     private LocalDateTime createTime;
 
     /**
-     * 权限数组
+     * 角色数组
      */
     private Set<String> roles;
+
+    /**
+     * 权限数组
+     */
+    private Set<String> permissions;
 
 }

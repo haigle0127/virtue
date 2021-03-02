@@ -36,15 +36,15 @@ public class AdminUserPermissionCacheRedisServiceImpl implements AdminUserPermis
     @ReadOnly
     @Override
     public Set<String> get(Long uid) {
-        return Optional.ofNullable(adminUserPermissionCacheDao.findById(uid))
-                .map(AdminUserPermissionDO::getPermissions)
-                .orElseGet(() -> {
-                    Set<String> permissions = adminLoginDao.findRolesById(uid);
-                    if (permissions != null) {
-                        adminUserPermissionCacheDao.save(uid, permissions);
-                    }
-                    return permissions;
-                });
+        AdminUserPermissionDO adminUserPermissionDO = adminUserPermissionCacheDao.findById(uid);
+        if(adminUserPermissionDO.getPermissions().size() == 0) {
+            Set<String> permissions = adminLoginDao.findRolesById(uid);
+            if (permissions != null) {
+                adminUserPermissionCacheDao.save(uid, permissions);
+                return permissions;
+            }
+        }
+        return adminUserPermissionDO.getPermissions();
     }
 
     @Override
