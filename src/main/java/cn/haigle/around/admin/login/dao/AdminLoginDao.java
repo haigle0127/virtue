@@ -79,6 +79,18 @@ public interface AdminLoginDao {
             "JOIN sys_role_menu srm ON srm.menu_id = sm.id " +
             "JOIN sys_user_role sur ON sur.role_id = srm.role_id " +
             "WHERE sur.user_id = #{uid} ")
+    Set<String> findPermissionsById(Long uid);
+
+    /**
+     * 查询用户角色
+     * @param uid 用户ID
+     * @return Set<String>
+     * @author haigle
+     * @date 2021/3/8 14:48
+     */
+    @Select("SELECT `name` FROM sys_role sr " +
+            "LEFT JOIN sys_user_role sur ON sur.role_id = sr.id " +
+            "WHERE sur.user_id = #{uid}")
     Set<String> findRolesById(Long uid);
 
     /**

@@ -37,8 +37,8 @@ public class AdminUserPermissionCacheRedisServiceImpl implements AdminUserPermis
     @Override
     public Set<String> get(Long uid) {
         AdminUserPermissionDO adminUserPermissionDO = adminUserPermissionCacheDao.findById(uid);
-        if(adminUserPermissionDO.getPermissions().size() == 0) {
-            Set<String> permissions = adminLoginDao.findRolesById(uid);
+        if(adminUserPermissionDO == null || adminUserPermissionDO.getPermissions().size() == 0) {
+            Set<String> permissions = adminLoginDao.findPermissionsById(uid);
             if (permissions != null) {
                 adminUserPermissionCacheDao.save(uid, permissions);
                 return permissions;

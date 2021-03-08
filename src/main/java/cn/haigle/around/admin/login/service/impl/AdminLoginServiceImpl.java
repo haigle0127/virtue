@@ -92,7 +92,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
                 .setAvatar(userInfo.getAvatar())
                 .setBirth(userInfo.getBirth())
                 .setIntroduction(userInfo.getIntroduction())
-                .setRoles(adminUserPermissionCacheService.get(uid))
+                .setRoles(adminLoginDao.findRolesById(uid))
                 .setPermissions(adminUserPermissionCacheService.get(uid));
     }
 
