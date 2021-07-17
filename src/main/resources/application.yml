@@ -17,7 +17,7 @@ server:
       uri-encoding: utf-8
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: cn.haigle.around.*.*.entity
+  type-aliases-package: cn.haigle.virtue.*.*.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

@@ -1,8 +1,8 @@
 ${AnsiColor.BRIGHT_CYAN}
-   ___________________________  ______   _________
-   ___    |__  __ \_  __ \_  / / /__  | / /__  __ \
-   __  /| |_  /_/ /  / / /  / / /__   |/ /__  / / /
-   _  ___ |  _, _// /_/ // /_/ / _  /|  / _  /_/ /
-   /_/  |_/_/ |_| \____/ \____/  /_/ |_/  /_____/
+___    ____________________________  ___________
+__ |  / /___  _/__  __ \__  __/_  / / /__  ____/
+__ | / / __  / __  /_/ /_  /  _  / / /__  __/
+__ |/ / __/ /  _  _, _/_  /   / /_/ / _  /___
+_____/  /___/  /_/ |_| /_/    \____/  /_____/
 
-   ${AnsiColor.BRIGHT_RED}欢迎启动 AROUND, 本程序由HAIGLETECH监制.  ${AnsiColor.GREEN}:: powered by springboot${AnsiColor.GREEN}${spring-boot.version} ${AnsiColor.BLUE}::
+   ${AnsiColor.BRIGHT_RED}欢迎启动 VIRTUE, 本程序由HAIGLETECH监制.  ${AnsiColor.GREEN}:: powered by springboot${AnsiColor.GREEN}${spring-boot.version} ${AnsiColor.BLUE}::
