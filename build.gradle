@@ -65,12 +65,12 @@ processResources {
     filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [profileName: activeProfile]
 }
 
-def projectName = 'around'
+def projectName = 'virtue'
 group = 'cn.haigle'
 version = '2.0.1'
-description = 'around'
-java.sourceCompatibility = JavaVersion.VERSION_11
-java.targetCompatibility = JavaVersion.VERSION_11
+description = 'virtue'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = projectName + '-' + activeProfile
 
