@@ -5,7 +5,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'org.springframework.boot' version '2.4.3'
+    id 'org.springframework.boot' version '2.5.5'
 }
 
 apply plugin: 'java'
@@ -37,24 +37,24 @@ dependencies {
     implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.2'
     implementation 'ma.glasnost.orika:orika-core:1.5.4'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
-    implementation 'org.apache.commons:commons-pool2:2.9.0'
-    implementation 'mysql:mysql-connector-java:8.0.20'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.0'
+    implementation 'org.apache.commons:commons-pool2:2.10.0'
+    implementation 'mysql:mysql-connector-java:8.0.25'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-    implementation 'org.apache.commons:commons-lang3:3.11'
-    implementation 'com.auth0:java-jwt:3.12.0'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-    implementation 'org.reflections:reflections:0.9.12'
-    implementation 'org.jetbrains:annotations:20.1.0'
-    implementation 'com.google.guava:guava:30.1-jre'
-    implementation('com.qcloud:cos_api:5.5.1'){
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.auth0:java-jwt:3.18.2'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+    implementation 'org.reflections:reflections:0.10'
+    implementation 'org.jetbrains:annotations:22.0.0'
+    implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation('com.qcloud:cos_api:5.6.58'){
         exclude module:'slf4j-log4j12'
     }
 
-    testImplementation 'com.jayway.jsonpath:json-path:2.2.0'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE'
+    testImplementation 'com.jayway.jsonpath:json-path:2.6.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    compileOnly 'org.projectlombok:lombok:1.18.16'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'

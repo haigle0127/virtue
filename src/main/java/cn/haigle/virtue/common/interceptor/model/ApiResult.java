@@ -2,7 +2,8 @@ package cn.haigle.virtue.common.interceptor.model;
 
 import java.io.Serializable;
 import cn.haigle.virtue.common.interceptor.model.message.CodeStatus;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * 接口回参数实体
@@ -10,16 +11,26 @@ import lombok.ToString;
  * @date 2019/9/6 15:18
  */
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
 public class ApiResult<T> implements Serializable {
 
     private static final long serialVersionUID = -740780238124331993L;
 
+    @Getter
+    @Setter
     private int code;
+
+    @Getter
+    @Setter
     private String message;
 
     /**
      * 返回数据集
      */
+    @Getter
+    @Setter
     private T data;
 
     public static <T> ApiResult<T> ok() {
@@ -56,30 +67,6 @@ public class ApiResult<T> implements Serializable {
         apiResult.setMessage(message);
         apiResult.setData(data);
         return apiResult;
-    }
-
-    private int getCode() {
-        return code;
-    }
-
-    private void setCode(int code) {
-        this.code = code;
-    }
-
-    private String getMessage() {
-        return message;
-    }
-
-    private void setMessage(String message) {
-        this.message = message;
-    }
-
-    private T getData() {
-        return data;
-    }
-
-    private void setData(T data) {
-        this.data = data;
     }
 
 }
