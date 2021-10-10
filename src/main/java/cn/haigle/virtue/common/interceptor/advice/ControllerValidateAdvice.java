@@ -128,7 +128,7 @@ public class ControllerValidateAdvice {
      * @author haigle
      * @date 2018/11/28 10:43
      */
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({RuntimeException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiResult noPermissionException(RuntimeException e) {
 
