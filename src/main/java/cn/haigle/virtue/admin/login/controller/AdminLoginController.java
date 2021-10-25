@@ -48,7 +48,7 @@ public class AdminLoginController {
     @ApiOperation("登录")
     @PostMapping("/login")
     public ApiResult login(@Validated(LoginByEmail.class) @RequestBody AdminLoginAO ao) {
-        return ApiResult.ok(adminLoginService.login(ao));
+        return ApiResult.ok("登录成功", adminLoginService.login(ao));
     }
 
     /**

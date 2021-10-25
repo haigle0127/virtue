@@ -60,7 +60,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }else if(ao.getAccount().matches(REGEX_EMAIL)) {
             user = adminLoginDao.getUserByEmail(ao.getAccount());
         } else {
-            user = adminLoginDao.getUserByAccount(ao.getAccount());
+            user = adminLoginDao.getUserByUsername(ao.getAccount());
         }
 
         if(user == null) {

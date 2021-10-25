@@ -41,13 +41,13 @@ public interface AdminLoginDao {
 
     /**
      * 根据账号获取信息
-     * @param account String
+     * @param username 用户名
      * @return AdminUserLoginPo 用户所有信息
      * @author haigle
      * @date 2019/9/4 13:01
      */
-    @Select("select * from sys_user where account = #{account}")
-    AdminUserLoginBO getUserByAccount(String account);
+    @Select("select * from sys_user where username = #{username}")
+    AdminUserLoginBO getUserByUsername(String username);
 
     /**
      * 获取用户登陆信息
