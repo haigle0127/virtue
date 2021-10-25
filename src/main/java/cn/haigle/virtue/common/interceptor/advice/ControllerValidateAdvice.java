@@ -1,5 +1,6 @@
 package cn.haigle.virtue.common.interceptor.advice;
 
+import cn.haigle.virtue.admin.login.exception.UserNotExistException;
 import cn.haigle.virtue.common.interceptor.exception.*;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
 import org.slf4j.Logger;
@@ -119,6 +120,18 @@ public class ControllerValidateAdvice {
     public ApiResult redisException(RedisConnectionFailureException e) {
         logger.error(ERROR_TITLE, e);
         return ApiResult.code(501, "Redis数据库连接错误");
+    }
+
+    /**
+     * 查无此人 233
+     * @param e 错误信息
+     * @return ApiResult
+     * @author haigle
+     * @date 2018/11/28 14:39
+     */
+    @ExceptionHandler(UserNotExistException.class)
+    public ApiResult redisException(UserNotExistException e) {
+        return ApiResult.code(233, "查无此人");
     }
 
     /**
