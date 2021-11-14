@@ -1,6 +1,6 @@
 package cn.haigle.virtue.common.interceptor.permission.authentication.provider;
 
-import cn.haigle.virtue.admin.user.dao.AdminUserDao;
+import cn.haigle.virtue.system.dao.AdminUserDao;
 import cn.haigle.virtue.common.interceptor.permission.authentication.PowerPermission;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;

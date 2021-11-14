@@ -1,6 +1,6 @@
 package cn.haigle.virtue.common.interceptor.advice;
 
-import cn.haigle.virtue.admin.login.exception.UserNotExistException;
+import cn.haigle.virtue.system.exception.UserNotExistException;
 import cn.haigle.virtue.common.interceptor.exception.*;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
 import org.slf4j.Logger;
