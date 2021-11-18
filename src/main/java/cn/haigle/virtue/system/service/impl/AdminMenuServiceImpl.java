@@ -6,6 +6,7 @@ import cn.haigle.virtue.system.entity.bo.AdminTreeBo;
 import cn.haigle.virtue.system.entity.vo.AdminMenuVo;
 import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
+import cn.haigle.virtue.system.entity.vo.MenuType;
 import cn.haigle.virtue.system.exception.ParentIDExistException;
 import cn.haigle.virtue.system.exception.ParentNotException;
 import cn.haigle.virtue.system.exception.PowerExistException;
@@ -37,7 +38,8 @@ public class AdminMenuServiceImpl implements AdminMenuService {
 
     @Override
     public List<Menu> menuTree() {
-        List<Menu> menuList = adminMenuDao.findAll();
+//        List<Menu> menuList = adminMenuDao.findAll();
+        List<Menu> menuList = adminMenuDao.findByMenuType(MenuType.MENU.name());
 //        return TreeUtils.build(menuList.stream().filter(item -> !item.getType().equals(MenuType.ACTION)).collect(Collectors.toList()));
         return TreeUtils.build(menuList);
     }

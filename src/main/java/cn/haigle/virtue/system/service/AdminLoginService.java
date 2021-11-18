@@ -23,6 +23,13 @@ public interface AdminLoginService {
      */
     LoginUserInfoVo login(AdminLoginAo ao);
 
+    /**
+     * 获取用户所拥有的权限列表
+     * @param userId 用户ID
+     * @return List<String> 用户所拥有的权限列表
+     * @author haigle
+     * @date 2021/11/18 20:15
+     */
     List<String> getPermission(Long userId);
 
     /**

@@ -47,6 +47,13 @@ public interface AdminMenuDao {
     })
     List<Menu> findAll();
 
+    @Select("select id, parent_id, path, redirect, component, menu_type, power from sys_menu where menu_type = #{menuType}")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(property = "meta", column = "id", one = @One( select = "findMetaById"))
+    })
+    List<Menu> findByMenuType(String menuType);
+
     @Select("select title, icon from sys_menu where id = #{id}")
     Meta findMetaById(Long id);
 
