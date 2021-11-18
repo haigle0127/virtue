@@ -24,12 +24,13 @@ public class Menu implements TreeNode<Long, Menu> {
     /** 路由地址 */
     private String path;
 
+    /** 重定向 */
     private String redirect;
 
     /** 组件路径 */
     private String component;
 
-    /** 菜单类型（M目录 C菜单 F按钮） */
+    /** 菜单类型（MENU目录 BUTTON按钮） */
     private String menuType;
 
     /** 权限标识 */

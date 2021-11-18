@@ -67,13 +67,13 @@ public class AdminLoginController {
         return ApiResult.ok(adminLoginService.getAdminUserAndRoles(JwtUtils.getSubject(token)));
     }
 
-    @ApiOperation(value = "获取权限key")
+    @ApiOperation(value = "权限标识")
     @GetMapping("/user/permission")
     public ApiResult permission(@RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminLoginService.getPermission(JwtUtils.getSubject(token)));
     }
 
-    @ApiOperation(value = "获取权限key")
+    @ApiOperation(value = "菜单")
     @GetMapping("/user/menu")
     public ApiResult menu(@RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminMenuService.menuTree());
