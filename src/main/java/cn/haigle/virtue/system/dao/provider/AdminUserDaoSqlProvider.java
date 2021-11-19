@@ -1,6 +1,6 @@
 package cn.haigle.virtue.system.dao.provider;
 
-import cn.haigle.virtue.system.entity.ao.AdminUserAO;
+import cn.haigle.virtue.system.entity.ao.AdminUserAo;
 import cn.haigle.virtue.system.entity.dto.AdminUserDto;
 import cn.haigle.virtue.system.entity.vo.AdminUserVo;
 import cn.haigle.virtue.common.base.page.Page;
@@ -69,7 +69,7 @@ public class AdminUserDaoSqlProvider extends DaoProvider {
         return sql.toString();
     }
 
-    public String update(AdminUserAO m, Long uid) {
+    public String update(AdminUserAo m, Long uid) {
         SQL sql = new SQL();
         sql.UPDATE(TABLE_REPORT);
         for (int i = 0; i < TABLE_REPORT_COLUMNS.length; i++) {

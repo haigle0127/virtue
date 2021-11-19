@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2019/9/5 10:29
  */
 @Data
-public class AdminUserAO {
+public class AdminUserAo {
 
     @ApiModelProperty(value = "用户ID")
     @NotNull(message = "ID不能为空", groups = {Update.class})

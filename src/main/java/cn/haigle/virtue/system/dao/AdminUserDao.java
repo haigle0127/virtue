@@ -2,7 +2,7 @@ package cn.haigle.virtue.system.dao;
 
 import cn.haigle.virtue.system.entity.bo.AdminTreeBo;
 import cn.haigle.virtue.system.dao.provider.AdminUserDaoSqlProvider;
-import cn.haigle.virtue.system.entity.ao.AdminUserAO;
+import cn.haigle.virtue.system.entity.ao.AdminUserAo;
 import cn.haigle.virtue.system.entity.dto.AdminUserDto;
 import cn.haigle.virtue.system.entity.vo.AdminUserVo;
 import cn.haigle.virtue.common.base.page.Page;
@@ -74,7 +74,7 @@ public interface AdminUserDao {
      * @date 2019/9/6 8:50
      */
     @UpdateProvider(type = AdminUserDaoSqlProvider.class, method = "update")
-    void update(AdminUserAO m, Long uid);
+    void update(AdminUserAo m, Long uid);
 
     /**
      * 删除用户
