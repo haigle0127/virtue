@@ -1,6 +1,9 @@
 package cn.haigle.virtue.system.controller;
 
+import cn.haigle.virtue.common.base.page.Page;
 import cn.haigle.virtue.system.entity.ao.AdminUserAO;
+import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
+import cn.haigle.virtue.system.entity.vo.AdminUserVo;
 import cn.haigle.virtue.system.service.AdminUserService;
 import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.base.validator.Update;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 用户管理
@@ -39,7 +43,7 @@ public class AdminUserController {
      */
     @ApiOperation("用户列表")
     @PostMapping("/list")
-    public ApiResult list(@RequestBody NameQuery adminSearchNameQuery) {
+    public ApiResult<Page<AdminUserVo>> list(@RequestBody NameQuery adminSearchNameQuery) {
         return ApiResult.ok(adminUserService.list(adminSearchNameQuery));
     }
 
@@ -52,7 +56,7 @@ public class AdminUserController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-user-add")
     @PostMapping("/save")
-    public ApiResult save(@Validated(Save.class) @RequestBody AdminUserAO adminUserAO,
+    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminUserAO adminUserAO,
                           @RequestHeader(Constant.TOKEN) String token) {
         adminUserService.save(adminUserAO, JwtUtils.getSubject(token));
         return ApiResult.ok();
@@ -67,7 +71,7 @@ public class AdminUserController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-user-edit")
     @PostMapping("/update")
-    public ApiResult update(@Validated(Update.class) @RequestBody AdminUserAO adminUserAO, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminUserAO adminUserAO, @RequestHeader(Constant.TOKEN) String token) {
         adminUserService.update(adminUserAO, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
@@ -81,7 +85,7 @@ public class AdminUserController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-user-delete")
     @PostMapping("/delete")
-    public ApiResult delete(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<String> delete(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
         adminUserService.delete(id);
         return ApiResult.ok();
     }
@@ -94,7 +98,7 @@ public class AdminUserController {
     @ApiOperation("角色所有结构")
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/getRoleAllList")
-    public ApiResult getRoleAllList() {
+    public ApiResult<List<AdminTreeVo>> getRoleAllList() {
         return ApiResult.ok(adminUserService.roleAllList());
     }
 
@@ -106,7 +110,7 @@ public class AdminUserController {
     @ApiOperation("用户下角色ID")
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/getUserRoleList")
-    public ApiResult getUserRoleList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<List<Long>> getUserRoleList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminUserService.getUserRoleList(id));
     }
 

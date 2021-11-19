@@ -1,5 +1,8 @@
 package cn.haigle.virtue.system.controller;
 
+import cn.haigle.virtue.common.base.page.Page;
+import cn.haigle.virtue.system.entity.vo.AdminRoleVo;
+import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
 import cn.haigle.virtue.system.service.AdminMenuService;
 import cn.haigle.virtue.system.entity.ao.AdminRoleAo;
 import cn.haigle.virtue.system.service.AdminRoleService;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 角色管理
@@ -45,7 +49,7 @@ public class AdminRoleController {
     @ApiOperation("角色列表")
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/list")
-    public ApiResult list(@RequestBody NameQuery adminSearchNameQuery, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<Page<AdminRoleVo>> list(@RequestBody NameQuery adminSearchNameQuery, @RequestHeader(Constant.TOKEN) String token) {
         Long uid = JwtUtils.getSubject(token);
         return ApiResult.ok(adminRoleService.list(adminSearchNameQuery));
     }
@@ -59,7 +63,7 @@ public class AdminRoleController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-role-add")
     @PostMapping("/save")
-    public ApiResult save(@Validated(Save.class) @RequestBody AdminRoleAo adminRoleAo, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminRoleAo adminRoleAo, @RequestHeader(Constant.TOKEN) String token) {
         adminRoleService.save(adminRoleAo, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
@@ -73,7 +77,7 @@ public class AdminRoleController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-role-edit")
     @PostMapping("/update")
-    public ApiResult update(@Validated(Update.class) @RequestBody AdminRoleAo adminRoleAo, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminRoleAo adminRoleAo, @RequestHeader(Constant.TOKEN) String token) {
         adminRoleService.update(adminRoleAo, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
@@ -87,7 +91,7 @@ public class AdminRoleController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-role-delete")
     @PostMapping("/delete")
-    public ApiResult delete(@Validated(Delete.class) Long id) {
+    public ApiResult<String> delete(@Validated(Delete.class) Long id) {
         adminRoleService.delete(id);
         return ApiResult.ok();
     }
@@ -100,7 +104,7 @@ public class AdminRoleController {
     @ApiOperation("菜单所有结构")
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/getMenuAllTree")
-    public ApiResult menuAllTree() {
+    public ApiResult<List<AdminTreeVo>> menuAllTree() {
         return ApiResult.ok(adminMenuService.menuAllTree());
     }
 
@@ -112,7 +116,7 @@ public class AdminRoleController {
     @ApiOperation("角色下菜单ID")
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/getRoleMenuList")
-    public ApiResult getRoleMenuList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<List<Long>> getRoleMenuList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminMenuService.getRoleMenuList(id));
     }
 
