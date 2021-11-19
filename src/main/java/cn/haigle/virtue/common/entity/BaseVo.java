@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  */
 @EqualsAndHashCode(exclude = {"id"})
 @Data
-public class BaseVO {
+public class BaseVo {
 
     private Long id;
 

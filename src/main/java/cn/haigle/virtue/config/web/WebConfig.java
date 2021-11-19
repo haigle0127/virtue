@@ -3,9 +3,7 @@ package cn.haigle.virtue.config.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import cn.haigle.virtue.common.interceptor.PermissionInterceptor;
 import cn.haigle.virtue.config.Constant;
-import cn.haigle.virtue.config.i18n.interceptor.CustomLocaleChangeInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -74,30 +72,6 @@ public class WebConfig implements WebMvcConfigurer {
         jackson2HttpMessageConverter.setObjectMapper(objectMapper);
         converters.add(jackson2HttpMessageConverter);
         converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
-    }
-
-    @Bean
-    public PermissionInterceptor permissionInterceptor(){
-        return new PermissionInterceptor();
-    }
-
-    @Bean
-    public CustomLocaleChangeInterceptor customLocaleChangeInterceptor(){
-        return new CustomLocaleChangeInterceptor();
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-
-        /*
-         * 国际化
-         */
-        registry.addInterceptor(new CustomLocaleChangeInterceptor()).addPathPatterns(Constant.API+"/**");
-
-        /*
-         * 权限
-         */
-        registry.addInterceptor(permissionInterceptor()).addPathPatterns(Constant.ADMIN+"/**").addPathPatterns(Constant.API+"/**");
     }
 
 }

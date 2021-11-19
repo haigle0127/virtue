@@ -23,7 +23,14 @@ public interface AdminMenuService {
      */
     List<AdminMenuVo> list(Long id);
 
-    List<Menu> menuTree();
+    /**
+     * 获取菜单树结构
+     * @param userId 用户ID
+     * @return List<Menu> 菜单
+     * @author haigle
+     * @date 2021/11/19 22:51
+     */
+    List<Menu> menuTree(Long userId);
 
     /**
      * 菜单、权限总查询

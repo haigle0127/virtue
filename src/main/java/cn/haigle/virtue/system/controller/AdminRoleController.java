@@ -1,5 +1,6 @@
 package cn.haigle.virtue.system.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.common.base.page.Page;
 import cn.haigle.virtue.system.entity.vo.AdminRoleVo;
 import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
@@ -11,12 +12,8 @@ import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.base.validator.Update;
 import cn.haigle.virtue.common.entity.query.NameQuery;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
-import cn.haigle.virtue.common.interceptor.permission.annotation.Permissions;
-import cn.haigle.virtue.common.util.JwtUtils;
 import cn.haigle.virtue.config.Constant;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +44,8 @@ public class AdminRoleController {
      * @date 2019-08-04 01:10
      */
     @ApiOperation("角色列表")
-    @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/list")
-    public ApiResult<Page<AdminRoleVo>> list(@RequestBody NameQuery adminSearchNameQuery, @RequestHeader(Constant.TOKEN) String token) {
-        Long uid = JwtUtils.getSubject(token);
+    public ApiResult<Page<AdminRoleVo>> list(@RequestBody NameQuery adminSearchNameQuery) {
         return ApiResult.ok(adminRoleService.list(adminSearchNameQuery));
     }
 
@@ -60,11 +55,9 @@ public class AdminRoleController {
      * @date 2019-08-04 20:10
      */
     @ApiOperation("新增角色")
-    @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
-    @Permissions("system-role-add")
     @PostMapping("/save")
-    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminRoleAo adminRoleAo, @RequestHeader(Constant.TOKEN) String token) {
-        adminRoleService.save(adminRoleAo, JwtUtils.getSubject(token));
+    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminRoleAo adminRoleAo) {
+        adminRoleService.save(adminRoleAo, StpUtil.getLoginIdAsLong());
         return ApiResult.ok();
     }
 
@@ -74,11 +67,9 @@ public class AdminRoleController {
      * @date 2019-08-04 20:10
      */
     @ApiOperation("修改角色")
-    @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
-    @Permissions("system-role-edit")
     @PostMapping("/update")
-    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminRoleAo adminRoleAo, @RequestHeader(Constant.TOKEN) String token) {
-        adminRoleService.update(adminRoleAo, JwtUtils.getSubject(token));
+    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminRoleAo adminRoleAo) {
+        adminRoleService.update(adminRoleAo, StpUtil.getLoginIdAsLong());
         return ApiResult.ok();
     }
 
@@ -88,8 +79,6 @@ public class AdminRoleController {
      * @date 2019-08-04 22:18
      */
     @ApiOperation("删除角色")
-    @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
-    @Permissions("system-role-delete")
     @PostMapping("/delete")
     public ApiResult<String> delete(@Validated(Delete.class) Long id) {
         adminRoleService.delete(id);
@@ -102,7 +91,6 @@ public class AdminRoleController {
      * @date 2019/9/3 14:47
      */
     @ApiOperation("菜单所有结构")
-    @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/getMenuAllTree")
     public ApiResult<List<AdminTreeVo>> menuAllTree() {
         return ApiResult.ok(adminMenuService.menuAllTree());
@@ -114,9 +102,8 @@ public class AdminRoleController {
      * @date 2019/9/3 15:31
      */
     @ApiOperation("角色下菜单ID")
-    @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @PostMapping("/getRoleMenuList")
-    public ApiResult<List<Long>> getRoleMenuList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<List<Long>> getRoleMenuList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id) {
         return ApiResult.ok(adminMenuService.getRoleMenuList(id));
     }
 

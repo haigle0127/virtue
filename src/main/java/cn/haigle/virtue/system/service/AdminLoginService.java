@@ -60,11 +60,10 @@ public interface AdminLoginService {
 
     /**
      * 保存新用户
-     * @param adminRegisterAo AdminRegisterAO
-     * @return token
+     * @param adminRegisterAo AdminRegisterAo
      * @author haigle
      * @date 2019/3/6 13:59
      */
-    String save(AdminRegisterAo adminRegisterAo);
+    void save(AdminRegisterAo adminRegisterAo);
 
 }
