@@ -3,7 +3,7 @@ package cn.haigle.virtue.system.service.impl;
 import cn.haigle.virtue.system.entity.bo.AdminTreeBo;
 import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
 import cn.haigle.virtue.system.dao.AdminUserDao;
-import cn.haigle.virtue.system.entity.ao.AdminUserAO;
+import cn.haigle.virtue.system.entity.ao.AdminUserAo;
 import cn.haigle.virtue.system.entity.dto.AdminUserDto;
 import cn.haigle.virtue.system.entity.vo.AdminUserVo;
 import cn.haigle.virtue.system.exception.EmailExistException;
@@ -60,21 +60,21 @@ public class AdminUserServiceImpl implements AdminUserService {
      * 缺点：
      *      String.intern() 会进入常量池，过多会引起GC压力。 jdk 1.7以后 据说解决了这个问题
      *      代码不简洁
-     * @param adminUserAO 用户信息
+     * @param adminUserAo 用户信息
      * @param uid 操作用户ID
      * @author YL
      * @return ServiceResult
      */
     @Commit
     @Override
-    public void save(AdminUserAO adminUserAO, Long uid) {
-        synchronized (("name_" + adminUserAO.getUsername()).intern()) {
-            synchronized (("phone_" + adminUserAO.getPhone()).intern()) {
-                if (StringUtils.isBlank(adminUserAO.getEmail())) {
-                    toSave(adminUserAO, uid);
+    public void save(AdminUserAo adminUserAo, Long uid) {
+        synchronized (("name_" + adminUserAo.getUsername()).intern()) {
+            synchronized (("phone_" + adminUserAo.getPhone()).intern()) {
+                if (StringUtils.isBlank(adminUserAo.getEmail())) {
+                    toSave(adminUserAo, uid);
                 } else {
-                    synchronized (("email_" + adminUserAO.getEmail()).intern()) {
-                        toSave(adminUserAO, uid);
+                    synchronized (("email_" + adminUserAo.getEmail()).intern()) {
+                        toSave(adminUserAo, uid);
                     }
                 }
             }
@@ -83,13 +83,13 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Commit
     @Override
-    public void update(AdminUserAO adminUserAO, Long uid) {
+    public void update(AdminUserAo adminUserAo, Long uid) {
 
-        validatorUpdateUser(adminUserAO);
-        adminUserDao.update(adminUserAO, uid);
-        adminUserDao.deleteUserRole(adminUserAO.getId());
-        if(!adminUserAO.getRoleList().isEmpty()) {
-            adminUserDao.saveUserRole(adminUserAO.getId(), adminUserAO.getRoleList());
+        validatorUpdateUser(adminUserAo);
+        adminUserDao.update(adminUserAo, uid);
+        adminUserDao.deleteUserRole(adminUserAo.getId());
+        if(!adminUserAo.getRoleList().isEmpty()) {
+            adminUserDao.saveUserRole(adminUserAo.getId(), adminUserAo.getRoleList());
         }
 
     }
@@ -117,7 +117,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         return adminUserDao.getUserRoleList(uid);
     }
 
-    private void toSave(AdminUserAO adminUserAO, Long uid) {
+    private void toSave(AdminUserAo adminUserAO, Long uid) {
 
         /*
          * 验证
@@ -147,7 +147,7 @@ public class AdminUserServiceImpl implements AdminUserService {
      * @author haigle
      * @date 2020/12/17 20:37
      */
-    private void validatorSaveUser(AdminUserAO adminUserAo) {
+    private void validatorSaveUser(AdminUserAo adminUserAo) {
 
         if(adminUserDao.getIsName(adminUserAo.getUsername()) != null) {
             throw new UserExistException();
@@ -162,16 +162,16 @@ public class AdminUserServiceImpl implements AdminUserService {
         }
     }
 
-    private void validatorUpdateUser(AdminUserAO adminUserAO) {
+    private void validatorUpdateUser(AdminUserAo adminUserAo) {
 
-        if(adminUserDao.getIsNameNotId(adminUserAO.getUsername(), adminUserAO.getId()) != null) {
+        if(adminUserDao.getIsNameNotId(adminUserAo.getUsername(), adminUserAo.getId()) != null) {
             throw new UserExistException();
         }
-        if(adminUserDao.getIsPhoneNotId(adminUserAO.getPhone(), adminUserAO.getId()) != null) {
+        if(adminUserDao.getIsPhoneNotId(adminUserAo.getPhone(), adminUserAo.getId()) != null) {
             throw new PhoneExistException();
         }
-        if(!adminUserAO.getEmail().isEmpty()) {
-            if(adminUserDao.getIsEmailNotId(adminUserAO.getEmail(), adminUserAO.getId()) != null) {
+        if(!adminUserAo.getEmail().isEmpty()) {
+            if(adminUserDao.getIsEmailNotId(adminUserAo.getEmail(), adminUserAo.getId()) != null) {
                 throw new EmailExistException();
             }
         }

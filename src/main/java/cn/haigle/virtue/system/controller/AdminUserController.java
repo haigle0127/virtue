@@ -1,7 +1,7 @@
 package cn.haigle.virtue.system.controller;
 
 import cn.haigle.virtue.common.base.page.Page;
-import cn.haigle.virtue.system.entity.ao.AdminUserAO;
+import cn.haigle.virtue.system.entity.ao.AdminUserAo;
 import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
 import cn.haigle.virtue.system.entity.vo.AdminUserVo;
 import cn.haigle.virtue.system.service.AdminUserService;
@@ -56,9 +56,9 @@ public class AdminUserController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-user-add")
     @PostMapping("/save")
-    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminUserAO adminUserAO,
+    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminUserAo adminUserAo,
                           @RequestHeader(Constant.TOKEN) String token) {
-        adminUserService.save(adminUserAO, JwtUtils.getSubject(token));
+        adminUserService.save(adminUserAo, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
 
@@ -71,8 +71,8 @@ public class AdminUserController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-user-edit")
     @PostMapping("/update")
-    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminUserAO adminUserAO, @RequestHeader(Constant.TOKEN) String token) {
-        adminUserService.update(adminUserAO, JwtUtils.getSubject(token));
+    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminUserAo adminUserAo, @RequestHeader(Constant.TOKEN) String token) {
+        adminUserService.update(adminUserAo, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
 

@@ -1,7 +1,7 @@
 package cn.haigle.virtue.system.service;
 
 import cn.haigle.virtue.system.entity.vo.AdminTreeVo;
-import cn.haigle.virtue.system.entity.ao.AdminUserAO;
+import cn.haigle.virtue.system.entity.ao.AdminUserAo;
 import cn.haigle.virtue.system.entity.vo.AdminUserVo;
 import cn.haigle.virtue.common.base.page.Page;
 import cn.haigle.virtue.common.entity.query.NameQuery;
@@ -35,21 +35,21 @@ public interface AdminUserService {
 
     /**
      * 添加用户
-     * @param adminUserAO 用户信息
+     * @param adminUserAo 用户信息
      * @param uid 操作用户ID
      * @author haigle
      * @date 2019/9/5 13:56
      */
-    void save(AdminUserAO adminUserAO, Long uid);
+    void save(AdminUserAo adminUserAo, Long uid);
 
     /**
      * 更新用户
-     * @param adminUserAO 用户信息
+     * @param adminUserAo 用户信息
      * @param uid 操作用户ID
      * @author haigle
      * @date 2019/9/6 8:45
      */
-    void update(AdminUserAO adminUserAO, Long uid);
+    void update(AdminUserAo adminUserAo, Long uid);
 
     /**
      * 删除用户
