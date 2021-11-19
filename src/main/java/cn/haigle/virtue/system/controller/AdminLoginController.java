@@ -1,5 +1,6 @@
 package cn.haigle.virtue.system.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.system.entity.ao.AdminLoginAo;
 import cn.haigle.virtue.system.entity.ao.AdminRegisterAo;
 import cn.haigle.virtue.system.entity.bo.AdminPaiBo;
@@ -12,8 +13,6 @@ import cn.haigle.virtue.system.service.AdminPaiService;
 import cn.haigle.virtue.common.base.validator.LoginByEmail;
 import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
-import cn.haigle.virtue.common.interceptor.permission.authentication.PowerPermission;
-import cn.haigle.virtue.common.util.JwtUtils;
 import cn.haigle.virtue.config.Constant;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,9 +42,6 @@ public class AdminLoginController {
     @Resource(name = "adminPaiService")
     private AdminPaiService adminPaiService;
 
-    @Resource(name = "powerPermission")
-    private PowerPermission powerPermission;
-
     @Resource(name = "adminMenuService")
     private AdminMenuService adminMenuService;
 
@@ -62,26 +58,25 @@ public class AdminLoginController {
 
     /**
      * 获取用户信息
-     * @param token 登录凭证
      * @author haigle
      * @date 2019/6/3 17:28
      */
     @ApiOperation("用户信息")
     @GetMapping("/user/info")
-    public ApiResult<AdminUserAndRolesVo> info(@RequestHeader(Constant.TOKEN) String token) {
-        return ApiResult.ok(adminLoginService.getAdminUserAndRoles(JwtUtils.getSubject(token)));
+    public ApiResult<AdminUserAndRolesVo> info() {
+        return ApiResult.ok(adminLoginService.getAdminUserAndRoles(StpUtil.getLoginIdAsLong()));
     }
 
     @ApiOperation(value = "权限标识")
     @GetMapping("/user/permission")
-    public ApiResult<List<String>> permission(@RequestHeader(Constant.TOKEN) String token) {
-        return ApiResult.ok(adminLoginService.getPermission(JwtUtils.getSubject(token)));
+    public ApiResult<List<String>> permission() {
+        return ApiResult.ok(adminLoginService.getPermission(StpUtil.getLoginIdAsLong()));
     }
 
     @ApiOperation(value = "菜单")
     @GetMapping("/user/menu")
-    public ApiResult<List<Menu>> menu(@RequestHeader(Constant.TOKEN) String token) {
-        return ApiResult.ok(adminMenuService.menuTree());
+    public ApiResult<List<Menu>> menu() {
+        return ApiResult.ok(adminMenuService.menuTree(StpUtil.getLoginIdAsLong()));
     }
 
     /**
@@ -103,7 +98,8 @@ public class AdminLoginController {
         }
         if(adminPaiPo.getLabel().equals(adminRegisterAo.getCaptcha())) {
             adminPaiService.delete(adminRegisterAo.getEmail());
-            return ApiResult.ok(adminLoginService.save(adminRegisterAo));
+            adminLoginService.save(adminRegisterAo);
+            return ApiResult.ok("注册成功");
         }
         return ApiResult.fail("验证码不正确");
     }
@@ -131,8 +127,8 @@ public class AdminLoginController {
 
     @ApiOperation("退出登录")
     @PostMapping("/logout")
-    public ApiResult<String> logout(@RequestHeader(Constant.TOKEN) String token) {
-        powerPermission.removePermission((JwtUtils.getSubject(token)));
+    public ApiResult<String> logout() {
+        StpUtil.logout();
         return ApiResult.ok();
     }
 

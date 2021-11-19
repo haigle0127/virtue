@@ -1,5 +1,6 @@
 package cn.haigle.virtue.system.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.system.dao.AdminLoginDao;
 import cn.haigle.virtue.system.dao.AdminPaiDao;
 import cn.haigle.virtue.system.entity.ao.AdminLoginAo;
@@ -14,12 +15,9 @@ import cn.haigle.virtue.system.exception.UserNotExistException;
 import cn.haigle.virtue.system.service.AdminLoginService;
 import cn.haigle.virtue.system.service.AdminUserPermissionCacheService;
 import cn.haigle.virtue.common.annotation.transaction.Commit;
-import cn.haigle.virtue.common.interceptor.exception.NoPermissionAccessException;
 import cn.haigle.virtue.common.util.DesUtils;
-import cn.haigle.virtue.common.util.JwtUtils;
 import cn.haigle.virtue.common.util.SnowFlake;
 import cn.haigle.virtue.common.util.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
@@ -44,8 +42,12 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     @Resource(name = "adminLoginDao")
     private AdminLoginDao adminLoginDao;
 
-    @Autowired
-    JavaMailSenderImpl mailSender;
+
+    private JavaMailSenderImpl mailSender;
+
+    private void mailSender(JavaMailSenderImpl mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Resource(name = "adminPaiDao")
     private AdminPaiDao adminPaiDao;
@@ -73,12 +75,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             throw new PasswordErrorException();
         }
 
-        List<String> permissions = adminUserPermissionCacheService.get(user.getId());
-        if (permissions == null) {
-            throw new NoPermissionAccessException();
-        }
-
-        return new LoginUserInfoVo(JwtUtils.sign(user.getId().toString()));
+        StpUtil.login(user.getId());
+        return new LoginUserInfoVo(StpUtil.getTokenValue());
 
     }
 
@@ -135,14 +133,13 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     @Commit
     @Override
-    public String save(AdminRegisterAo adminLoginAo) {
+    public void save(AdminRegisterAo adminLoginAo) {
         AdminRegisterBo adminRegisterPo = new AdminRegisterBo();
         Long uid = SnowFlake.getInstance();
         adminRegisterPo.setId(uid);
         adminRegisterPo.setEmail(adminLoginAo.getEmail());
         adminRegisterPo.setSalt(StringUtils.getRandomStr(512));
         adminRegisterPo.setPassword(DesUtils.encrypt(adminLoginAo.getPassword(), adminRegisterPo.getSalt()));
-        adminLoginDao.save(adminRegisterPo);
-        return JwtUtils.sign(uid.toString());
+        adminLoginDao.save(adminRegisterPo);;
     }
 }

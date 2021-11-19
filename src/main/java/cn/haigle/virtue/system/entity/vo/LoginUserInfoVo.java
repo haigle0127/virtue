@@ -1,7 +1,5 @@
 package cn.haigle.virtue.system.entity.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,12 +8,11 @@ import lombok.Data;
  * @author haigle
  * @date 2020/11/28 23:34
  */
-@ApiModel
 @Data
 @AllArgsConstructor
 public class LoginUserInfoVo {
 
-    @ApiModelProperty(value = "登录凭证")
+    /** 登录凭证 */
     private String token;
 
 }

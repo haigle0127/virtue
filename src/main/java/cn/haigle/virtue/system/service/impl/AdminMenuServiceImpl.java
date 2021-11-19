@@ -37,7 +37,7 @@ public class AdminMenuServiceImpl implements AdminMenuService {
     }
 
     @Override
-    public List<Menu> menuTree() {
+    public List<Menu> menuTree(Long userId) {
 //        List<Menu> menuList = adminMenuDao.findAll();
         List<Menu> menuList = adminMenuDao.findByMenuType(MenuType.MENU.name());
 //        return TreeUtils.build(menuList.stream().filter(item -> !item.getType().equals(MenuType.ACTION)).collect(Collectors.toList()));

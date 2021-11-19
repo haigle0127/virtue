@@ -1,6 +1,6 @@
 package cn.haigle.virtue.system.entity.vo;
 
-import cn.haigle.virtue.common.entity.BaseVO;
+import cn.haigle.virtue.common.entity.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AdminMenuVo extends BaseVO {
+public class AdminMenuVo extends BaseVo {
 
     private Long parentId;
     private String name;
