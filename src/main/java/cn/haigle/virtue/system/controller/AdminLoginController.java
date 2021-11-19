@@ -3,6 +3,9 @@ package cn.haigle.virtue.system.controller;
 import cn.haigle.virtue.system.entity.ao.AdminLoginAo;
 import cn.haigle.virtue.system.entity.ao.AdminRegisterAo;
 import cn.haigle.virtue.system.entity.bo.AdminPaiBo;
+import cn.haigle.virtue.system.entity.vo.AdminUserAndRolesVo;
+import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
+import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.service.AdminLoginService;
 import cn.haigle.virtue.system.service.AdminMenuService;
 import cn.haigle.virtue.system.service.AdminPaiService;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
 
 import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
 
@@ -51,7 +56,7 @@ public class AdminLoginController {
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public ApiResult login(@Validated(LoginByEmail.class) @RequestBody AdminLoginAo ao) {
+    public ApiResult<LoginUserInfoVo> login(@Validated(LoginByEmail.class) @RequestBody AdminLoginAo ao) {
         return ApiResult.ok("登录成功", adminLoginService.login(ao));
     }
 
@@ -63,19 +68,19 @@ public class AdminLoginController {
      */
     @ApiOperation("用户信息")
     @GetMapping("/user/info")
-    public ApiResult info(@RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<AdminUserAndRolesVo> info(@RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminLoginService.getAdminUserAndRoles(JwtUtils.getSubject(token)));
     }
 
     @ApiOperation(value = "权限标识")
     @GetMapping("/user/permission")
-    public ApiResult permission(@RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<List<String>> permission(@RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminLoginService.getPermission(JwtUtils.getSubject(token)));
     }
 
     @ApiOperation(value = "菜单")
     @GetMapping("/user/menu")
-    public ApiResult menu(@RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<List<Menu>> menu(@RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminMenuService.menuTree());
     }
 
@@ -86,7 +91,7 @@ public class AdminLoginController {
      */
     @ApiOperation("用户注册")
     @PostMapping("/register")
-    public ApiResult register(@Validated(Save.class) AdminRegisterAo adminRegisterAo) {
+    public ApiResult<String> register(@Validated(Save.class) AdminRegisterAo adminRegisterAo) {
 
         //检验邮箱是否存在
         if (adminLoginService.emailIsExist(adminRegisterAo.getEmail())) {
@@ -110,7 +115,7 @@ public class AdminLoginController {
      */
     @ApiOperation("邮箱验证码")
     @PostMapping("/sendEmailCode")
-    public ApiResult sendEmailCode(@NotNull(message = "邮箱格式不正确") @RequestParam("email") String email) {
+    public ApiResult<String> sendEmailCode(@NotNull(message = "邮箱格式不正确") @RequestParam("email") String email) {
 
         if(!email.matches(REGEX_EMAIL)) {
             return ApiResult.fail("邮箱格式不正确");
@@ -126,7 +131,7 @@ public class AdminLoginController {
 
     @ApiOperation("退出登录")
     @PostMapping("/logout")
-    public ApiResult logout(@RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<String> logout(@RequestHeader(Constant.TOKEN) String token) {
         powerPermission.removePermission((JwtUtils.getSubject(token)));
         return ApiResult.ok();
     }

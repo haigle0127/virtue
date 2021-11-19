@@ -1,6 +1,7 @@
 package cn.haigle.virtue.system.controller;
 
 import cn.haigle.virtue.system.entity.ao.AdminMenuAo;
+import cn.haigle.virtue.system.entity.vo.AdminMenuVo;
 import cn.haigle.virtue.system.service.AdminMenuService;
 import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.base.validator.Update;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 菜单、权限管理
@@ -40,7 +42,7 @@ public class AdminMenuController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true),
             @ApiImplicitParam(paramType = "query", dataType = "Long", name = "id", value = "菜单ID", required = true)})
     @PostMapping("/list")
-    public ApiResult list(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<List<AdminMenuVo>> list(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
         return ApiResult.ok(adminMenuService.list(id));
     }
 
@@ -53,8 +55,8 @@ public class AdminMenuController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-menu-add")
     @PostMapping("/save")
-    public ApiResult save(@Validated(Save.class) @RequestBody AdminMenuAo adminMenuAO, @RequestHeader(Constant.TOKEN) String token) {
-        adminMenuService.save(adminMenuAO, JwtUtils.getSubject(token));
+    public ApiResult<String> save(@Validated(Save.class) @RequestBody AdminMenuAo adminMenuAo, @RequestHeader(Constant.TOKEN) String token) {
+        adminMenuService.save(adminMenuAo, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
 
@@ -67,8 +69,8 @@ public class AdminMenuController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-menu-edit")
     @PostMapping("/update")
-    public ApiResult update(@Validated(Update.class) @RequestBody AdminMenuAo adminMenuAO, @RequestHeader(Constant.TOKEN) String token) {
-        adminMenuService.update(adminMenuAO, JwtUtils.getSubject(token));
+    public ApiResult<String> update(@Validated(Update.class) @RequestBody AdminMenuAo adminMenuAo, @RequestHeader(Constant.TOKEN) String token) {
+        adminMenuService.update(adminMenuAo, JwtUtils.getSubject(token));
         return ApiResult.ok();
     }
 
@@ -81,7 +83,7 @@ public class AdminMenuController {
     @ApiImplicitParams({@ApiImplicitParam(paramType = "header", dataType = "String", name = Constant.TOKEN, value = "登录凭证", required = true)})
     @Permissions("system-menu-delete")
     @PostMapping("/delete")
-    public ApiResult delete(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
+    public ApiResult<String> delete(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id, @RequestHeader(Constant.TOKEN) String token) {
         adminMenuService.delete(id);
         return ApiResult.ok();
     }
