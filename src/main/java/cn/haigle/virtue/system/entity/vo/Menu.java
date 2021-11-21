@@ -39,6 +39,7 @@ public class Menu implements TreeNode<Long, Menu> {
     /** 路由破配置 */
     private Meta meta;
 
+    /** 路由子集 */
     private List<Menu> children;
 
     /**

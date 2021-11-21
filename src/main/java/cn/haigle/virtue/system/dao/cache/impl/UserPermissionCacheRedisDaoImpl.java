@@ -40,9 +40,9 @@ public class UserPermissionCacheRedisDaoImpl implements UserPermissionCacheDao {
     public void save(Long uid, List<String> permissions) {
         userPermissionCacheRedisTemplate.opsForValue()
                 .set(KEY + uid,
-                        new UserPermissionDo().
-                                setId(uid).
-                                setPermissions(permissions),
+                        new UserPermissionDo()
+                                .setId(uid)
+                                .setPermissions(permissions),
                         Duration.ofHours(PERMISSION_CACHE_HOUR)
                 );
     }

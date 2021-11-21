@@ -8,7 +8,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import cn.haigle.virtue.common.base.validator.Delete;
 import cn.haigle.virtue.common.base.validator.Id;
 import cn.haigle.virtue.common.util.DateUtils;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotNull;
@@ -26,7 +25,6 @@ public class BaseEntity{
     @org.springframework.data.annotation.Id
     @NotNull(message = "请选择要删除的数据", groups = {Delete.class})
     @NotNull(message = "请选择要操作的数据", groups = {Id.class})
-    @ApiModelProperty(value = "主键", example = "1234567890")
     private Long id;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

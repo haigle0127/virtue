@@ -13,8 +13,6 @@ import cn.haigle.virtue.common.base.validator.Update;
 import cn.haigle.virtue.common.entity.query.NameQuery;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
 import cn.haigle.virtue.config.Constant;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +25,6 @@ import java.util.List;
  * @author haigle
  * @date 2019/7/25 13:36
  */
-@Api(tags = "角色管理")
 @RestController
 @RequestMapping(Constant.ADMIN+"/role")
 public class RoleController {
@@ -39,11 +36,10 @@ public class RoleController {
     private MenuService menuService;
 
     /**
-     * 获取角色列表
+     * 角色列表
      * @author haigle
      * @date 2019-08-04 01:10
      */
-    @ApiOperation("角色列表")
     @PostMapping("/list")
     public ApiResult<Page<RoleVo>> list(@RequestBody NameQuery searchNameQuery) {
         return ApiResult.ok(roleService.list(searchNameQuery));
@@ -54,7 +50,6 @@ public class RoleController {
      * @author haigle
      * @date 2019-08-04 20:10
      */
-    @ApiOperation("新增角色")
     @PostMapping("/save")
     public ApiResult<String> save(@Validated(Save.class) @RequestBody RoleAo roleAo) {
         roleService.save(roleAo, StpUtil.getLoginIdAsLong());
@@ -66,7 +61,6 @@ public class RoleController {
      * @author haigle
      * @date 2019-08-04 20:10
      */
-    @ApiOperation("修改角色")
     @PostMapping("/update")
     public ApiResult<String> update(@Validated(Update.class) @RequestBody RoleAo roleAo) {
         roleService.update(roleAo, StpUtil.getLoginIdAsLong());
@@ -78,7 +72,6 @@ public class RoleController {
      * @author haigle
      * @date 2019-08-04 22:18
      */
-    @ApiOperation("删除角色")
     @PostMapping("/delete")
     public ApiResult<String> delete(@Validated(Delete.class) Long id) {
         roleService.delete(id);
@@ -90,7 +83,6 @@ public class RoleController {
      * @author haigle
      * @date 2019/9/3 14:47
      */
-    @ApiOperation("菜单所有结构")
     @PostMapping("/getMenuAllTree")
     public ApiResult<List<TreeVo>> menuAllTree() {
         return ApiResult.ok(menuService.menuAllTree());
@@ -101,7 +93,6 @@ public class RoleController {
      * @author haigle
      * @date 2019/9/3 15:31
      */
-    @ApiOperation("角色下菜单ID")
     @PostMapping("/getRoleMenuList")
     public ApiResult<List<Long>> getRoleMenuList(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id) {
         return ApiResult.ok(menuService.getRoleMenuList(id));

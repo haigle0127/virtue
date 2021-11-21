@@ -36,6 +36,7 @@ mvnw.cmd
 
 ### Gradle ###
 /src/main/resources/application-local.yml
+/src/main/resources/static/doc
 .gradle
 gradle
 /gradlew

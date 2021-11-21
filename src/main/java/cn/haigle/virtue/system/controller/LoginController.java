@@ -14,8 +14,6 @@ import cn.haigle.virtue.common.base.validator.LoginByEmail;
 import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
 import cn.haigle.virtue.config.Constant;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +29,6 @@ import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
  * @author haigle
  * @date 2019/6/3 14:18
  */
-@Api(tags = "登录注册")
 @RestController
 @RequestMapping(Constant.API)
 public class LoginController {
@@ -50,30 +47,36 @@ public class LoginController {
      * @author haigle
      * @date 2019/6/3 14:19
      */
-    @ApiOperation("登录")
     @PostMapping("/login")
     public ApiResult<LoginUserInfoVo> login(@Validated(LoginByEmail.class) @RequestBody LoginAo ao) {
         return ApiResult.ok("登录成功", loginService.login(ao));
     }
 
     /**
-     * 获取用户信息
+     * 用户信息
      * @author haigle
      * @date 2019/6/3 17:28
      */
-    @ApiOperation("用户信息")
     @GetMapping("/user/info")
     public ApiResult<UserAndRolesVo> info() {
         return ApiResult.ok(loginService.getUserAndRoles(StpUtil.getLoginIdAsLong()));
     }
 
-    @ApiOperation(value = "权限标识")
+    /**
+     * 权限标识
+     * @author haigle
+     * @date 2021/11/21 22:37
+     */
     @GetMapping("/user/permission")
     public ApiResult<List<String>> permission() {
         return ApiResult.ok(loginService.getPermission(StpUtil.getLoginIdAsLong()));
     }
 
-    @ApiOperation(value = "菜单")
+    /**
+     * 个人菜单
+     * @author haigle
+     * @date 2021/11/21 22:37
+     */
     @GetMapping("/user/menu")
     public ApiResult<List<Menu>> menu() {
         return ApiResult.ok(menuService.menuTree(StpUtil.getLoginIdAsLong()));
@@ -84,7 +87,6 @@ public class LoginController {
      * @author haigle
      * @date 2019/3/6 13:53
      */
-    @ApiOperation("用户注册")
     @PostMapping("/register")
     public ApiResult<String> register(@Validated(Save.class) RegisterAo registerAo) {
 
@@ -105,11 +107,10 @@ public class LoginController {
     }
 
     /**
-     * 获取邮箱验证码
+     * 邮箱验证码
      * @author haigle
      * @date 2019/3/6 13:53
      */
-    @ApiOperation("邮箱验证码")
     @PostMapping("/sendEmailCode")
     public ApiResult<String> sendEmailCode(@NotNull(message = "邮箱格式不正确") @RequestParam("email") String email) {
 
@@ -125,7 +126,11 @@ public class LoginController {
         return ApiResult.ok();
     }
 
-    @ApiOperation("退出登录")
+    /**
+     * 退出登录
+     * @author haigle
+     * @date 2021/11/21 22:38
+     */
     @PostMapping("/logout")
     public ApiResult<String> logout() {
         StpUtil.logout();

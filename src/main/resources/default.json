@@ -1,0 +1,20 @@
+{
+  "serverUrl": "http://localhost:9981",
+  "outPath": "src/main/resources/static/doc",
+  "allInOne": true,
+  "createDebugPage": true,
+  "apiConstants": [
+    {
+      "constantsClassName": "cn.haigle.virtue.config.Constant"
+    }
+  ],
+  "requestHeaders": [
+    {
+      "name": "token",
+      "type": "string",
+      "value": "tk",
+      "required": true,
+      "excludePathPatterns": "/api/login,/api/logout"
+    }
+  ]
+}
