@@ -8,8 +8,6 @@ import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.base.validator.Update;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
 import cn.haigle.virtue.config.Constant;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +16,10 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * 菜单、权限管理
+ * 菜单管理
  * @author haigle
  * @date 2019/7/25 13:36
  */
-@Api(tags = "菜单管理")
 @RestController
 @RequestMapping(Constant.ADMIN+"/menu")
 public class MenuController {
@@ -31,11 +28,10 @@ public class MenuController {
     private MenuService menuService;
 
     /**
-     * 菜单、权限列表
+     * 菜单列表
      * @author haigle
      * @date 2019/8/23 9:16
      */
-    @ApiOperation("菜单列表")
     @PostMapping("/list")
     public ApiResult<List<MenuVo>> list(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id) {
         return ApiResult.ok(menuService.list(id));
@@ -46,7 +42,6 @@ public class MenuController {
      * @author haigle
      * @date 2019/9/6 9:01
      */
-    @ApiOperation("保存菜单")
     @PostMapping("/save")
     public ApiResult<String> save(@Validated(Save.class) @RequestBody MenuAo menuAo) {
         menuService.save(menuAo, StpUtil.getLoginIdAsLong());
@@ -58,7 +53,6 @@ public class MenuController {
      * @author haigle
      * @date 2019/9/6 9:01
      */
-    @ApiOperation("更新菜单")
     @PostMapping("/update")
     public ApiResult<String> update(@Validated(Update.class) @RequestBody MenuAo menuAo) {
         menuService.update(menuAo, StpUtil.getLoginIdAsLong());
@@ -70,7 +64,6 @@ public class MenuController {
      * @author haigle
      * @date 2019/9/6 9:01
      */
-    @ApiOperation("删除菜单")
     @PostMapping("/delete")
     public ApiResult<String> delete(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id) {
         menuService.delete(id);
