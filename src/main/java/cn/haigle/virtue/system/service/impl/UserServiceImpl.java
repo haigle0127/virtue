@@ -63,7 +63,6 @@ public class UserServiceImpl implements UserService {
      * @param userAo 用户信息
      * @param uid 操作用户ID
      * @author YL
-     * @return ServiceResult
      */
     @Commit
     @Override
@@ -117,27 +116,27 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserRoleList(uid);
     }
 
-    private void toSave(UserAo userAO, Long uid) {
+    private void toSave(UserAo userAo, Long uid) {
 
         /*
          * 验证
          */
-        validatorSaveUser(userAO);
+        validatorSaveUser(userAo);
         Long userId = SnowFlake.getInstance();
-        userAO.setId(userId);
+        userAo.setId(userId);
         String salt = StringUtils.getRandomStr(512);
         UserDto userDTO = UserDto.builder()
                 .id(userId)
-                .username(userAO.getUsername())
-                .email(userAO.getEmail())
-                .phone(userAO.getPhone())
-                .gender(userAO.getGender())
-                .roleList(userAO.getRoleList())
+                .username(userAo.getUsername())
+                .email(userAo.getEmail())
+                .phone(userAo.getPhone())
+                .gender(userAo.getGender())
+                .roleList(userAo.getRoleList())
                 .salt(salt)
                 .password(DesUtils.encrypt(PASSWORD, salt)).build();
         userDao.save(userDTO, uid);
-        if(!userAO.getRoleList().isEmpty()) {
-            userDao.saveUserRole(userId, userAO.getRoleList());
+        if(!userAo.getRoleList().isEmpty()) {
+            userDao.saveUserRole(userId, userAo.getRoleList());
         }
     }
 
