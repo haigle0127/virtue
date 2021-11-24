@@ -1,7 +1,6 @@
 package cn.haigle.virtue.system.service;
 
 import cn.haigle.virtue.system.entity.ao.MenuAo;
-import cn.haigle.virtue.system.entity.vo.MenuVo;
 import cn.haigle.virtue.system.entity.vo.TreeVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 
@@ -16,12 +15,11 @@ public interface MenuService {
 
     /**
      * 菜单、权限查询
-     * @param id 菜单ID
-     * @return List<MenuVo> 菜单、权限列表
+     * @return List<Menu> 菜单、权限列表
      * @author haigle
      * @date 2019/8/23 9:19
      */
-    List<MenuVo> list(Long id);
+    List<Menu> list();
 
     /**
      * 获取菜单树结构

@@ -23,18 +23,6 @@ public class MenuDaoProvider extends DaoProvider {
 
     private static final String TABLE_REPORT_NEXT = "sys_role_menu";
 
-    public String list(Long id) {
-        SQL sql = new SQL();
-        sql.SELECT(PRIMARY_KEY_COLUMN)
-                .SELECT(TABLE_REPORT_COLUMNS)
-                .SELECT(TABLE_HAS_CHILDREN_COLUMN)
-                .SELECT(GMT_CREATE_COLUMN)
-                .FROM(TABLE_REPORT)
-                .WHERE("parent_id = #{id}")
-                .ORDER_BY("create_time DESC");
-        return sql.toString();
-    }
-
     public String allList() {
         SQL sql = new SQL();
         sql.SELECT(TABLE_ALL_REPORT_COLUMNS)

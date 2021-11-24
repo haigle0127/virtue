@@ -2,7 +2,7 @@ package cn.haigle.virtue.system.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.system.entity.ao.MenuAo;
-import cn.haigle.virtue.system.entity.vo.MenuVo;
+import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.service.MenuService;
 import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.base.validator.Update;
@@ -33,8 +33,8 @@ public class MenuController {
      * @date 2019/8/23 9:16
      */
     @PostMapping("/list")
-    public ApiResult<List<MenuVo>> list(@NotNull(message = "common.id.not_blank") @RequestParam("id") Long id) {
-        return ApiResult.ok(menuService.list(id));
+    public ApiResult<List<Menu>> list() {
+        return ApiResult.ok(menuService.list());
     }
 
     /**

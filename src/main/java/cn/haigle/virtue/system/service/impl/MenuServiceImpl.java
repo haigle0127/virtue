@@ -3,7 +3,6 @@ package cn.haigle.virtue.system.service.impl;
 import cn.haigle.virtue.system.dao.MenuDao;
 import cn.haigle.virtue.system.entity.ao.MenuAo;
 import cn.haigle.virtue.system.entity.bo.TreeBo;
-import cn.haigle.virtue.system.entity.vo.MenuVo;
 import cn.haigle.virtue.system.entity.vo.TreeVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.MenuType;
@@ -32,13 +31,13 @@ public class MenuServiceImpl implements MenuService {
     private MenuDao menuDao;
 
     @Override
-    public List<MenuVo> list(Long id) {
-        return menuDao.list(id);
+    public List<Menu> list() {
+        List<Menu> menuList = menuDao.findAll();
+        return TreeUtils.build(menuList);
     }
 
     @Override
     public List<Menu> menuTree(Long userId) {
-//        List<Menu> menuList = adminMenuDao.findAll();
         List<Menu> menuList = menuDao.findByMenuType(MenuType.MENU.name());
 //        return TreeUtils.build(menuList.stream().filter(item -> !item.getType().equals(MenuType.ACTION)).collect(Collectors.toList()));
         return TreeUtils.build(menuList);

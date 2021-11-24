@@ -3,7 +3,6 @@ package cn.haigle.virtue.system.dao;
 import cn.haigle.virtue.system.dao.provider.MenuDaoProvider;
 import cn.haigle.virtue.system.entity.ao.MenuAo;
 import cn.haigle.virtue.system.entity.bo.TreeBo;
-import cn.haigle.virtue.system.entity.vo.MenuVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.Meta;
 import org.apache.ibatis.annotations.*;
@@ -21,16 +20,6 @@ import java.util.List;
 public interface MenuDao {
 
     /**
-     * 查询菜单列表
-     * @param id 菜单ID
-     * @return List<AdminMenuVo> 菜单列表
-     * @author haigle
-     * @date 2019/8/23 10:17
-     */
-    @SelectProvider(type = MenuDaoProvider.class, method = "list")
-    List<MenuVo> list(Long id);
-
-    /**
      * 查询菜单所有数据
      * @return List<AdminMenuAllListPo>
      * @author haigle
@@ -40,21 +29,41 @@ public interface MenuDao {
     List<TreeBo> adminMenuAllPoList();
 
 
-    @Select("select id, parent_id, path, redirect, component, menu_type, power from sys_menu")
+    /**
+     * 查询菜单列表
+     * @return List<Menu>
+     * @author haigle
+     * @date 2021/11/24 23:25
+     */
     @Results({
             @Result(id = true, column = "id", property = "id"),
             @Result(property = "meta", column = "id", one = @One( select = "findMetaById"))
     })
+    @Select("select id, parent_id, name, icon, path, redirect, component, menu_type, power from sys_menu")
     List<Menu> findAll();
 
-    @Select("select id, parent_id, path, redirect, component, menu_type, power from sys_menu where menu_type = #{menuType}")
+    /**
+     * 根据菜单类型查询菜单列表
+     * @param menuType 菜单类型
+     * @return 菜单列表
+     * @author haigle
+     * @date 2021/11/24 23:28
+     */
     @Results({
             @Result(id = true, column = "id", property = "id"),
             @Result(property = "meta", column = "id", one = @One( select = "findMetaById"))
     })
+    @Select("select id, parent_id, path, redirect, component, menu_type, power from sys_menu where menu_type = #{menuType}")
     List<Menu> findByMenuType(String menuType);
 
-    @Select("select title, icon from sys_menu where id = #{id}")
+    /**
+     * 查询特定的菜单数据
+     * @param id 菜单ID
+     * @return 菜单数据
+     * @author haigle
+     * @date 2021/11/24 23:29
+     */
+    @Select("select name, icon from sys_menu where id = #{id}")
     Meta findMetaById(Long id);
 
     /**
