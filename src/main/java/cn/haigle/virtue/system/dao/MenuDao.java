@@ -53,7 +53,7 @@ public interface MenuDao {
             @Result(id = true, column = "id", property = "id"),
             @Result(property = "meta", column = "id", one = @One( select = "findMetaById"))
     })
-    @Select("select id, parent_id, path, redirect, component, menu_type, power from sys_menu where menu_type = #{menuType}")
+    @Select("select id, name, parent_id, path, redirect, component, menu_type, power from sys_menu where menu_type = #{menuType}")
     List<Menu> findByMenuType(String menuType);
 
     /**
@@ -63,7 +63,7 @@ public interface MenuDao {
      * @author haigle
      * @date 2021/11/24 23:29
      */
-    @Select("select name, icon from sys_menu where id = #{id}")
+    @Select("select title, icon from sys_menu where id = #{id}")
     Meta findMetaById(Long id);
 
     /**
