@@ -32,7 +32,7 @@ public class MenuController {
      * @author haigle
      * @date 2019/8/23 9:16
      */
-    @PostMapping("/list")
+    @GetMapping("/list")
     public ApiResult<List<Menu>> list() {
         return ApiResult.ok(menuService.list());
     }
