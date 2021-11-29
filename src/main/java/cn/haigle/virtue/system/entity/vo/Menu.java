@@ -21,6 +21,9 @@ public class Menu implements TreeNode<Long, Menu> {
     /** 菜单名称 */
     private String name;
 
+    /** 图标 */
+    private String icon;
+
     /** 父级ID */
     private Long parentId;
 
