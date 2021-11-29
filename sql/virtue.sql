@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 24/11/2021 00:14:14
+ Date: 29/11/2021 22:37:54
 */
 
 SET NAMES utf8mb4;
@@ -29,8 +29,7 @@ CREATE TABLE `sys_menu`  (
   `order_no` int(100) NULL DEFAULT NULL COMMENT '排序',
   `component` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '组件路径',
   `redirect` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
   `menu_type` enum('MENU','VIEW') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单类型（MENU目录 VIEW按钮）',
   `power` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限标识',
   `ename` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限英文名',
@@ -47,23 +46,23 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, 0, '/dashboard', '首页', NULL, 'LAYOUT', '/dashboard/analysis', '首页', 'ion:grid-outline', 'MENU', 'home', 'Home', '', 1, 1141240498145460224, '2019-09-25 14:39:01', 1141240498145460224, '2019-09-25 14:48:06', 0);
-INSERT INTO `sys_menu` VALUES (2, 0, '/system', '系统管理', NULL, 'LAYOUT', '', '系统管理', 'ion:settings-outline', 'MENU', 'system', 'SystemManage', '', 1, 1141240498145460224, '2019-08-29 13:06:30', 1141240498145460224, '2019-09-25 14:50:56', 0);
-INSERT INTO `sys_menu` VALUES (3, 2, 'user', '用户管理', NULL, '/system/user/index', NULL, '用户管理', 'bx:bx-user', 'MENU', 'system-user', 'UserManage', '', 1, 1141240498145460224, '2019-08-29 13:27:16', 1141240498145460224, '2019-09-25 14:51:10', 0);
-INSERT INTO `sys_menu` VALUES (4, 2, 'role', '角色管理', NULL, '/system/role/index', NULL, '角色管理', 'carbon:user-role', 'MENU', 'system-role', 'RoleManage', '', 1, 1141240498145460224, '2019-08-30 08:53:38', 1141240498145460224, '2019-09-25 14:51:03', 0);
-INSERT INTO `sys_menu` VALUES (5, 2, 'menu', '菜单管理', NULL, '/system/role/index', NULL, '菜单管理', 'ant-design:menu-outlined', 'MENU', 'system-menu', 'MenuManage', '', 1, 1141240498145460224, '2019-08-30 08:54:02', 1141240498145460224, '2019-09-10 14:38:11', 0);
-INSERT INTO `sys_menu` VALUES (6, 3, 'list', '列表', NULL, NULL, NULL, '列表', '', 'VIEW', 'system-user-list', 'UserList', '', 0, 1141240498145460224, '2019-09-17 09:02:47', 1141240498145460224, '2019-09-17 09:02:47', 0);
-INSERT INTO `sys_menu` VALUES (7, 3, 'add', '添加', NULL, NULL, NULL, '添加', NULL, 'VIEW', 'system-user-add', 'UserAdd', '', 0, 1141240498145460224, '2019-09-17 09:02:47', 1141240498145460224, '2019-09-17 09:02:47', 0);
-INSERT INTO `sys_menu` VALUES (8, 3, 'edit', '修改', NULL, NULL, NULL, '修改', NULL, 'VIEW', 'system-user-edit', 'UserEdit', '', 0, 1141240498145460224, '2019-09-17 09:05:24', 1141240498145460224, '2019-09-17 09:05:24', 0);
-INSERT INTO `sys_menu` VALUES (9, 3, 'delete', '删除', NULL, NULL, NULL, '删除', NULL, 'VIEW', 'system-user-delete', 'UserDelete', '', 0, 1141240498145460224, '2019-09-17 09:05:53', 1141240498145460224, '2019-09-17 09:05:53', 0);
-INSERT INTO `sys_menu` VALUES (11, 4, 'add', '添加', NULL, NULL, NULL, '添加', NULL, 'VIEW', 'system-role-add', 'RoleAdd', '', 0, 1141240498145460224, '2019-09-17 08:59:13', 1141240498145460224, '2019-09-17 08:59:13', 0);
-INSERT INTO `sys_menu` VALUES (12, 4, 'edit', '修改', NULL, NULL, NULL, '修改', NULL, 'VIEW', 'system-role-edit', 'RoleEdit', '', 0, 1141240498145460224, '2019-09-17 08:59:57', 1141240498145460224, '2019-09-17 08:59:57', 0);
-INSERT INTO `sys_menu` VALUES (13, 4, 'delete', '删除', NULL, NULL, NULL, '删除', NULL, 'VIEW', 'system-role-delete', 'RoleDelete', '', 0, 1141240498145460224, '2019-09-17 09:01:44', 1141240498145460224, '2019-09-17 09:01:44', 0);
-INSERT INTO `sys_menu` VALUES (15, 5, 'add', '添加', NULL, NULL, NULL, '添加', NULL, 'VIEW', 'system-menu-add', 'MenuAdd', '', 0, 1141240498145460224, '2019-09-10 14:37:57', 1141240498145460224, '2019-09-10 14:37:57', 0);
-INSERT INTO `sys_menu` VALUES (16, 5, 'edit', '修改', NULL, NULL, NULL, '修改', NULL, 'VIEW', 'system-menu-edit', 'MenuEdit', '', 0, 1141240498145460224, '2019-09-10 14:39:06', 1141240498145460224, '2019-09-10 14:39:06', 0);
-INSERT INTO `sys_menu` VALUES (17, 5, 'delete', '删除', NULL, NULL, NULL, '删除', NULL, 'VIEW', 'system-menu-delete', 'MenuDelete', '', 0, 1141240498145460224, '2019-09-17 08:58:30', 1141240498145460224, '2019-09-17 08:58:30', 0);
-INSERT INTO `sys_menu` VALUES (18, 1, 'analysis', '统计', NULL, '/dashboard/analysis/index', '', '统计', NULL, 'MENU', 'home-statistic', 'Statistic', '', 0, 1141240498145460224, '2019-09-25 14:49:57', 1141240498145460224, '2019-09-25 14:49:57', 0);
-INSERT INTO `sys_menu` VALUES (19, 1, 'workbench', '面板', NULL, '/dashboard/workbench/index', NULL, '面板', NULL, 'MENU', 'home-panel', 'Panel', '', 0, 1141240498145460224, '2019-09-25 14:50:44', 1141240498145460224, '2019-09-25 14:50:44', 0);
+INSERT INTO `sys_menu` VALUES (1, 0, '/dashboard', '首页', NULL, 'LAYOUT', '/dashboard/analysis', 'ion:grid-outline', 'MENU', 'home', 'Home', '', 1, 1141240498145460224, '2019-09-25 14:39:01', 1141240498145460224, '2019-09-25 14:48:06', 0);
+INSERT INTO `sys_menu` VALUES (2, 0, '/system', '系统管理', NULL, 'LAYOUT', NULL, 'ion:settings-outline', 'MENU', 'system', 'SystemManage', '', 1, 1141240498145460224, '2019-08-29 13:06:30', 1141240498145460224, '2019-09-25 14:50:56', 0);
+INSERT INTO `sys_menu` VALUES (3, 2, 'user', '用户管理', NULL, '/system/user/index', NULL, 'bx:bx-user', 'MENU', 'system-user', 'UserManage', '', 1, 1141240498145460224, '2019-08-29 13:27:16', 1141240498145460224, '2019-09-25 14:51:10', 0);
+INSERT INTO `sys_menu` VALUES (4, 2, 'role', '角色管理', NULL, '/system/role/index', NULL, 'carbon:user-role', 'MENU', 'system-role', 'RoleManage', '', 1, 1141240498145460224, '2019-08-30 08:53:38', 1141240498145460224, '2019-09-25 14:51:03', 0);
+INSERT INTO `sys_menu` VALUES (5, 2, 'menu', '菜单管理', NULL, '/system/menu/index', NULL, 'ant-design:menu-outlined', 'MENU', 'system-menu', 'MenuManage', '', 1, 1141240498145460224, '2019-08-30 08:54:02', 1141240498145460224, '2019-09-10 14:38:11', 0);
+INSERT INTO `sys_menu` VALUES (6, 3, 'list', '列表', NULL, NULL, NULL, NULL, 'VIEW', 'system-user-list', 'UserList', '', 0, 1141240498145460224, '2019-09-17 09:02:47', 1141240498145460224, '2019-09-17 09:02:47', 0);
+INSERT INTO `sys_menu` VALUES (7, 3, 'add', '添加', NULL, NULL, NULL, NULL, 'VIEW', 'system-user-add', 'UserAdd', '', 0, 1141240498145460224, '2019-09-17 09:02:47', 1141240498145460224, '2019-09-17 09:02:47', 0);
+INSERT INTO `sys_menu` VALUES (8, 3, 'edit', '修改', NULL, NULL, NULL, NULL, 'VIEW', 'system-user-edit', 'UserEdit', '', 0, 1141240498145460224, '2019-09-17 09:05:24', 1141240498145460224, '2019-09-17 09:05:24', 0);
+INSERT INTO `sys_menu` VALUES (9, 3, 'delete', '删除', NULL, NULL, NULL, NULL, 'VIEW', 'system-user-delete', 'UserDelete', '', 0, 1141240498145460224, '2019-09-17 09:05:53', 1141240498145460224, '2019-09-17 09:05:53', 0);
+INSERT INTO `sys_menu` VALUES (11, 4, 'add', '添加', NULL, NULL, NULL, NULL, 'VIEW', 'system-role-add', 'RoleAdd', '', 0, 1141240498145460224, '2019-09-17 08:59:13', 1141240498145460224, '2019-09-17 08:59:13', 0);
+INSERT INTO `sys_menu` VALUES (12, 4, 'edit', '修改', NULL, NULL, NULL, NULL, 'VIEW', 'system-role-edit', 'RoleEdit', '', 0, 1141240498145460224, '2019-09-17 08:59:57', 1141240498145460224, '2019-09-17 08:59:57', 0);
+INSERT INTO `sys_menu` VALUES (13, 4, 'delete', '删除', NULL, NULL, NULL, NULL, 'VIEW', 'system-role-delete', 'RoleDelete', '', 0, 1141240498145460224, '2019-09-17 09:01:44', 1141240498145460224, '2019-09-17 09:01:44', 0);
+INSERT INTO `sys_menu` VALUES (15, 5, 'add', '添加', NULL, NULL, NULL, NULL, 'VIEW', 'system-menu-add', 'MenuAdd', '', 0, 1141240498145460224, '2019-09-10 14:37:57', 1141240498145460224, '2019-09-10 14:37:57', 0);
+INSERT INTO `sys_menu` VALUES (16, 5, 'edit', '修改', NULL, NULL, NULL, NULL, 'VIEW', 'system-menu-edit', 'MenuEdit', '', 0, 1141240498145460224, '2019-09-10 14:39:06', 1141240498145460224, '2019-09-10 14:39:06', 0);
+INSERT INTO `sys_menu` VALUES (17, 5, 'delete', '删除', NULL, NULL, NULL, NULL, 'VIEW', 'system-menu-delete', 'MenuDelete', '', 0, 1141240498145460224, '2019-09-17 08:58:30', 1141240498145460224, '2019-09-17 08:58:30', 0);
+INSERT INTO `sys_menu` VALUES (18, 1, 'analysis', '统计', NULL, '/dashboard/analysis/index', NULL, 'ant-design:barcode-outlined', 'MENU', 'home-statistic', 'Statistic', '', 0, 1141240498145460224, '2019-09-25 14:49:57', 1141240498145460224, '2019-09-25 14:49:57', 0);
+INSERT INTO `sys_menu` VALUES (19, 1, 'workbench', '面板', NULL, '/dashboard/workbench/index', NULL, 'ant-design:code-twotone', 'MENU', 'home-panel', 'Panel', '', 0, 1141240498145460224, '2019-09-25 14:50:44', 1141240498145460224, '2019-09-25 14:50:44', 0);
 
 -- ----------------------------
 -- Table structure for sys_organize
