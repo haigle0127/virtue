@@ -35,10 +35,6 @@ public interface MenuDao {
      * @author haigle
      * @date 2021/11/24 23:25
      */
-    @Results({
-            @Result(id = true, column = "id", property = "id"),
-            @Result(property = "meta", column = "id", one = @One( select = "findMetaById"))
-    })
     @Select("select id, parent_id, name, icon, path, redirect, component, menu_type, power from sys_menu")
     List<Menu> findAll();
 
@@ -49,22 +45,8 @@ public interface MenuDao {
      * @author haigle
      * @date 2021/11/24 23:28
      */
-    @Results({
-            @Result(id = true, column = "id", property = "id"),
-            @Result(property = "meta", column = "id", one = @One( select = "findMetaById"))
-    })
     @Select("select id, icon, name, parent_id, path, redirect, component, menu_type, power from sys_menu where menu_type = #{menuType}")
     List<Menu> findByMenuType(String menuType);
-
-    /**
-     * 查询特定的菜单数据
-     * @param id 菜单ID
-     * @return 菜单数据
-     * @author haigle
-     * @date 2021/11/24 23:29
-     */
-    @Select("select name as title, icon from sys_menu where id = #{id}")
-    Meta findMetaById(Long id);
 
     /**
      * 保存菜单
