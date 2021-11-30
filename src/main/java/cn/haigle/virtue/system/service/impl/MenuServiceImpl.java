@@ -3,6 +3,7 @@ package cn.haigle.virtue.system.service.impl;
 import cn.haigle.virtue.system.dao.MenuDao;
 import cn.haigle.virtue.system.entity.ao.MenuAo;
 import cn.haigle.virtue.system.entity.bo.TreeBo;
+import cn.haigle.virtue.system.entity.vo.Meta;
 import cn.haigle.virtue.system.entity.vo.TreeVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.MenuType;
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * 菜单接口实现
@@ -39,6 +43,11 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> menuTree(Long userId) {
         List<Menu> menuList = menuDao.findByMenuType(MenuType.MENU.name());
+        menuList.forEach(menu -> {
+            Meta meta = new Meta();
+            meta.setTitle(menu.getName()).setIcon(menu.getIcon());
+            menu.setMeta(meta);
+        });
 //        return TreeUtils.build(menuList.stream().filter(item -> !item.getType().equals(MenuType.ACTION)).collect(Collectors.toList()));
         return TreeUtils.build(menuList);
     }
