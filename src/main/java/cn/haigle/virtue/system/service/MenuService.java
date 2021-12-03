@@ -31,14 +31,6 @@ public interface MenuService {
     List<Menu> menuTree(Long userId);
 
     /**
-     * 菜单、权限总查询
-     * @return List<TreeVo> 菜单、权限列表
-     * @author haigle
-     * @date 2019/8/23 9:19
-     */
-    List<TreeVo> menuAllTree();
-
-    /**
      * 保存菜单
      * @param menuAo MenuAo
      * @param uid 操作人ID

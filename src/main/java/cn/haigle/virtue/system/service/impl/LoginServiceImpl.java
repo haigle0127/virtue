@@ -6,12 +6,14 @@ import cn.haigle.virtue.system.dao.PaiDao;
 import cn.haigle.virtue.system.entity.ao.LoginAo;
 import cn.haigle.virtue.system.entity.ao.RegisterAo;
 import cn.haigle.virtue.system.entity.bo.RegisterBo;
+import cn.haigle.virtue.system.entity.bo.SysUserBo;
 import cn.haigle.virtue.system.entity.bo.UserInfoBo;
 import cn.haigle.virtue.system.entity.bo.UserLoginBo;
 import cn.haigle.virtue.system.entity.vo.UserAndRolesVo;
 import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
 import cn.haigle.virtue.system.exception.PasswordErrorException;
 import cn.haigle.virtue.system.exception.UserNotExistException;
+import cn.haigle.virtue.system.repository.UserRepository;
 import cn.haigle.virtue.system.service.LoginService;
 import cn.haigle.virtue.system.service.UserPermissionCacheService;
 import cn.haigle.virtue.common.annotation.transaction.Commit;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_MOBILE;
 import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
@@ -42,6 +45,9 @@ public class LoginServiceImpl implements LoginService {
     @Resource(name = "loginDao")
     private LoginDao loginDao;
 
+    @Resource(name = "userRepository")
+    private UserRepository userRepository;
+
 
     private JavaMailSenderImpl mailSender;
 
@@ -54,6 +60,25 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginUserInfoVo login(LoginAo ao) {
+
+//        Optional<SysUserBo> optional = userRepository.findByUsernameOrPhoneOrEmail(ao.getAccount());
+//        if(!optional.isPresent()) {
+//            throw new UserNotExistException();
+//        }
+//        optional.filter(user -> {
+//            String inputPassword = ao.getPassword();
+//            String userPassword = DesUtils.decrypt(user.getPassword(), user.getSalt());
+//            return inputPassword.equals(userPassword);
+//        }).map(user -> {
+//
+//        })
+
+
+
+
+
+
+
 
         UserLoginBo user;
 
