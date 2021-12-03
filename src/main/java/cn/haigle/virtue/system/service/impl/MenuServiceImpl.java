@@ -2,14 +2,13 @@ package cn.haigle.virtue.system.service.impl;
 
 import cn.haigle.virtue.system.dao.MenuDao;
 import cn.haigle.virtue.system.entity.ao.MenuAo;
-import cn.haigle.virtue.system.entity.bo.TreeBo;
 import cn.haigle.virtue.system.entity.vo.Meta;
-import cn.haigle.virtue.system.entity.vo.TreeVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.MenuType;
 import cn.haigle.virtue.system.exception.ParentIDExistException;
 import cn.haigle.virtue.system.exception.ParentNotException;
 import cn.haigle.virtue.system.exception.PowerExistException;
+import cn.haigle.virtue.system.repository.MenuRepository;
 import cn.haigle.virtue.system.service.MenuService;
 import cn.haigle.virtue.common.annotation.transaction.Commit;
 import cn.haigle.virtue.common.util.SnowFlake;
@@ -17,11 +16,8 @@ import cn.haigle.virtue.common.util.tree.TreeUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * 菜单接口实现
@@ -34,6 +30,9 @@ public class MenuServiceImpl implements MenuService {
     @Resource(name = "menuDao")
     private MenuDao menuDao;
 
+    @Resource(name = "menuRepository")
+    private MenuRepository menuRepository;
+
     @Override
     public List<Menu> list() {
         List<Menu> menuList = menuDao.findAll();
@@ -42,58 +41,22 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> menuTree(Long userId) {
-        List<Menu> menuList = menuDao.findByMenuType(MenuType.MENU.name());
-        menuList.forEach(menu -> {
-            Meta meta = new Meta();
-            meta.setTitle(menu.getName()).setIcon(menu.getIcon());
-            menu.setMeta(meta);
-        });
+        List<Menu> menuList = menuRepository.findByMenuType(MenuType.MENU.name())
+                .stream()
+                .map(t -> new Menu()
+                        .setId(t.getId())
+                        .setName(t.getName())
+                        .setIcon(t.getIcon())
+                        .setMeta(new Meta().setTitle(t.getName()).setIcon(t.getIcon()))
+                        .setParentId(t.getParentId())
+                        .setPath(t.getPath())
+                        .setRedirect(t.getRedirect())
+                        .setComponent(t.getComponent())
+                        .setMenuType(t.getMenuType())
+                        .setPower(t.getPower()))
+                .collect(Collectors.toList());
 //        return TreeUtils.build(menuList.stream().filter(item -> !item.getType().equals(MenuType.ACTION)).collect(Collectors.toList()));
         return TreeUtils.build(menuList);
-    }
-
-    @Override
-    public List<TreeVo> menuAllTree() {
-        List<TreeBo> list = menuDao.adminMenuAllPoList();
-        List<TreeVo> result = new ArrayList<>();
-
-        for(TreeBo menu : list){
-            if(menu.getParentId().equals(0L)) {
-                TreeVo adminMenuTreeVo = TreeVo.builder()
-                        .id(menu.getId())
-                        .name(menu.getName())
-                        .hasChildren(menu.isHasChildren())
-                        .build();
-                result.add(adminMenuTreeVo);
-            }
-        }
-
-        for (TreeVo parent : result) {
-            recursiveTree(parent, list);
-        }
-
-        return result;
-    }
-
-    /**
-     * 递归，建立子树形结构
-     * @author haigle
-     * @date 2019/9/2 16:26
-     */
-    private static void recursiveTree(TreeVo parent, List<TreeBo> list) {
-        List<TreeVo> treeVoList = new ArrayList<>();
-        for (TreeBo menu : list) {
-            if(parent.getId().equals(menu.getParentId())) {
-                TreeVo adminMenuTreeVo = TreeVo.builder()
-                        .id(menu.getId())
-                        .name(menu.getName())
-                        .hasChildren(menu.isHasChildren())
-                        .build();
-                recursiveTree(adminMenuTreeVo, list);
-                treeVoList.add(adminMenuTreeVo);
-            }
-        }
-        parent.setChildren(treeVoList);
     }
 
     @Commit

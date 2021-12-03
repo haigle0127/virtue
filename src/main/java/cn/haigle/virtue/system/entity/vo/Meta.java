@@ -5,11 +5,12 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
- * @author 阮雪峰
+ * @author haigle
+ * @date 2021/12/3 22:17
  */
-@Accessors(chain = true)
 @Setter
 @Getter
+@Accessors(chain = true)
 public class Meta {
 
     /** 菜单名称 */

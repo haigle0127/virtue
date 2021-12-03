@@ -3,6 +3,7 @@ package cn.haigle.virtue.system.entity.vo;
 import cn.haigle.virtue.common.util.tree.TreeNode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class Menu implements TreeNode<Long, Menu> {
 
     /** 菜单ID */

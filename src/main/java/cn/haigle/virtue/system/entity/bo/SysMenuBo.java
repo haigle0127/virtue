@@ -1,8 +1,9 @@
-package cn.haigle.virtue.system.entity;
+package cn.haigle.virtue.system.entity.bo;
 
 import cn.haigle.virtue.common.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
-public class SysMenuEntity extends BaseEntity {
+@Accessors(chain = true)
+public class SysMenuBo extends BaseEntity {
 
     /** 父级ID */
     @Column
