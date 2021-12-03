@@ -6,10 +6,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import cn.haigle.virtue.common.base.validator.Delete;
-import cn.haigle.virtue.common.base.validator.Id;
 import cn.haigle.virtue.common.util.DateUtils;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -18,28 +23,43 @@ import java.time.LocalDateTime;
  * @author haigle
  * @date 2018/12/5 15:31
  */
-@EqualsAndHashCode(exclude = {"id"})
-@Data
+@Accessors(chain = true)
+@Getter
+@Setter
+@MappedSuperclass
 public class BaseEntity{
 
-    @org.springframework.data.annotation.Id
-    @NotNull(message = "请选择要删除的数据", groups = {Delete.class})
-    @NotNull(message = "请选择要操作的数据", groups = {Id.class})
+    /** 主键ID */
+    @Id
     private Long id;
 
+    /** 创建人ID */
+    @Column
+    private Long createBy;
+
+    /** 创建时间 */
+    @Column
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "GMT+8",pattern = DateUtils.YMDHMS1)
     private LocalDateTime createTime;
 
+    /** 更新人ID */
+    @Column
+    private LocalDateTime  updateBy;
+
+    /** 更新时间 */
+    @Column
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "GMT+8",pattern = DateUtils.YMDHMS1)
     private LocalDateTime  updateTime;
 
+    /** 是否删除 */
     private boolean isDeleted = false;
 
-    protected BaseEntity() {
-    }
+    /** 版本 */
+    @Version
+    private Long revision;
 
 }

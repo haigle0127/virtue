@@ -13,8 +13,10 @@ import lombok.Setter;
 @Setter
 public class RoleVo extends BaseVo {
 
+    /** 角色名称 */
     private String name;
-    private String ename;
+
+    /** 角色说明 */
     private String description;
 
 }

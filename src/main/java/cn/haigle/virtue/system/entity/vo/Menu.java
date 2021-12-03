@@ -48,13 +48,4 @@ public class Menu implements TreeNode<Long, Menu> {
     /** 路由子集 */
     private List<Menu> children;
 
-    /**
-     * 是否拥有子集
-     *
-     * @return boolean
-     */
-    public boolean hasChildren() {
-        return children != null && !children.isEmpty();
-    }
-
 }
