@@ -4,7 +4,6 @@ import cn.haigle.virtue.system.dao.provider.MenuDaoProvider;
 import cn.haigle.virtue.system.entity.ao.MenuAo;
 import cn.haigle.virtue.system.entity.bo.TreeBo;
 import cn.haigle.virtue.system.entity.vo.Menu;
-import cn.haigle.virtue.system.entity.vo.Meta;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

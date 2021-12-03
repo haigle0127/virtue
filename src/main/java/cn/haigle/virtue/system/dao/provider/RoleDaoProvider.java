@@ -21,8 +21,8 @@ public class RoleDaoProvider extends DaoProvider {
     private static final String PRIMARY_KEY_VALUE = "#{m.id}";
 
     private static final String TABLE_REPORT = "sys_role";
-    private static final String[] TABLE_REPORT_COLUMNS = {"name", "ename", "description"};
-    private static final String[] TABLE_REPORT_VALUES = {"#{m.name}", "#{m.ename}", "#{m.description}"};
+    private static final String[] TABLE_REPORT_COLUMNS = {"name", "description"};
+    private static final String[] TABLE_REPORT_VALUES = {"#{m.name}", "#{m.description}"};
 
     private static final String TABLE_REPORT_NEXT = "sys_role_menu";
 
