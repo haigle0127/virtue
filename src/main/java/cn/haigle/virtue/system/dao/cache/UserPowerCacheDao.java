@@ -1,6 +1,6 @@
 package cn.haigle.virtue.system.dao.cache;
 
-import cn.haigle.virtue.system.entity.po.UserPermissionDo;
+import cn.haigle.virtue.system.entity.po.UserPowerDo;
 
 import java.util.List;
 
@@ -8,23 +8,22 @@ import java.util.List;
  * @author haigle
  * @date 2020/11/29 19:08
  */
-public interface UserPermissionCacheDao {
+public interface UserPowerCacheDao {
 
     /**
      * 查询用户权限缓存
      * @author haigle
      * @date 2020/11/29 19:18
      */
-    UserPermissionDo findById(Long uid);
+    UserPowerDo findById(Long uid);
 
     /**
      * 保存用户权限到缓存中
-     * @param uid 用户主键
-     * @param permissions 权限集合
+     * @param userPowerDo UserPowerDo
      * @author haigle
      * @date 2020/11/29 19:18
      */
-    void save(Long uid, List<String> permissions);
+    void save(UserPowerDo userPowerDo);
 
     /**
      * 删除用户权限缓存
@@ -48,4 +47,12 @@ public interface UserPermissionCacheDao {
      * @date 2020/11/29 19:19
      */
     void removeAll(Long... ids);
+
+    /**
+     * 获取用户权限key集合
+     * @param id id
+     * @author haigle
+     * @return List<String>
+     */
+    List<String> getPowerKey(Long id);
 }

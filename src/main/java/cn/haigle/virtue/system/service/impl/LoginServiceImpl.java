@@ -9,17 +9,22 @@ import cn.haigle.virtue.system.entity.bo.RegisterBo;
 import cn.haigle.virtue.system.entity.bo.SysUserBo;
 import cn.haigle.virtue.system.entity.bo.UserInfoBo;
 import cn.haigle.virtue.system.entity.bo.UserLoginBo;
+import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.UserAndRolesVo;
 import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
 import cn.haigle.virtue.system.exception.PasswordErrorException;
 import cn.haigle.virtue.system.exception.UserNotExistException;
 import cn.haigle.virtue.system.repository.UserRepository;
 import cn.haigle.virtue.system.service.LoginService;
-import cn.haigle.virtue.system.service.UserPermissionCacheService;
+import cn.haigle.virtue.system.service.UserPowerCacheService;
 import cn.haigle.virtue.common.annotation.transaction.Commit;
 import cn.haigle.virtue.common.util.DesUtils;
 import cn.haigle.virtue.common.util.SnowFlake;
 import cn.haigle.virtue.common.util.StringUtils;
+import cn.hutool.core.codec.Base64;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.DES;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
@@ -40,7 +45,7 @@ import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
 public class LoginServiceImpl implements LoginService {
 
     @Resource(name = "userPermissionCacheService")
-    private UserPermissionCacheService userPermissionCacheService;
+    private UserPowerCacheService userPermissionCacheService;
 
     @Resource(name = "loginDao")
     private LoginDao loginDao;
@@ -61,17 +66,24 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginUserInfoVo login(LoginAo ao) {
 
-//        Optional<SysUserBo> optional = userRepository.findByUsernameOrPhoneOrEmail(ao.getAccount());
-//        if(!optional.isPresent()) {
-//            throw new UserNotExistException();
-//        }
-//        optional.filter(user -> {
-//            String inputPassword = ao.getPassword();
-//            String userPassword = DesUtils.decrypt(user.getPassword(), user.getSalt());
-//            return inputPassword.equals(userPassword);
-//        }).map(user -> {
-//
-//        })
+        Optional<SysUserBo> optional = userRepository.findByUsernameOrPhoneOrEmail(ao.getAccount());
+        if(!optional.isPresent()) {
+            throw new UserNotExistException();
+        }
+        optional.filter(user -> {
+            //校验密码是否一样
+            DES desSalt = SecureUtil.des(Base64.decode(user.getSalt()));
+            String userPassword = desSalt.decryptStr(user.getPassword());
+            return CharSequenceUtil.equals(new String(Base64.decode(ao.getPassword())), userPassword);
+        }).map(user -> {
+            List<Menu> permissions = userPermissionCacheService.saveOrGet(user.getId());
+            if (permissions != null && !permissions.isEmpty()) {
+                StpUtil.login(user.getId());
+                return new LoginUserInfoVo(StpUtil.getTokenValue());
+            } else {
+                throw new NoPermissionAccessException();
+            }
+        })
 
 
 

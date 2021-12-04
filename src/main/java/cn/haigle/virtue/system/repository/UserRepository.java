@@ -13,6 +13,13 @@ import java.util.Optional;
 @Service("userRepository")
 public interface UserRepository extends BaseRepository<SysUserBo> {
 
+    /**
+     * 获取用户信息
+     * @param account 账号
+     * @return Optional<SysUserBo>
+     * @author haigle
+     * @date 2021/12/4 23:36
+     */
     Optional<SysUserBo> findByUsernameOrPhoneOrEmail(String account);
 
 }
