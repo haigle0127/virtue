@@ -1,6 +1,6 @@
 package cn.haigle.virtue.system.entity.vo;
 
-import cn.haigle.virtue.common.entity.BaseVo;
+import cn.haigle.virtue.common.entity.vo.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 

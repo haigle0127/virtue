@@ -1,4 +1,4 @@
-package cn.haigle.virtue.common.entity;
+package cn.haigle.virtue.common.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

@@ -3,7 +3,6 @@ package cn.haigle.virtue.system.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.common.base.page.Page;
 import cn.haigle.virtue.system.entity.vo.RoleVo;
-import cn.haigle.virtue.system.entity.vo.TreeVo;
 import cn.haigle.virtue.system.service.MenuService;
 import cn.haigle.virtue.system.entity.ao.RoleAo;
 import cn.haigle.virtue.system.service.RoleService;
@@ -76,16 +75,6 @@ public class RoleController {
     public ApiResult<String> delete(@Validated(Delete.class) Long id) {
         roleService.delete(id);
         return ApiResult.ok();
-    }
-
-    /**
-     * 菜单所有结构
-     * @author haigle
-     * @date 2019/9/3 14:47
-     */
-    @PostMapping("/getMenuAllTree")
-    public ApiResult<List<TreeVo>> menuAllTree() {
-        return ApiResult.ok(menuService.menuAllTree());
     }
 
     /**
