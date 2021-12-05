@@ -1,6 +1,7 @@
 package cn.haigle.virtue.system.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.haigle.virtue.common.interceptor.exception.NoPermissionAccessException;
 import cn.haigle.virtue.system.dao.LoginDao;
 import cn.haigle.virtue.system.dao.PaiDao;
 import cn.haigle.virtue.system.entity.ao.LoginAo;
@@ -44,8 +45,8 @@ import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
 @Service("loginService")
 public class LoginServiceImpl implements LoginService {
 
-    @Resource(name = "userPermissionCacheService")
-    private UserPowerCacheService userPermissionCacheService;
+    @Resource(name = "userPowerCacheService")
+    private UserPowerCacheService userPowerCacheService;
 
     @Resource(name = "loginDao")
     private LoginDao loginDao;
@@ -76,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
             String userPassword = desSalt.decryptStr(user.getPassword());
             return CharSequenceUtil.equals(new String(Base64.decode(ao.getPassword())), userPassword);
         }).map(user -> {
-            List<Menu> permissions = userPermissionCacheService.saveOrGet(user.getId());
+            List<Menu> permissions = userPowerCacheService.saveOrGet(user.getId());
             if (permissions != null && !permissions.isEmpty()) {
                 StpUtil.login(user.getId());
                 return new LoginUserInfoVo(StpUtil.getTokenValue());

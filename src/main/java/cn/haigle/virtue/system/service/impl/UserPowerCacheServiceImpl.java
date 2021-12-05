@@ -1,15 +1,32 @@
 package cn.haigle.virtue.system.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.haigle.virtue.common.util.tree.TreeUtils;
 import cn.haigle.virtue.system.dao.LoginDao;
 import cn.haigle.virtue.system.dao.cache.UserPowerCacheDao;
+import cn.haigle.virtue.system.entity.bo.SysMenuBo;
 import cn.haigle.virtue.system.entity.bo.SysRoleBo;
 import cn.haigle.virtue.system.entity.po.UserPowerDo;
 import cn.haigle.virtue.system.entity.vo.Menu;
+import cn.haigle.virtue.system.entity.vo.MenuType;
+import cn.haigle.virtue.system.entity.vo.Meta;
+import cn.haigle.virtue.system.repository.MenuRepository;
 import cn.haigle.virtue.system.repository.RoleRepository;
 import cn.haigle.virtue.system.service.UserPowerCacheService;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.jpa.repository.query.JpaQueryMethod;
+import org.springframework.data.jpa.repository.query.JpaQueryMethodFactory;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.repository.core.RepositoryMetadata;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,7 +42,9 @@ public class UserPowerCacheServiceImpl implements UserPowerCacheService {
 
     private final LoginDao loginDao;
 
-    private final RoleRepository roleRepository;
+    @Resource(name = "menuRepository")
+    private MenuRepository menuRepository;
+
 
     public UserPowerCacheServiceImpl(UserPowerCacheDao userPowerCacheDao,
                                      LoginDao loginDao) {
@@ -76,17 +95,27 @@ public class UserPowerCacheServiceImpl implements UserPowerCacheService {
     }
 
     private UserPowerDo save(final Long uid) {
-        Set<String> permissions = new HashSet<>();
-        List<SysRoleBo> roleList = adminUserDao.findById(uid).map(AdminUserEntity::getRoles).orElse(new ArrayList<>());
-
-        roleList.stream().map(RoleEntity::getPermissions).forEach(permissions::addAll);
-
-        final List<Menu> menuList = permissionService.findByIds(permissions);
-        final UserPowerDo userPowerDo = new UserPowerDo(
-                uid,
-                TreeUtils.build(menuList.stream().filter(item -> !item.getType().equals(MenuType.ACTION)).collect(Collectors.toList())),
-                menuList.stream().filter(item -> item.getKey() != null && !item.getKey().isEmpty()).map(Menu::getKey).flatMap(Collection::stream).distinct().collect(Collectors.toList())
-        );
+        List<SysMenuBo> menuBoList = menuRepository.selectByUserId(uid);
+        List<Menu> menuList = TreeUtils.build(menuBoList.stream()
+                .filter(item -> MenuType.MENU.name().equals(item.getMenuType()))
+                .map(item -> new Menu()
+                        .setId(item.getId())
+                        .setName(item.getName())
+                        .setIcon(item.getIcon())
+                        .setMeta(new Meta().setTitle(item.getName()).setIcon(item.getIcon()))
+                        .setParentId(item.getParentId())
+                        .setPath(item.getPath())
+                        .setRedirect(item.getRedirect())
+                        .setComponent(item.getComponent())
+                        .setMenuType(item.getMenuType())
+                        .setPower(item.getPower()))
+                .collect(Collectors.toList()));
+        List<String> permissions = menuBoList.stream()
+                .filter(item -> item.getPower() != null && !item.getPower().isEmpty())
+                .map(SysMenuBo::getPower)
+                .distinct()
+                .collect(Collectors.toList());
+        UserPowerDo userPowerDo = new UserPowerDo(uid, menuList, permissions);
         userPowerCacheDao.save(userPowerDo);
         return userPowerDo;
     }
