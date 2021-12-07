@@ -11,7 +11,6 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 用户视图和权限列表
@@ -20,13 +19,25 @@ import java.util.Set;
  */
 @Accessors(chain = true)
 @Data
-public class UserAndRolesVo {
+public class UserInfoVo {
 
+    /** 账号 */
     private String username;
+
+    /** 邮箱 */
     private String email;
+
+    /** 电话 */
     private String phone;
+
+    /** 头像 */
     private String avatar;
+
+    /** 简介 */
     private String introduction;
+
+    /** 性别 */
+    private String gender;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -42,10 +53,5 @@ public class UserAndRolesVo {
      * 角色数组
      */
     private List<String> roles;
-
-    /**
-     * 权限数组
-     */
-    private List<String> permissions;
 
 }

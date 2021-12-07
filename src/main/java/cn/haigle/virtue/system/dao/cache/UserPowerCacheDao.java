@@ -12,6 +12,8 @@ public interface UserPowerCacheDao {
 
     /**
      * 查询用户权限缓存
+     * @param  uid 用户ID
+     * @return UserPowerDo
      * @author haigle
      * @date 2020/11/29 19:18
      */

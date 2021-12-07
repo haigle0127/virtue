@@ -1,32 +1,19 @@
 package cn.haigle.virtue.system.service.impl;
 
+import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.common.util.tree.TreeUtils;
 import cn.haigle.virtue.system.dao.LoginDao;
 import cn.haigle.virtue.system.dao.cache.UserPowerCacheDao;
 import cn.haigle.virtue.system.entity.bo.SysMenuBo;
-import cn.haigle.virtue.system.entity.bo.SysRoleBo;
 import cn.haigle.virtue.system.entity.po.UserPowerDo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.MenuType;
 import cn.haigle.virtue.system.entity.vo.Meta;
 import cn.haigle.virtue.system.repository.MenuRepository;
-import cn.haigle.virtue.system.repository.RoleRepository;
 import cn.haigle.virtue.system.service.UserPowerCacheService;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.data.jpa.repository.query.JpaQueryMethod;
-import org.springframework.data.jpa.repository.query.JpaQueryMethodFactory;
-import org.springframework.data.projection.ProjectionFactory;
-import org.springframework.data.repository.core.RepositoryMetadata;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,7 +23,7 @@ import java.util.stream.Collectors;
  * @date 2020/11/29 19:05
  */
 @Service("userPowerCacheService")
-public class UserPowerCacheServiceImpl implements UserPowerCacheService {
+public class UserPowerCacheServiceImpl implements UserPowerCacheService, StpInterface {
 
     private final UserPowerCacheDao userPowerCacheDao;
 
@@ -65,7 +52,7 @@ public class UserPowerCacheServiceImpl implements UserPowerCacheService {
     }
 
     @Override
-    public Optional<UserPowerDo> get(final Long uid) {
+    public Optional<UserPowerDo> get(Long uid) {
         return Optional.ofNullable(userPowerCacheDao.findById(uid));
     }
 
@@ -121,7 +108,12 @@ public class UserPowerCacheServiceImpl implements UserPowerCacheService {
     }
 
     @Override
-    public List<String> getRoleList(final Object loginId, final String loginKey) {
+    public List<String> getPermissionList(Object loginId, String loginType) {
+        return userPowerCacheDao.findById(StpUtil.getLoginIdAsLong()).getPowerKeyList();
+    }
+
+    @Override
+    public List<String> getRoleList(Object loginId, String loginKey) {
         return new ArrayList<>(0);
     }
 }

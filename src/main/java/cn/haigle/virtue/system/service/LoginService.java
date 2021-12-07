@@ -2,10 +2,8 @@ package cn.haigle.virtue.system.service;
 
 import cn.haigle.virtue.system.entity.ao.LoginAo;
 import cn.haigle.virtue.system.entity.ao.RegisterAo;
-import cn.haigle.virtue.system.entity.vo.UserAndRolesVo;
+import cn.haigle.virtue.system.entity.vo.UserInfoVo;
 import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
-
-import java.util.List;
 
 /**
  * 登录、注册功能
@@ -24,22 +22,13 @@ public interface LoginService {
     LoginUserInfoVo login(LoginAo ao);
 
     /**
-     * 获取用户所拥有的权限列表
-     * @param userId 用户ID
-     * @return List<String> 用户所拥有的权限列表
-     * @author haigle
-     * @date 2021/11/18 20:15
-     */
-    List<String> getPermission(Long userId);
-
-    /**
      * 用户信息
      * @param uid 用户ID
-     * @return getAdminUserAndRoles 用户信息
+     * @return UserInfoVo 用户信息
      * @author haigle
      * @date 2019-06-09 14:06
      */
-    UserAndRolesVo getUserAndRoles(Long uid);
+    UserInfoVo userInfo(Long uid);
 
     /**
      * 邮箱是否已被使用

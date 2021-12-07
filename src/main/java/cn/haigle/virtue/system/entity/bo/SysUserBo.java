@@ -1,14 +1,18 @@
 package cn.haigle.virtue.system.entity.bo;
 
-import cn.haigle.virtue.common.entity.BaseEntity;
 import cn.haigle.virtue.common.entity.EditableEntity;
-import lombok.Data;
+import cn.haigle.virtue.common.util.DateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 /**
  * 用户信息
@@ -40,5 +44,20 @@ public class SysUserBo extends EditableEntity {
     /** 盐 */
     @Column(updatable = false)
     private String salt;
+
+    /** 头像 */
+    @Column
+    private String avatar;
+
+    /** 生日 */
+    @Column
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "GMT+8",pattern = DateUtils.YMDHMS1)
+    private LocalDateTime birth;
+
+    /** 简介 */
+    @Column
+    private String introduction;
 
 }
