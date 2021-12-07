@@ -4,7 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.system.entity.ao.LoginAo;
 import cn.haigle.virtue.system.entity.ao.RegisterAo;
 import cn.haigle.virtue.system.entity.bo.PaiBo;
-import cn.haigle.virtue.system.entity.vo.UserAndRolesVo;
+import cn.haigle.virtue.system.entity.vo.UserInfoVo;
 import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.service.LoginService;
@@ -14,6 +14,7 @@ import cn.haigle.virtue.common.base.validator.LoginByEmail;
 import cn.haigle.virtue.common.base.validator.Save;
 import cn.haigle.virtue.common.interceptor.model.ApiResult;
 import cn.haigle.virtue.config.Constant;
+import cn.haigle.virtue.system.service.UserPowerCacheService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,9 @@ public class LoginController {
     @Resource(name = "menuService")
     private MenuService menuService;
 
+    @Resource(name = "userPowerCacheService")
+    private UserPowerCacheService userPowerCacheService;
+
     /**
      * 登录
      * @author haigle
@@ -58,8 +62,8 @@ public class LoginController {
      * @date 2019/6/3 17:28
      */
     @GetMapping("/user/info")
-    public ApiResult<UserAndRolesVo> info() {
-        return ApiResult.ok(loginService.getUserAndRoles(StpUtil.getLoginIdAsLong()));
+    public ApiResult<UserInfoVo> info() {
+        return ApiResult.ok(loginService.userInfo(StpUtil.getLoginIdAsLong()));
     }
 
     /**
@@ -69,7 +73,7 @@ public class LoginController {
      */
     @GetMapping("/user/permission")
     public ApiResult<List<String>> permission() {
-        return ApiResult.ok(loginService.getPermission(StpUtil.getLoginIdAsLong()));
+        return ApiResult.ok(userPowerCacheService.getPowerList(StpUtil.getLoginIdAsLong(), null));
     }
 
     /**

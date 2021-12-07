@@ -8,13 +8,12 @@ import cn.haigle.virtue.system.entity.ao.LoginAo;
 import cn.haigle.virtue.system.entity.ao.RegisterAo;
 import cn.haigle.virtue.system.entity.bo.RegisterBo;
 import cn.haigle.virtue.system.entity.bo.SysUserBo;
-import cn.haigle.virtue.system.entity.bo.UserInfoBo;
-import cn.haigle.virtue.system.entity.bo.UserLoginBo;
 import cn.haigle.virtue.system.entity.vo.Menu;
-import cn.haigle.virtue.system.entity.vo.UserAndRolesVo;
+import cn.haigle.virtue.system.entity.vo.UserInfoVo;
 import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
 import cn.haigle.virtue.system.exception.PasswordErrorException;
 import cn.haigle.virtue.system.exception.UserNotExistException;
+import cn.haigle.virtue.system.repository.RoleRepository;
 import cn.haigle.virtue.system.repository.UserRepository;
 import cn.haigle.virtue.system.service.LoginService;
 import cn.haigle.virtue.system.service.UserPowerCacheService;
@@ -34,9 +33,6 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_MOBILE;
-import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
-
 /**
  * 登录注册 服务实现
  * @author haigle
@@ -54,6 +50,9 @@ public class LoginServiceImpl implements LoginService {
     @Resource(name = "userRepository")
     private UserRepository userRepository;
 
+    @Resource(name = "roleRepository")
+    private RoleRepository roleRepository;
+
 
     private JavaMailSenderImpl mailSender;
 
@@ -66,12 +65,11 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginUserInfoVo login(LoginAo ao) {
-
         Optional<SysUserBo> optional = userRepository.findByUsernameOrPhoneOrEmail(ao.getAccount());
         if(!optional.isPresent()) {
             throw new UserNotExistException();
         }
-        optional.filter(user -> {
+        return optional.filter(user -> {
             //校验密码是否一样
             DES desSalt = SecureUtil.des(Base64.decode(user.getSalt()));
             String userPassword = desSalt.decryptStr(user.getPassword());
@@ -81,60 +79,27 @@ public class LoginServiceImpl implements LoginService {
             if (permissions != null && !permissions.isEmpty()) {
                 StpUtil.login(user.getId());
                 return new LoginUserInfoVo(StpUtil.getTokenValue());
-            } else {
+            }else {
                 throw new NoPermissionAccessException();
             }
-        })
-
-
-
-
-
-
-
-
-        UserLoginBo user;
-
-        if(ao.getAccount().matches(REGEX_MOBILE)) {
-            user = loginDao.getUserByPhone(ao.getAccount());
-        }else if(ao.getAccount().matches(REGEX_EMAIL)) {
-            user = loginDao.getUserByEmail(ao.getAccount());
-        } else {
-            user = loginDao.getUserByUsername(ao.getAccount());
-        }
-
-        if(user == null) {
-            throw new UserNotExistException();
-        }
-
-        String inputPassword = ao.getPassword();
-        String userPassword = DesUtils.decrypt(user.getPassword(), user.getSalt());
-        if(!inputPassword.equals(userPassword)) {
-            throw new PasswordErrorException();
-        }
-
-        StpUtil.login(user.getId());
-        return new LoginUserInfoVo(StpUtil.getTokenValue());
-
+        }).orElseThrow(PasswordErrorException::new);
     }
 
     @Override
-    public List<String> getPermission(Long userId) {
-        return userPermissionCacheService.get(userId);
-    }
+    public UserInfoVo userInfo(Long uid) {
 
-    @Override
-    public UserAndRolesVo getUserAndRoles(Long uid) {
-        UserInfoBo userInfo = loginDao.getAdminUserInfo(uid);
-        return new UserAndRolesVo()
-                .setUsername(userInfo.getUsername())
-                .setEmail(userInfo.getEmail())
-                .setPhone(userInfo.getPhone())
-                .setAvatar(userInfo.getAvatar())
-                .setBirth(userInfo.getBirth())
-                .setIntroduction(userInfo.getIntroduction())
-                .setRoles(loginDao.findRolesById(uid))
-                .setPermissions(userPermissionCacheService.get(uid));
+        return userRepository.findById(uid)
+                .map(user -> {
+                    List<String> roles = roleRepository.selectRoleName(uid);
+                    return new UserInfoVo()
+                            .setUsername(user.getUsername())
+                            .setEmail(user.getEmail())
+                            .setPhone(user.getPhone())
+                            .setAvatar(user.getAvatar())
+                            .setBirth(user.getBirth())
+                            .setIntroduction(user.getIntroduction())
+                            .setRoles(loginDao.findRolesById(uid));
+                }).orElseThrow(UserNotExistException::new);
     }
 
     @Override
