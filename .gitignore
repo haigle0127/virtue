@@ -1,5 +1,15 @@
+######################################################################
+# Build Tools
+
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
+
+######################################################################
+# IDE
 
 ### STS ###
 .apt_generated
@@ -8,39 +18,30 @@ target/
 .project
 .settings
 .springBeans
-.sts4-cache
-*.DS_Store
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-.json
-*.rar
-*.log
+
+### JRebel ###
+rebel.xml
 
 ### NetBeans ###
 nbproject/private/
-build/
+build/*
 nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-logs/
 
-### Maven ###
-.mvn
-mvnw
-mvnw.cmd
+######################################################################
+# Others
+*.log
+*.xml.versionsBackup
+*.swp
 
-### Gradle ###
-/src/main/resources/application-local.yml
-/src/main/resources/static/doc
-.gradle
-gradle
-/gradlew
-/gradlew.bat
-
-# Ignore Gradle build output directory
-build
+!*/build/*.java
+!*/build/*.html
+!*/build/*.xml
