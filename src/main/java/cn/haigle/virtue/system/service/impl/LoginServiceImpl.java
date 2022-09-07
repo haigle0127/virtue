@@ -9,7 +9,6 @@ import cn.haigle.virtue.system.entity.ao.RegisterAo;
 import cn.haigle.virtue.system.entity.bo.RegisterBo;
 import cn.haigle.virtue.system.entity.bo.SysUserBo;
 import cn.haigle.virtue.system.entity.bo.UserInfoBo;
-import cn.haigle.virtue.system.entity.bo.UserLoginBo;
 import cn.haigle.virtue.system.entity.vo.Menu;
 import cn.haigle.virtue.system.entity.vo.UserAndRolesVo;
 import cn.haigle.virtue.system.entity.vo.LoginUserInfoVo;
@@ -33,9 +32,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
-
-import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_MOBILE;
-import static cn.haigle.virtue.common.util.AccountValidatorUtils.REGEX_EMAIL;
 
 /**
  * 登录注册 服务实现
@@ -71,51 +67,20 @@ public class LoginServiceImpl implements LoginService {
         if(!optional.isPresent()) {
             throw new UserNotExistException();
         }
-        optional.filter(user -> {
-            //校验密码是否一样
-            DES desSalt = SecureUtil.des(Base64.decode(user.getSalt()));
-            String userPassword = desSalt.decryptStr(user.getPassword());
-            return CharSequenceUtil.equals(new String(Base64.decode(ao.getPassword())), userPassword);
-        }).map(user -> {
-            List<Menu> permissions = userPowerCacheService.saveOrGet(user.getId());
-            if (permissions != null && !permissions.isEmpty()) {
-                StpUtil.login(user.getId());
-                return new LoginUserInfoVo(StpUtil.getTokenValue());
-            } else {
-                throw new NoPermissionAccessException();
-            }
-        })
-
-
-
-
-
-
-
-
-        UserLoginBo user;
-
-        if(ao.getAccount().matches(REGEX_MOBILE)) {
-            user = loginDao.getUserByPhone(ao.getAccount());
-        }else if(ao.getAccount().matches(REGEX_EMAIL)) {
-            user = loginDao.getUserByEmail(ao.getAccount());
-        } else {
-            user = loginDao.getUserByUsername(ao.getAccount());
-        }
-
-        if(user == null) {
-            throw new UserNotExistException();
-        }
-
-        String inputPassword = ao.getPassword();
-        String userPassword = DesUtils.decrypt(user.getPassword(), user.getSalt());
-        if(!inputPassword.equals(userPassword)) {
-            throw new PasswordErrorException();
-        }
-
-        StpUtil.login(user.getId());
-        return new LoginUserInfoVo(StpUtil.getTokenValue());
-
+        return optional.filter(user -> {
+                    //校验密码是否一样
+                    DES desSalt = SecureUtil.des(Base64.decode(user.getSalt()));
+                    String userPassword = desSalt.decryptStr(user.getPassword());
+                    return CharSequenceUtil.equals(new String(Base64.decode(ao.getPassword())), userPassword);
+                }).map(user -> {
+                    List<Menu> permissions = userPowerCacheService.saveOrGet(user.getId());
+                    if (permissions != null && !permissions.isEmpty()) {
+                        StpUtil.login(user.getId());
+                        return new LoginUserInfoVo(StpUtil.getTokenValue());
+                    } else {
+                        throw new NoPermissionAccessException();
+                    }
+                }).orElseThrow(PasswordErrorException::new);
     }
 
     @Override
