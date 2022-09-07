@@ -1,0 +1,46 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+*.DS_Store
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+.json
+*.rar
+*.log
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+logs/
+
+### Maven ###
+.mvn
+mvnw
+mvnw.cmd
+
+### Gradle ###
+/src/main/resources/application-local.yml
+/src/main/resources/static/doc
+.gradle
+gradle
+/gradlew
+/gradlew.bat
+
+# Ignore Gradle build output directory
+build
