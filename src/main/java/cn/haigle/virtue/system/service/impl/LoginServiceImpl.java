@@ -85,7 +85,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List<String> getPermission(Long userId) {
-        return userPermissionCacheService.get(userId);
+        return userPowerCacheService.get(userId);
     }
 
     @Override
