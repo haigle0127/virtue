@@ -1,36 +1,31 @@
-<p align="center">
-  <img width="320" src="http://haigle.gitee.io/static_resources/virtue/image/title.png"  alt="">
+<p style="text-align: center;">
+  <img width="381" src=".image/title.png"  alt="">
 </p>
 
-<p align="center">
+<p style="text-align: center;">
   <a href="https://spring.io/projects/spring-boot/">
-    <img src="https://img.shields.io/badge/springboot-2.5.6-green" alt="springboot">
+    <img src="https://img.shields.io/badge/springboot-3.4.0-green" alt="springboot">
   </a>
   <a href="https://gitee.com/dromara/sa-token/">
-    <img src="https://img.shields.io/badge/satoken-1.28.0-bule" alt="springboot">
+    <img src="https://img.shields.io/badge/satoken-1.39.0-bule" alt="springboot">
   </a>
- <a href="https://mybatis.org/mybatis-3/">
-    <img src="https://img.shields.io/badge/mybatis-3-red" alt="mybatis">
-  </a>
-   <a href="https://gitee.com/smart-doc-team/smart-doc">
-    <img src="https://img.shields.io/badge/smartdoc-2.3.1-yellow" alt="swagger2">
+  <a href="https://gitee.com/baomidou/mybatis-plus/">
+    <img src="https://img.shields.io/badge/mybatis-plus-3/?style=flat-square" alt="mybatis-plus">
   </a>
   <a href="https://www.mysql.com/">
     <img src="https://img.shields.io/badge/mysql-8.2-%234479a1" alt="mysql">
   </a>
   <a href="https://redis.io/">
-    <img src="https://img.shields.io/badge/redis-3.0-red" alt="redis">
+    <img src="https://img.shields.io/badge/redis-5.0-red" alt="redis">
   </a>
 </p>
 
 
-## 简介
+### 项目简介
+[virtue](https://gitee.com/haigle/virtue) 是一个基于 Spring Boot 实现快速搭建项目的解决方案，遵循阿里 Java 开发手册，代码设计优雅。我们采用 [sa-token](https://sa-token.dev33.cn/) 进行权限控制，前端框架则使用了 [element-plus](https://element-plus.org/zh-CN/)，基于 Vue 3.0。
+虽然我们的框架还在不断成熟和完善中，但我们致力于提供一个功能强大且灵活的工具，帮助您高效地实现各种需求
 
-[virtue](https://gitee.com/haigle/virtue) 是一个权限管理解决方案，它基于springboot实现，遵循阿里java开发手册，代码优雅。我们吧权限控制交给了更好用[Sa-token](https://sa-token.dev33.cn/)。前端框架技术采用 [vue-element-admin](https://panjiachen.gitee.io/vue-element-admin-site/zh) ，VUE3.0换成了[vben](https://gitee.com/annsion/vue-vben-admin)。
 
-想的越多，就越难做出好的设计，我们的框架目前还不够成熟，但是我们希望做的这个小小的产品希望可以帮助你完成一切你想完成的事。
-
-master主分支改为gradle版本项目
 ***
 
 **联系我们：鹅群672036656**
@@ -38,41 +33,50 @@ master主分支改为gradle版本项目
 ***
 
 ## 结构
-
 ```
 virtue
 | 
 |———com.haigle.virtue
-|	├── system --------------------- 后台管理接口
-|	├── common  ----------------- 框架整合核心模块
-|   ├── config --------------------- spring配置模块
+|   |── common ---------------------- 公共资源模块
+|   |── controller ------------------ 控制器接口模块
+|       |── admin ------------------- 管理端的控制器
+|       |── app --------------------- web端的控制器
+|   |── convert --------------------- 实体类转换
+|   |── mapper ---------------------- 实体映射器模块
+|       |── dataobject -------------- 数据库实体类
+|       |── mysql ------------------- mysql映射
+|   |── service --------------------- 服务模块
 |
 |── resource
-|	├── application.yml ---------- 基本配置文件
-|	├── application-dev.yml ----- 开发环境配置文件
-|	├── application-pro.yml ----- 生产配置文件
+|	|── mapper ------------------ SQL文件
+|	|── application.yml --------- 基本配置文件
+|	|── application-dev.yml ----- 开发环境配置文件
 ```
 
 ## 开发环境
 
 建议开发者使用以下环境，这样避免版本带来的问题
-* IDE: idea
-* DB: Mysql8.X
-* JDK: JAVA 11
+* IDE: IDEA
+* DB: MySql8.X
+* JDK: JAVA 21
 
-## 系统图片
+[//]: # (## 系统图片)
 
-![登录页面 | center](https://haigle.gitee.io/static_resources/virtue/image/登录页面.jpg)
+[//]: # ()
+[//]: # (![登录页面 | center]&#40;https://haigle.gitee.io/static_resources/virtue/image/登录页面.jpg&#41;)
 
-![首页1 | center](https://haigle.gitee.io/static_resources/virtue/image/首页1.jpg)
+[//]: # ()
+[//]: # (![首页1 | center]&#40;https://haigle.gitee.io/static_resources/virtue/image/首页1.jpg&#41;)
 
-![首页2 | center](https://haigle.gitee.io/static_resources/virtue/image/首页2.jpg)
+[//]: # ()
+[//]: # (![首页2 | center]&#40;https://haigle.gitee.io/static_resources/virtue/image/首页2.jpg&#41;)
 
-![权限页面 | center](https://haigle.gitee.io/static_resources/virtue/image/权限页面.jpg)
+[//]: # ()
+[//]: # (![权限页面 | center]&#40;https://haigle.gitee.io/static_resources/virtue/image/权限页面.jpg&#41;)
 
 
 ## License
 
 [MIT](https://gitee.com/haigle/virtue/blob/master/LICENSE)
 
-virtue © 2015-2021.  [haigletech](www.haigle.cn)监制.
+virtue © 2016-2025.  [haigletech](www.haigle.cn)监制.

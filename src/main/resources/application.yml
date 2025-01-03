@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: @profileName@
+    active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
@@ -13,18 +13,29 @@ spring:
     basename: i18n/message
     encoding: UTF-8
 server:
+  port: 9981
   tomcat:
       uri-encoding: utf-8
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: cn.haigle.virtue.*.*.entity
+mybatis-plus:
+  type-aliases-package: cn.haigle.virtue.mapper.dataobject.*
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+  global-config:
+    banner: true
 sa-token:
-  token-name: token
-  timeout: 86400
-  activity-timeout: -1
-  is-share: false
-  token-style: random-128
-  is-concurrent: false
+  token-style: tik
+  token-prefix: Bearer
+  token-name: Authorization
+#  timeout: 86400
+#  active-timeout: -1
+#  is-share: false
+#  token-style: random-128
+#  is-concurrent: false
+knife4j:
+  enable: true
+  openapi:
+    header:
+      name: Authorization
+      default-value: "Bearer test1"
+      description: "用于认证的 token"
