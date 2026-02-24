@@ -25,13 +25,6 @@
 [virtue](https://gitee.com/haigle/virtue) 是一个基于 Spring Boot 实现快速搭建项目的解决方案，遵循阿里 Java 开发手册，代码设计优雅。我们采用 [sa-token](https://sa-token.dev33.cn/) 进行权限控制，前端框架则使用了 [element-plus](https://element-plus.org/zh-CN/)，基于 Vue 3.0。
 虽然我们的框架还在不断成熟和完善中，但我们致力于提供一个功能强大且灵活的工具，帮助您高效地实现各种需求
 
-
-***
-
-**联系我们：鹅群672036656**
-
-***
-
 ## 结构
 ```
 virtue
