@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
@@ -32,6 +32,7 @@ sa-token:
 #  is-share: false
 #  token-style: random-128
 #  is-concurrent: false
+# Knife4j 配置
 knife4j:
   enable: true
   openapi:
