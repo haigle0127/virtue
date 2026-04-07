@@ -28,6 +28,9 @@ public class CaptchaController {
 
     /**
      * 获取验证码
+     * <p>生成图形验证码并返回验证码标识和图片Base64数据</p>
+     *
+     * @return 验证码响应对象，包含验证码标识(mark)和验证码图片(img)
      * @author haigle
      * @date 2024/12/10 13:55
      */

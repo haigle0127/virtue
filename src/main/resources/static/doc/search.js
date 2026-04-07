@@ -9,12 +9,12 @@ api.push({
 api[0].list.push({
     order: '1',
     methodId: '1d1b3f87eb9a4ea06d5140c0397afc31',
-    desc: '登录',
+    desc: '用户登录  &lt;p&gt;根据用户名、密码和验证码进行登录验证，成功后返回token&lt;/p&gt;',
 });
 api[0].list.push({
     order: '2',
     methodId: 'd04a7c88d9a84c0bc202ba1c9dbd68fe',
-    desc: '退出',
+    desc: '退出登录  &lt;p&gt;使当前用户的token失效，退出系统&lt;/p&gt;',
 });
 api.push({
     alias: 'CaptchaController',
@@ -26,7 +26,7 @@ api.push({
 api[1].list.push({
     order: '1',
     methodId: 'd580f1305454cd473c864270667aac54',
-    desc: '获取验证码',
+    desc: '获取验证码  &lt;p&gt;生成图形验证码并返回验证码标识和图片Base64数据&lt;/p&gt;',
 });
 api.push({
     alias: 'UserController',
@@ -38,27 +38,27 @@ api.push({
 api[2].list.push({
     order: '1',
     methodId: 'd49e8888e0f4274a90fcd465c2dbb3cd',
-    desc: 'getInfo',
+    desc: '获取用户信息  &lt;p&gt;获取当前登录用户的详细信息，包括权限和角色&lt;/p&gt;',
 });
 api[2].list.push({
     order: '2',
     methodId: '5dc57620cde62864b932f7c4f14957d3',
-    desc: 'page',
+    desc: '获取用户分页列表  &lt;p&gt;根据查询条件分页获取用户列表&lt;/p&gt;',
 });
 api[2].list.push({
     order: '3',
     methodId: 'a12d74ada77a878655863f23b4f4dbc9',
-    desc: 'detail',
+    desc: '获取用户详情  &lt;p&gt;根据用户ID获取用户详细信息&lt;/p&gt;',
 });
 api[2].list.push({
     order: '4',
     methodId: '987fe0f40ffc4150a1ae1392570496e8',
-    desc: 'add',
+    desc: '新增用户  &lt;p&gt;创建新的用户信息&lt;/p&gt;',
 });
 api[2].list.push({
     order: '5',
     methodId: 'ebc4d2542c7cf9efb50ba33b0d23ce4f',
-    desc: 'update',
+    desc: '修改用户  &lt;p&gt;更新已存在的用户信息&lt;/p&gt;',
 });
 api.push({
     alias: 'RoleController',
@@ -70,37 +70,37 @@ api.push({
 api[3].list.push({
     order: '1',
     methodId: '3c2820fe7a002e923b2ee0ccb826867e',
-    desc: 'page',
+    desc: '获取角色分页列表  &lt;p&gt;根据查询条件分页获取角色列表&lt;/p&gt;',
 });
 api[3].list.push({
     order: '2',
     methodId: '8ca26ed966c1b9c829756fcb315ca231',
-    desc: 'detail',
+    desc: '获取角色详情  &lt;p&gt;根据角色ID获取角色详细信息&lt;/p&gt;',
 });
 api[3].list.push({
     order: '3',
     methodId: '9d59eb79723ea5de91bdf1f92184e7ae',
-    desc: 'add',
+    desc: '新增角色  &lt;p&gt;创建新的角色信息&lt;/p&gt;',
 });
 api[3].list.push({
     order: '4',
     methodId: '97a7f35e574321774f9b500c9e9894c1',
-    desc: 'update',
+    desc: '修改角色  &lt;p&gt;更新已存在的角色信息&lt;/p&gt;',
 });
 api[3].list.push({
     order: '5',
     methodId: '762fe7a0cb1e41788b97ebd521b84003',
-    desc: 'updateDataScope',
+    desc: '修改角色数据权限  &lt;p&gt;更新角色的数据范围权限配置&lt;/p&gt;',
 });
 api[3].list.push({
     order: '6',
     methodId: '41cfe4841edbcb1327b34a34186ef450',
-    desc: 'updateState',
+    desc: '修改角色状态  &lt;p&gt;更新角色的启用或停用状态&lt;/p&gt;',
 });
 api[3].list.push({
     order: '7',
     methodId: '4e2139db23f5af438d450245f0a4de3d',
-    desc: 'delete',
+    desc: '删除角色  &lt;p&gt;根据角色ID删除角色信息&lt;/p&gt;',
 });
 api.push({
     alias: 'DeptController',
@@ -112,37 +112,37 @@ api.push({
 api[4].list.push({
     order: '1',
     methodId: '533830910f19dc776b303602cdd5d82a',
-    desc: 'list',
+    desc: '获取部门列表  &lt;p&gt;根据查询条件获取部门列表，支持树形结构展示&lt;/p&gt;',
 });
 api[4].list.push({
     order: '2',
     methodId: '9b865b92bb0d92dffb1bab7befbb9222',
-    desc: 'detail',
+    desc: '获取部门详情  &lt;p&gt;根据部门ID获取部门详细信息&lt;/p&gt;',
 });
 api[4].list.push({
     order: '3',
     methodId: '6b9976402c7f45a573010719c6299a75',
-    desc: 'add',
+    desc: '新增部门  &lt;p&gt;创建新的部门信息&lt;/p&gt;',
 });
 api[4].list.push({
     order: '4',
     methodId: '7268ee8a92128e006474a917826e979d',
-    desc: 'update',
+    desc: '修改部门  &lt;p&gt;更新已存在的部门信息&lt;/p&gt;',
 });
 api[4].list.push({
     order: '5',
     methodId: '652a41c75c6eae6020e8d3bb6bae1813',
-    desc: 'delete',
+    desc: '删除部门  &lt;p&gt;根据部门ID删除部门信息&lt;/p&gt;',
 });
 api[4].list.push({
     order: '6',
     methodId: '354927ab311fbed2ff325eec644fd92f',
-    desc: 'userDeptTree',
+    desc: '获取用户部门树  &lt;p&gt;根据当前登录用户ID获取其所属的部门树形结构&lt;/p&gt;',
 });
 api[4].list.push({
     order: '7',
     methodId: '8a3e27b1fce73fdbc158edecc351b9e1',
-    desc: 'roleDeptTree',
+    desc: '获取角色部门树  &lt;p&gt;根据角色ID获取该角色关联的部门树形结构&lt;/p&gt;',
 });
 api.push({
     alias: 'MenuController',
@@ -154,42 +154,42 @@ api.push({
 api[5].list.push({
     order: '1',
     methodId: '0b26860a8dd39ea7d13406264a96152a',
-    desc: 'getRouters',
+    desc: '获取路由信息  &lt;p&gt;根据当前登录用户ID获取其权限范围内的菜单路由配置&lt;/p&gt;',
 });
 api[5].list.push({
     order: '2',
     methodId: 'ca871dbebcf19f7b86f043a584b8fe0a',
-    desc: 'list',
+    desc: '获取菜单列表  &lt;p&gt;根据查询条件获取菜单列表，支持树形结构展示&lt;/p&gt;',
 });
 api[5].list.push({
     order: '3',
     methodId: '8fbbff877a267b14924744f36d45ad37',
-    desc: 'detail',
+    desc: '获取菜单详情  &lt;p&gt;根据菜单ID获取菜单详细信息&lt;/p&gt;',
 });
 api[5].list.push({
     order: '4',
     methodId: 'a86ec5bb2d8f12650fc91f9d8020fe88',
-    desc: 'add',
+    desc: '新增菜单  &lt;p&gt;创建新的菜单信息&lt;/p&gt;',
 });
 api[5].list.push({
     order: '5',
     methodId: '4bdc9fb193a9bcc874dbf21fe7519a8f',
-    desc: 'update',
+    desc: '修改菜单  &lt;p&gt;更新已存在的菜单信息&lt;/p&gt;',
 });
 api[5].list.push({
     order: '6',
     methodId: 'f3ddf99961e35556879ce4c68725cd3a',
-    desc: 'delete',
+    desc: '删除菜单  &lt;p&gt;根据菜单ID删除菜单信息&lt;/p&gt;',
 });
 api[5].list.push({
     order: '7',
     methodId: '9a98b9790ff9567bcfa1b74c20df5f0f',
-    desc: 'userMenuTree',
+    desc: '获取用户菜单树  &lt;p&gt;根据当前登录用户ID获取其权限范围内的菜单树形结构&lt;/p&gt;',
 });
 api[5].list.push({
     order: '8',
     methodId: '5f588b9702a1949b0f644df7a36877ff',
-    desc: 'roleMenuTree',
+    desc: '获取角色菜单树  &lt;p&gt;根据角色ID获取该角色关联的菜单树形结构&lt;/p&gt;',
 });
 document.onkeydown = keyDownSearch;
 function keyDownSearch(e) {

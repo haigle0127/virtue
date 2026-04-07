@@ -30,7 +30,11 @@ public class LoginController {
     private MenuService menuService;
 
     /**
-     * 登录
+     * 用户登录
+     * <p>根据用户名、密码和验证码进行登录验证，成功后返回token</p>
+     *
+     * @param reqVO 登录请求参数，包含用户名、密码、验证码等信息
+     * @return 登录成功后的token字符串
      * @author haigle
      * @date 2019/6/3 14:19
      */
@@ -40,7 +44,10 @@ public class LoginController {
     }
 
     /**
-     * 退出
+     * 退出登录
+     * <p>使当前用户的token失效，退出系统</p>
+     *
+     * @return 操作结果，成功返回true
      * @author haigle
      * @date 2024/12/10 14:00
      */

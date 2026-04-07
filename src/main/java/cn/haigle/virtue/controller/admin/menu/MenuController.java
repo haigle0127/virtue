@@ -22,6 +22,12 @@ public class MenuController {
     @Resource
     private MenuService menuService;
 
+    /**
+     * 获取路由信息
+     * <p>根据当前登录用户ID获取其权限范围内的菜单路由配置</p>
+     *
+     * @return 路由配置响应对象集合
+     */
     @GetMapping("/getRouters")
     public ApiResult<List<RouterVO>> getRouters() {
         Long userId = 1L;
@@ -29,18 +35,39 @@ public class MenuController {
         return ApiResult.ok(menuService.buildMenus(menus));
     }
 
+    /**
+     * 获取菜单列表
+     * <p>根据查询条件获取菜单列表，支持树形结构展示</p>
+     *
+     * @param reqVO 菜单查询请求参数
+     * @return 菜单列表响应对象集合
+     */
     @SaCheckPermission("sys-sys-menu-list")
     @GetMapping("/list")
     public ApiResult<List<MenuRespVO>> list(MenuReqVO reqVO) {
         return ApiResult.ok(menuService.list(reqVO));
     }
 
+    /**
+     * 获取菜单详情
+     * <p>根据菜单ID获取菜单详细信息</p>
+     *
+     * @param menuId 菜单ID
+     * @return 菜单详情响应对象
+     */
     @SaCheckPermission("sys-menu-detail")
     @GetMapping("/detail")
     public ApiResult<MenuRespVO> detail(@RequestParam(value = "menuId") Long menuId) {
         return ApiResult.ok(menuService.detail(menuId));
     }
 
+    /**
+     * 新增菜单
+     * <p>创建新的菜单信息</p>
+     *
+     * @param reqVO 菜单保存请求参数
+     * @return 操作结果，成功返回true
+     */
     @SaCheckPermission("sys-menu-add")
     @PostMapping("/add")
     public ApiResult<Boolean> add(@RequestBody MenuSaveReqVO reqVO) {
@@ -48,6 +75,13 @@ public class MenuController {
         return ApiResult.ok();
     }
 
+    /**
+     * 修改菜单
+     * <p>更新已存在的菜单信息</p>
+     *
+     * @param reqVO 菜单保存请求参数
+     * @return 操作结果，成功返回true
+     */
     @SaCheckPermission("sys-menu-update")
     @PostMapping("/update")
     public ApiResult<Boolean> update(@RequestBody MenuSaveReqVO reqVO) {
@@ -55,6 +89,13 @@ public class MenuController {
         return ApiResult.ok();
     }
 
+    /**
+     * 删除菜单
+     * <p>根据菜单ID删除菜单信息</p>
+     *
+     * @param menuId 菜单ID
+     * @return 操作结果，成功返回true
+     */
     @SaCheckPermission("sys-menu-delete")
     @DeleteMapping("/delete")
     public ApiResult<Boolean> delete(@RequestParam(value = "menuId") Long menuId) {
@@ -62,6 +103,12 @@ public class MenuController {
         return ApiResult.ok();
     }
 
+    /**
+     * 获取用户菜单树
+     * <p>根据当前登录用户ID获取其权限范围内的菜单树形结构</p>
+     *
+     * @return 菜单树DTO集合
+     */
     @SaCheckPermission("sys-user-menu-tree")
     @GetMapping("/userMenuTree")
     public ApiResult<List<MenuTreeDTO>> userMenuTree() {
@@ -69,6 +116,13 @@ public class MenuController {
         return ApiResult.ok(menuService.userMenuTree(userId));
     }
 
+    /**
+     * 获取角色菜单树
+     * <p>根据角色ID获取该角色关联的菜单树形结构</p>
+     *
+     * @param roleId 角色ID
+     * @return 角色菜单树响应对象
+     */
     @SaCheckPermission("sys-role-menu-tree")
     @GetMapping("/roleMenuTree")
     public ApiResult<RoleMenuTreeRespVO> roleMenuTree(@RequestParam(value = "roleId") Long roleId) {
