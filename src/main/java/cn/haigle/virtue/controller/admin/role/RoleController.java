@@ -7,8 +7,6 @@ import cn.haigle.virtue.common.pojo.PageResult;
 import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.role.vo.*;
 import cn.haigle.virtue.service.role.RoleService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
  * @author haigle
  * @date 2024/11/14 14:34
  */
-@Tag(name = "角色管理")
 @RestController
 @RequestMapping(Constant.ADMIN+"/role")
 public class RoleController {
@@ -25,7 +22,6 @@ public class RoleController {
     @Resource
     private RoleService roleService;
 
-    @Operation(summary = "角色分页")
     @SaCheckPermission("sys-role-page")
     @GetMapping("/page")
     public ApiResult<PageResult<RolePageRespVO>> page(RolePageReqVO reqVO) {
@@ -33,14 +29,12 @@ public class RoleController {
         return ApiResult.ok(roleService.page(reqVO));
     }
 
-    @Operation(summary = "角色详情")
     @SaCheckPermission("sys-role-detail")
     @GetMapping("/detail")
     public ApiResult<RoleRespVO> detail(@RequestParam(value = "roleId") Long roleId) {
         return ApiResult.ok(roleService.detail(roleId));
     }
 
-    @Operation(summary = "角色新增")
     @SaCheckPermission("sys-role-add")
     @PostMapping("/add")
     public ApiResult<Boolean> add(@RequestBody RoleSaveReqVO reqVO) {
@@ -48,7 +42,6 @@ public class RoleController {
         return ApiResult.ok();
     }
 
-    @Operation(summary = "角色更新")
     @SaCheckPermission("sys-role-update")
     @PostMapping("/update")
     public ApiResult<Boolean> update(@RequestBody RoleSaveReqVO reqVO) {
@@ -56,7 +49,6 @@ public class RoleController {
         return ApiResult.ok();
     }
 
-    @Operation(summary = "角色权限更新")
     @SaCheckPermission("sys-role-update-dataScope")
     @PostMapping("/updateDataScope")
     public ApiResult<Boolean> updateDataScope(@RequestBody RoleSaveReqVO reqVO) {
@@ -64,7 +56,6 @@ public class RoleController {
         return ApiResult.ok();
     }
 
-    @Operation(summary = "角色更新")
     @SaCheckPermission("sys-role-update-state")
     @PostMapping("/updateState")
     public ApiResult<Boolean> updateState(@RequestBody RoleUpdateStateReqVO reqVO) {
@@ -72,7 +63,6 @@ public class RoleController {
         return ApiResult.ok();
     }
 
-    @Operation(summary = "角色删除")
     @SaCheckPermission("sys-role-delete")
     @DeleteMapping("/delete")
     public ApiResult<Boolean> delete(@RequestParam(value = "roleId") Long roleId) {

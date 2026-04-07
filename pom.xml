@@ -31,8 +31,7 @@
 		<mybatis-plus.version>3.5.15</mybatis-plus.version>
 		<mysql-connector.version>8.0.33</mysql-connector.version>
 		<sa-token.version>1.39.0</sa-token.version>
-		<hutool.version>5.8.38</hutool.version>
-		<knife4j.version> 4.5.0</knife4j.version>
+		<hutool.version>5.8.40</hutool.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,7 +40,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.baomidou</groupId>
@@ -78,11 +81,6 @@
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
 			<version>${hutool.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.xiaoymin</groupId>
-			<artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-			<version>${knife4j.version}</version>
 		</dependency>
 
 	</dependencies>

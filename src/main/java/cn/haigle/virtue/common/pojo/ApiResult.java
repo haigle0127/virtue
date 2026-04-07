@@ -1,7 +1,6 @@
 package cn.haigle.virtue.common.pojo;
 
 import cn.haigle.virtue.common.interceptor.exception.enums.CodeConstants;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.io.Serializable;
 
@@ -14,13 +13,10 @@ import java.io.Serializable;
 @Data
 public class ApiResult<T> implements Serializable {
 
-    @Schema(description = "编码CODE", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer code;
 
-    @Schema(description = "提示", requiredMode = Schema.RequiredMode.REQUIRED)
     private String message;
 
-    @Schema(description = "返回数据集", requiredMode = Schema.RequiredMode.REQUIRED)
     private T data;
 
     public static <T> ApiResult<T> ok() {

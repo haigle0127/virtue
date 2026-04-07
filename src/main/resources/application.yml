@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: local
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
@@ -32,11 +34,3 @@ sa-token:
 #  is-share: false
 #  token-style: random-128
 #  is-concurrent: false
-# Knife4j 配置
-knife4j:
-  enable: true
-  openapi:
-    header:
-      name: Authorization
-      default-value: "Bearer test1"
-      description: "用于认证的 token"

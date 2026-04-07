@@ -1,16 +1,15 @@
 package cn.haigle.virtue.controller.admin.menu.vo;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
 
 /**
+ * 管理后台 - 角色菜单树 Response VO
  * @author haigle
  * @date 2024/11/13 下午1:34
  */
-@Schema(description = "管理后台 - 角色菜单树 Response VO")
 @Data
 public class RoleMenuTreeRespVO {
 

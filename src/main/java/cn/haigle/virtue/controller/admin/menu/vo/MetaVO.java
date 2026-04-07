@@ -1,9 +1,10 @@
 package cn.haigle.virtue.controller.admin.menu.vo;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-@Schema(description = "管理后台 - 路由显示信息 Response VO")
+/**
+ * 管理后台 - 路由显示信息 Response VO
+ */
 @Data
 public class MetaVO {
 
@@ -29,16 +30,16 @@ public class MetaVO {
         }
     }
 
-    @Schema(description = "设置该路由在侧边栏和面包屑中展示的名字")
+    /** 设置该路由在侧边栏和面包屑中展示的名字 */
     private String title;
 
-    @Schema(description = "置该路由的图标，对应路径src/assets/icons/svg")
+    /** 置该路由的图标，对应路径src/assets/icons/svg */
     private String icon;
 
-    @Schema(description = "设置为true，则不会被 <keep-alive>缓存")
+    /** 设置为true，则不会被 <keep-alive>缓存 */
     private boolean noCache;
 
-    @Schema(description = "内链地址（http(s)://开头）")
+    /** 内链地址（http(s)://开头） */
     private String link;
 
 }

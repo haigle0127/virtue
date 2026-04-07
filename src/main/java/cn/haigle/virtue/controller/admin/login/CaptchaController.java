@@ -6,8 +6,6 @@ import cn.haigle.virtue.controller.admin.login.vo.CaptchaRespVO;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.util.IdUtil;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  * @author haigle
  * @date 2019/6/3 14:18
  */
-@Tag(name = "验证码管理")
 @RestController
 @RequestMapping(Constant.API)
 public class CaptchaController {
@@ -34,7 +31,6 @@ public class CaptchaController {
      * @author haigle
      * @date 2024/12/10 13:55
      */
-    @Operation(summary = "获取验证码")
     @GetMapping("/captchaImage")
     public ApiResult<CaptchaRespVO> captchaImage() {
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(150, 60, 4, 20);
