@@ -13,24 +13,12 @@
 	<version>3.0.0-SNAPSHOT</version>
 	<name>virtue-pro</name>
 	<description>virtue-pro</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 	<properties>
 		<java.version>21</java.version>
 		<mybatis-plus.version>3.5.15</mybatis-plus.version>
 		<mysql-connector.version>8.0.33</mysql-connector.version>
-		<sa-token.version>1.39.0</sa-token.version>
+		<sa-token.version>1.45.0</sa-token.version>
 		<hutool.version>5.8.40</hutool.version>
 	</properties>
 	<dependencies>
@@ -98,6 +86,33 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.ly.smart-doc</groupId>
+				<artifactId>smart-doc-maven-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<configFile>./src/main/resources/smart-doc.json</configFile>
+					<projectName>${project.description}</projectName>
+					<includes>
+						<!-- 使用了mybatis-plus的Page分页需要include所使用的源码包 -->
+						<!-- <include>com.baomidou:mybatis-plus-extension</include> -->
+						<!-- 使用了mybatis-plus的IPage分页需要include mybatis-plus-core -->
+						<!-- <include>com.baomidou:mybatis-plus-core</include> -->
+						<!-- 使用了jpa的分页需要include所使用的源码包 -->
+						<!-- <include>org.springframework.data:spring-data-commons</include> -->
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
+						<phase>compile</phase>
+						<goals>
+							<!--smart-doc提供了html、openapi、markdown等goal，可按需配置-->
+							<goal>html</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
