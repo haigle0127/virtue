@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Knife4j 接口文档配置
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 @Configuration
 public class Knife4jConfig {

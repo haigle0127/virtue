@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 分页结果
+ * @author haigle
+ * @date 2026/4/29 15:10
+ */
 @Data
 public final class PageResult<T> implements Serializable {
 

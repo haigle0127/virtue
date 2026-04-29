@@ -2,6 +2,8 @@ package cn.haigle.virtue.common.security.context;
 
 /**
  * 安全上下文，存储当前登录用户信息
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 public class SecurityContext {
 

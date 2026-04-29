@@ -6,6 +6,8 @@ import cn.haigle.virtue.common.security.annotation.RequireLogin;
 import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.controller.admin.user.vo.*;
 import cn.haigle.virtue.service.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author haigle
  * @date 2019/7/25 13:36
  */
+@Tag(name = "用户管理")
 @RestController
 @RequestMapping("/user")
 @RequireLogin
@@ -28,6 +31,7 @@ public class UserController {
      *
      * @return 用户信息响应对象
      */
+    @Operation(summary = "获取用户信息")
     @GetMapping("/getInfo")
     public ApiResult<UserInfoVO> getInfo() {
         Long userId = SecurityContext.getUserId();
@@ -41,6 +45,7 @@ public class UserController {
      * @param reqVO 用户分页查询请求参数
      * @return 用户分页响应对象
      */
+    @Operation(summary = "获取用户分页列表")
     @GetMapping("/page")
     public ApiResult<PageResult<UserPageRespVO>> page(UserPageReqVO reqVO) {
         return ApiResult.ok(userService.page(reqVO));
@@ -53,6 +58,7 @@ public class UserController {
      * @param userId 用户ID
      * @return 用户详情响应对象
      */
+    @Operation(summary = "获取用户详情")
     @GetMapping("/detail")
     public ApiResult<UserRespVO> detail(@RequestParam(value = "userId", required = false) Long userId) {
         return ApiResult.ok(userService.detail(userId));
@@ -65,6 +71,7 @@ public class UserController {
      * @param reqVO 用户保存请求参数
      * @return 操作结果，成功返回true
      */
+    @Operation(summary = "新增用户")
     @PostMapping("/add")
     public ApiResult<Boolean> add(@RequestBody UserSaveReqVO reqVO) {
         userService.add(reqVO);
@@ -78,6 +85,7 @@ public class UserController {
      * @param reqVO 用户保存请求参数
      * @return 操作结果，成功返回true
      */
+    @Operation(summary = "修改用户")
     @PostMapping("/update")
     public ApiResult<Boolean> update(@RequestBody UserSaveReqVO reqVO) {
         userService.update(reqVO);

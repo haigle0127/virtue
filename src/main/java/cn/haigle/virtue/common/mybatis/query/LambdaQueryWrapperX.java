@@ -13,6 +13,8 @@ import java.util.Collection;
  * 1. 拼接条件的方法，增加 xxxIfPresent 方法，用于判断值不存在的时候，不要拼接到条件中。
  *
  * @param <T> 数据类型
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
 

@@ -7,6 +7,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * MyBatis Plus 配置
+ * @author haigle
+ * @date 2026/4/29 15:10
+ */
 @Configuration
 @MapperScan("cn.haigle.virtue.mapper")
 public class MybatisPlusConfig {

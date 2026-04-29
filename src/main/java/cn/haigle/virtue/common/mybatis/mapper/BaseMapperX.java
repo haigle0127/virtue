@@ -19,6 +19,8 @@ import java.util.List;
  * 在 MyBatis Plus 的 BaseMapper 的基础上拓展，提供更多的能力
  *
  * 1. {@link BaseMapper} 为 MyBatis Plus 的基础接口，提供基础的 CRUD 能力
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 public interface BaseMapperX<T> extends BaseMapper<T> {
 

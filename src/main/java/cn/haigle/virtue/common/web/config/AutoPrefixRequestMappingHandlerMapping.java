@@ -15,6 +15,8 @@ import java.lang.reflect.Method;
  *   <li>{@code controller.admin} 包下自动添加 {@code /api/admin}</li>
  *   <li>{@code controller.app} 包下自动添加 {@code /api/app}</li>
  * </ul>
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 public class AutoPrefixRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 

@@ -5,6 +5,8 @@ import cn.haigle.virtue.common.security.annotation.RequireLogin;
 import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.controller.admin.dept.vo.*;
 import cn.haigle.virtue.service.dept.DeptService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.List;
  * @author haigle
  * @date 2024/11/16 11:26
  */
+@Tag(name = "部门管理")
 @RestController
 @RequestMapping("/dept")
 @RequireLogin
@@ -30,6 +33,7 @@ public class DeptController {
      * @param reqVO 部门查询请求参数
      * @return 部门列表响应对象集合
      */
+    @Operation(summary = "获取部门列表")
     @GetMapping("/list")
     public ApiResult<List<DeptRespVO>> list(DeptReqVO reqVO) {
         return ApiResult.ok(deptService.list(reqVO));
@@ -42,6 +46,7 @@ public class DeptController {
      * @param deptId 部门ID
      * @return 部门详情响应对象
      */
+    @Operation(summary = "获取部门详情")
     @GetMapping("/detail")
     public ApiResult<DeptRespVO> detail(@RequestParam(value = "deptId") Long deptId) {
         return ApiResult.ok(deptService.detail(deptId));
@@ -54,6 +59,7 @@ public class DeptController {
      * @param reqVO 部门保存请求参数
      * @return 操作结果，成功返回true
      */
+    @Operation(summary = "新增部门")
     @PostMapping("/add")
     public ApiResult<Boolean> add(@RequestBody DeptSaveReqVO reqVO) {
         deptService.add(reqVO);
@@ -67,6 +73,7 @@ public class DeptController {
      * @param reqVO 部门保存请求参数
      * @return 操作结果，成功返回true
      */
+    @Operation(summary = "修改部门")
     @PostMapping("/update")
     public ApiResult<Boolean> update(@RequestBody DeptSaveReqVO reqVO) {
         deptService.update(reqVO);
@@ -80,6 +87,7 @@ public class DeptController {
      * @param deptId 部门ID
      * @return 操作结果，成功返回true
      */
+    @Operation(summary = "删除部门")
     @DeleteMapping("/delete")
     public ApiResult<Boolean> delete(@RequestParam(value = "deptId") Long deptId) {
         deptService.delete(deptId);
@@ -92,6 +100,7 @@ public class DeptController {
      *
      * @return 部门树DTO集合
      */
+    @Operation(summary = "获取用户部门树")
     @GetMapping("/userDeptTree")
     public ApiResult<List<DeptTreeDTO>> userDeptTree() {
         Long userId = SecurityContext.getUserId();
@@ -105,6 +114,7 @@ public class DeptController {
      * @param roleId 角色ID
      * @return 角色部门树响应对象
      */
+    @Operation(summary = "获取角色部门树")
     @GetMapping("/roleDeptTree")
     public ApiResult<RoleDeptTreeRespVO> roleDeptTree(@RequestParam(value = "roleId") Long roleId) {
         return ApiResult.ok(deptService.roleDeptTree(roleId));

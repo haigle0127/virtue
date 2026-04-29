@@ -14,6 +14,8 @@ import java.util.Date;
 
 /**
  * JWT 工具类
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 @Slf4j
 public class JwtUtil {

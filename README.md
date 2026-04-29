@@ -117,7 +117,7 @@ public class UserController {}
 
 - IDE: IntelliJ IDEA
 - DB: MySQL 8.X
-- JDK: Java 21
+- JDK: Java 17
 - Maven: 3.9+
 
 ## License

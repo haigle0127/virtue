@@ -8,7 +8,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
   web:
     resources:
-      static-locations: classpath:/static/
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
   aop:
     proxy-target-class: true
   messages:

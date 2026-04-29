@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 角色接口实现
+ * @author haigle
+ * @date 2026/4/29 15:10
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
 

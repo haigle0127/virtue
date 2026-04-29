@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 安全配置
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {

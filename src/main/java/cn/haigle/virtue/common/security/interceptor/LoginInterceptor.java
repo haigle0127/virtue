@@ -14,6 +14,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 /**
  * 登录拦截器
  * <p>拦截带有 {@link RequireLogin} 注解的类或方法，校验用户是否已登录</p>
+ * @author haigle
+ * @date 2026/4/29 15:10
  */
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
