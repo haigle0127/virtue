@@ -3,7 +3,6 @@ package cn.haigle.virtue.controller.admin.dept;
 import cn.haigle.virtue.common.pojo.ApiResult;
 import cn.haigle.virtue.common.security.annotation.RequireLogin;
 import cn.haigle.virtue.common.security.context.SecurityContext;
-import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.dept.vo.*;
 import cn.haigle.virtue.service.dept.DeptService;
 import jakarta.annotation.Resource;
@@ -17,7 +16,7 @@ import java.util.List;
  * @date 2024/11/16 11:26
  */
 @RestController
-@RequestMapping(Constant.ADMIN+"/dept")
+@RequestMapping("/dept")
 @RequireLogin
 public class DeptController {
 

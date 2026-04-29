@@ -3,7 +3,6 @@ package cn.haigle.virtue.controller.admin.menu;
 import cn.haigle.virtue.common.pojo.ApiResult;
 import cn.haigle.virtue.common.security.annotation.RequireLogin;
 import cn.haigle.virtue.common.security.context.SecurityContext;
-import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.menu.vo.*;
 import cn.haigle.virtue.service.menu.MenuService;
 import jakarta.annotation.Resource;
@@ -17,7 +16,7 @@ import java.util.List;
  * @date 2019/7/25 13:36
  */
 @RestController
-@RequestMapping(Constant.ADMIN+"/menu")
+@RequestMapping("/menu")
 @RequireLogin
 public class MenuController {
 

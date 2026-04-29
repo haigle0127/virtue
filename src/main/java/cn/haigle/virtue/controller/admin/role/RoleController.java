@@ -3,7 +3,6 @@ package cn.haigle.virtue.controller.admin.role;
 import cn.haigle.virtue.common.pojo.ApiResult;
 import cn.haigle.virtue.common.pojo.PageResult;
 import cn.haigle.virtue.common.security.annotation.RequireLogin;
-import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.role.vo.*;
 import cn.haigle.virtue.service.role.RoleService;
 import jakarta.annotation.Resource;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2024/11/14 14:34
  */
 @RestController
-@RequestMapping(Constant.ADMIN+"/role")
+@RequestMapping("/role")
 @RequireLogin
 public class RoleController {
 

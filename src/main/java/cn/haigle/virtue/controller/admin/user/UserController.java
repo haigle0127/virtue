@@ -4,7 +4,6 @@ import cn.haigle.virtue.common.pojo.ApiResult;
 import cn.haigle.virtue.common.pojo.PageResult;
 import cn.haigle.virtue.common.security.annotation.RequireLogin;
 import cn.haigle.virtue.common.security.context.SecurityContext;
-import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.user.vo.*;
 import cn.haigle.virtue.service.user.UserService;
 import jakarta.annotation.Resource;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019/7/25 13:36
  */
 @RestController
-@RequestMapping(Constant.ADMIN+"/user")
+@RequestMapping("/user")
 @RequireLogin
 public class UserController {
 
