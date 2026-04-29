@@ -25,12 +25,3 @@ mybatis-plus:
     map-underscore-to-camel-case: true
   global-config:
     banner: true
-sa-token:
-  token-style: tik
-  token-prefix: Bearer
-  token-name: Authorization
-#  timeout: 86400
-#  active-timeout: -1
-#  is-share: false
-#  token-style: random-128
-#  is-concurrent: false

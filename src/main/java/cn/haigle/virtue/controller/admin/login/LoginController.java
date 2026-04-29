@@ -1,6 +1,5 @@
 package cn.haigle.virtue.controller.admin.login;
 
-import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.common.pojo.ApiResult;
 import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.login.vo.LoginReqVO;
@@ -45,15 +44,14 @@ public class LoginController {
 
     /**
      * 退出登录
-     * <p>使当前用户的token失效，退出系统</p>
+     * <p>客户端清除token即可，服务端JWT无状态无需处理</p>
      *
      * @return 操作结果，成功返回true
      * @author haigle
      * @date 2024/12/10 14:00
      */
     @PostMapping("/logout")
-    public ApiResult<Boolean> login() {
-        StpUtil.logout();
+    public ApiResult<Boolean> logout() {
         return ApiResult.ok();
     }
 

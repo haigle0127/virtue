@@ -1,7 +1,8 @@
 package cn.haigle.virtue.controller.admin.menu;
 
-import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.haigle.virtue.common.pojo.ApiResult;
+import cn.haigle.virtue.common.security.annotation.RequireLogin;
+import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.menu.vo.*;
 import cn.haigle.virtue.service.menu.MenuService;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(Constant.ADMIN+"/menu")
+@RequireLogin
 public class MenuController {
 
     @Resource
@@ -30,7 +32,7 @@ public class MenuController {
      */
     @GetMapping("/getRouters")
     public ApiResult<List<RouterVO>> getRouters() {
-        Long userId = 1L;
+        Long userId = SecurityContext.getUserId();
         List<MenuRespVO> menus = menuService.selectTreeByUserId(userId);
         return ApiResult.ok(menuService.buildMenus(menus));
     }
@@ -42,7 +44,6 @@ public class MenuController {
      * @param reqVO 菜单查询请求参数
      * @return 菜单列表响应对象集合
      */
-    @SaCheckPermission("sys-sys-menu-list")
     @GetMapping("/list")
     public ApiResult<List<MenuRespVO>> list(MenuReqVO reqVO) {
         return ApiResult.ok(menuService.list(reqVO));
@@ -55,7 +56,6 @@ public class MenuController {
      * @param menuId 菜单ID
      * @return 菜单详情响应对象
      */
-    @SaCheckPermission("sys-menu-detail")
     @GetMapping("/detail")
     public ApiResult<MenuRespVO> detail(@RequestParam(value = "menuId") Long menuId) {
         return ApiResult.ok(menuService.detail(menuId));
@@ -68,7 +68,6 @@ public class MenuController {
      * @param reqVO 菜单保存请求参数
      * @return 操作结果，成功返回true
      */
-    @SaCheckPermission("sys-menu-add")
     @PostMapping("/add")
     public ApiResult<Boolean> add(@RequestBody MenuSaveReqVO reqVO) {
         menuService.add(reqVO);
@@ -82,7 +81,6 @@ public class MenuController {
      * @param reqVO 菜单保存请求参数
      * @return 操作结果，成功返回true
      */
-    @SaCheckPermission("sys-menu-update")
     @PostMapping("/update")
     public ApiResult<Boolean> update(@RequestBody MenuSaveReqVO reqVO) {
         menuService.update(reqVO);
@@ -96,7 +94,6 @@ public class MenuController {
      * @param menuId 菜单ID
      * @return 操作结果，成功返回true
      */
-    @SaCheckPermission("sys-menu-delete")
     @DeleteMapping("/delete")
     public ApiResult<Boolean> delete(@RequestParam(value = "menuId") Long menuId) {
         menuService.delete(menuId);
@@ -109,10 +106,9 @@ public class MenuController {
      *
      * @return 菜单树DTO集合
      */
-    @SaCheckPermission("sys-user-menu-tree")
     @GetMapping("/userMenuTree")
     public ApiResult<List<MenuTreeDTO>> userMenuTree() {
-        Long userId = 1L;
+        Long userId = SecurityContext.getUserId();
         return ApiResult.ok(menuService.userMenuTree(userId));
     }
 
@@ -123,7 +119,6 @@ public class MenuController {
      * @param roleId 角色ID
      * @return 角色菜单树响应对象
      */
-    @SaCheckPermission("sys-role-menu-tree")
     @GetMapping("/roleMenuTree")
     public ApiResult<RoleMenuTreeRespVO> roleMenuTree(@RequestParam(value = "roleId") Long roleId) {
         return ApiResult.ok(menuService.roleMenuTree(roleId));

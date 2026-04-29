@@ -1,6 +1,5 @@
 package cn.haigle.virtue.service.user;
 
-import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.haigle.virtue.common.constants.StateEnum;
 import cn.haigle.virtue.common.pojo.PageResult;
 import cn.haigle.virtue.controller.admin.role.vo.RoleSaveReqVO;
@@ -14,6 +13,7 @@ import cn.haigle.virtue.mapper.mysql.user.UserMapper;
 import cn.haigle.virtue.mapper.mysql.user.UserRoleMapper;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.crypto.symmetric.AES;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +77,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(UserSaveReqVO reqVO) {
         SysUserDO sysUserDO = BeanUtil.toBean(reqVO, SysUserDO.class);
-        sysUserDO.setPassword(SaSecureUtil.aesEncrypt(PASSWORD_KEY, reqVO.getPassword()));
+        AES aes = new AES(PASSWORD_KEY.getBytes());
+        sysUserDO.setPassword(aes.encryptBase64(reqVO.getPassword()));
         sysUserDO.setCreateTime(LocalDateTime.now());
         sysUserDO.setUpdateTime(LocalDateTime.now());
         userMapper.insert(sysUserDO);

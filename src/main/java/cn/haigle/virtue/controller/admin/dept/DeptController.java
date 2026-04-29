@@ -1,6 +1,8 @@
 package cn.haigle.virtue.controller.admin.dept;
 
 import cn.haigle.virtue.common.pojo.ApiResult;
+import cn.haigle.virtue.common.security.annotation.RequireLogin;
+import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.dept.vo.*;
 import cn.haigle.virtue.service.dept.DeptService;
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(Constant.ADMIN+"/dept")
+@RequireLogin
 public class DeptController {
 
     @Resource
@@ -92,7 +95,7 @@ public class DeptController {
      */
     @GetMapping("/userDeptTree")
     public ApiResult<List<DeptTreeDTO>> userDeptTree() {
-        Long userId = 1L;
+        Long userId = SecurityContext.getUserId();
         return ApiResult.ok(deptService.userDeptTree(userId));
     }
 

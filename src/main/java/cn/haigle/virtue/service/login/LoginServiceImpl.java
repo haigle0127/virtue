@@ -1,13 +1,13 @@
 package cn.haigle.virtue.service.login;
 
-import cn.dev33.satoken.secure.SaSecureUtil;
-import cn.dev33.satoken.stp.StpUtil;
 import cn.haigle.virtue.common.interceptor.exception.ServiceException;
 import cn.haigle.virtue.common.interceptor.exception.enums.CodeConstants;
+import cn.haigle.virtue.common.security.jwt.JwtUtil;
 import cn.haigle.virtue.controller.admin.login.vo.LoginReqVO;
 import cn.haigle.virtue.mapper.dataobject.user.SysUserDO;
 import cn.haigle.virtue.mapper.mysql.user.UserMapper;
 import cn.hutool.core.lang.Validator;
+import cn.hutool.crypto.symmetric.AES;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,11 +39,11 @@ public class LoginServiceImpl implements LoginService {
         if(sysUserDO == null) {
             throw new ServiceException(CodeConstants.USER_ERROR);
         }
-        if(!reqVO.getPassword().equals(SaSecureUtil.aesDecrypt(PASSWORD_KEY, sysUserDO.getPassword()))){
+        AES aes = new AES(PASSWORD_KEY.getBytes());
+        if(!reqVO.getPassword().equals(aes.decryptStr(sysUserDO.getPassword()))){
             throw new ServiceException(CodeConstants.USER_ERROR);
         }
-        StpUtil.login(sysUserDO.getId());
-        return StpUtil.getTokenValue();
+        return JwtUtil.generateToken(sysUserDO.getId());
     }
 
     @Override
