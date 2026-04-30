@@ -58,6 +58,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         String token = authHeader.substring(BEARER_PREFIX.length());
         Long userId = JwtUtil.parseToken(token);
+        String loginType = JwtUtil.parseLoginType(token);
         SecurityContext.setUserId(userId);
+        SecurityContext.setLoginType(loginType);
     }
 }

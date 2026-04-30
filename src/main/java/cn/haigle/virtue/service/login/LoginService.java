@@ -13,11 +13,12 @@ public interface LoginService {
     /**
      * 登录服务
      * @param reqVO LoginReqVO
+     * @param loginType 登录类型（根据请求路径自动判断：admin/app/pc）
      * @return token
      * @author haigle
      * @date 2019/3/6 9:58
      */
-    String login(LoginReqVO reqVO);
+    String login(LoginReqVO reqVO, String loginType);
 
     /**
      * 获取用户所拥有的权限列表

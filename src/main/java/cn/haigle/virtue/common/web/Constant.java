@@ -15,9 +15,9 @@ public class Constant {
     /**
      * 根目录
      */
-    public static final String API = "/api";
-    public static final String ADMIN = API+"/admin";
-    public static final String APP = API+"/app";
+    public static final String ADMIN_API = "/admin-api";
+    public static final String APP_API = "/app-api";
+    public static final String PC_API = "/pc-api";
 
     public static final String TOKEN = "token";
 

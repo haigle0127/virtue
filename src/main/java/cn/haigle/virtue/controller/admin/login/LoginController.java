@@ -1,7 +1,7 @@
 package cn.haigle.virtue.controller.admin.login;
 
+import cn.haigle.virtue.common.enums.LoginTypeEnum;
 import cn.haigle.virtue.common.pojo.ApiResult;
-import cn.haigle.virtue.common.web.Constant;
 import cn.haigle.virtue.controller.admin.login.vo.LoginReqVO;
 import cn.haigle.virtue.service.login.LoginService;
 import cn.haigle.virtue.service.menu.MenuService;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @Tag(name = "登录认证")
 @RestController
-@RequestMapping("/login")
 public class LoginController {
 
     @Resource
@@ -44,7 +43,7 @@ public class LoginController {
     @Operation(summary = "用户登录")
     @PostMapping("/login")
     public ApiResult<String> login(@Parameter(description = "登录请求参数", required = true) @Validated @RequestBody LoginReqVO reqVO) {
-        return ApiResult.ok(loginService.login(reqVO));
+        return ApiResult.ok(loginService.login(reqVO, LoginTypeEnum.ADMIN.getCode()));
     }
 
     /**
