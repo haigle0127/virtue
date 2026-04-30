@@ -25,7 +25,7 @@ public class Constant {
 
     public static final String DEFAULT_PASSWORD = "123456";
 
-    // 密码密文
+    // 密码密文 (AES-256要求密钥长度为32字节)
     public static final String PASSWORD_KEY = "CHANGE_ME_AES_KEY";
 
     private Constant() {

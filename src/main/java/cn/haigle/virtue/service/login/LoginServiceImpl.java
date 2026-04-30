@@ -50,6 +50,16 @@ public class LoginServiceImpl implements LoginService {
         return JwtUtil.generateToken(sysUserDO.getId(), typeEnum.getCode());
     }
 
+    public static void main(String[] args) {
+        AES aes = new AES(PASSWORD_KEY.getBytes());
+        // 演示:先加密再解密
+        String originalPassword = "123456";
+        String encrypted = aes.encryptBase64(originalPassword);
+        System.out.println("加密后: " + encrypted);
+        String decrypted = aes.decryptStr(encrypted);
+        System.out.println("解密后: " + decrypted);
+    }
+
     /**
      * 根据登录类型查找用户
      * <p>目前各类型共用 sys_user 表，后续需要扩展时在此方法中按类型查询不同表即可</p>
