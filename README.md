@@ -28,15 +28,15 @@
 
 ## 技术栈
 
-| 技术            | 版本    | 说明             |
-| --------------- | ------- | ---------------- |
-| Spring Boot     | 3.5.11  | 基础框架         |
-| nimbus-jose-jwt | 9.37    | JWT 生成与校验   |
-| MyBatis-Plus    | 3.5.15  | ORM 框架         |
-| MySQL           | 8.0     | 关系型数据库     |
-| Redis           | 5.0+    | 缓存             |
-| Hutool          | 5.8.40  | Java 工具库      |
-| Smart-Doc       | 3.1.2   | 接口文档生成     |
+| 技术             | 版本     | 说明        |
+|-----------------|--------|-----------|
+| Spring Boot     | 3.5.11 | 基础框架      |
+| nimbus-jose-jwt | 9.37   | JWT 生成与校验 |
+| MyBatis-Plus    | 3.5.15 | ORM 框架    |
+| MySQL           | 8.0    | 关系型数据库    |
+| Redis           | 5.0+   | 缓存        |
+| Hutool          | 5.8.40 | Java 工具库  |
+| Knife4j         | 4.5.0  | 接口文档实时生成  |
 
 ## 结构
 
@@ -120,8 +120,4 @@ public class UserController {}
 - JDK: Java 17
 - Maven: 3.9+
 
-## License
-
-[MIT](https://gitee.com/haigle/virtue/blob/master/LICENSE)
-
-virtue &copy; 2016-2025.  [haigletech](www.haigle.cn) 监制.
+virtue &copy; 2016-2026.  [haigletech](www.haigle.cn) 监制.
