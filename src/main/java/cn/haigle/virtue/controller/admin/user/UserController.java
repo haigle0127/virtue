@@ -33,7 +33,7 @@ public class UserController {
      * @return 用户信息响应对象
      */
     @Operation(summary = "获取用户信息")
-    @GetMapping("/getInfo")
+    @GetMapping("/info")
     public ApiResult<UserInfoVO> getInfo() {
         Long userId = SecurityContext.getUserId();
         return ApiResult.ok(userService.getInfo(userId));
