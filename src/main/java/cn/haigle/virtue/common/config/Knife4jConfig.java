@@ -19,7 +19,7 @@ public class Knife4jConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Virtue Pro 接口文档")
+                        .title("virtue 接口文档")
                         .version("3.0.0")
                         .description("基于 Spring Boot + JWT 的后端接口文档")
                         .contact(new Contact()

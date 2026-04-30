@@ -1,5 +1,6 @@
 package cn.haigle.virtue.controller.admin.user.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,30 +13,31 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "用户基本信息 Response VO")
 public class UserInfoVO {
 
-    /** 编号ID */
+    @Schema(description = "用户名称")
     private String username;
 
-    /** 编号ID */
+    @Schema(description = "邮箱")
     private String email;
 
-    /** 编号ID */
+    @Schema(description = "电话")
     private String phone;
 
-    /** 编号ID */
+    @Schema(description = "头像")
     private String avatar;
 
-    /** 编号ID */
+    @Schema(description = "简介")
     private String introduction;
 
-    /** 编号ID */
+    @Schema(description = "教育背景")
     private String education;
 
-    /** 角色标识 */
+    @Schema(description = "角色标识列表")
     private List<String> roles;
 
-    /** 权限标识 */
+    @Schema(description = "权限标识列表")
     private List<String> permissions;
 
 }

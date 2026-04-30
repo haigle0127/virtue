@@ -1,5 +1,6 @@
 package cn.haigle.virtue.controller.admin.menu.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,63 +14,64 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "菜单 Response VO")
 public class MenuRespVO {
 
-    /** 编号ID */
+    @Schema(description = "编号ID")
     private Long id;
 
-    /** 父ID */
+    @Schema(description = "父ID")
     private Long parentId;
 
-    /** 路由地址 */
+    @Schema(description = "路由地址")
     private String path;
 
-    /** 路由名称(路由地址一样的驼峰结构) */
+    @Schema(description = "路由名称(路由地址一样的驼峰结构)")
     private String routeName;
 
-    /** 权限名 */
+    @Schema(description = "权限名")
     private String name;
 
-    /** 组件路径 */
+    @Schema(description = "组件路径")
     private String component;
 
-    /** 路由参数 */
+    @Schema(description = "路由参数")
     private String param;
 
-    /** 是否为外链 0否 1是 */
+    @Schema(description = "是否为外链 0否 1是")
     private String iframe;
 
-    /** 是否缓存 0不缓存 1缓存 */
+    @Schema(description = "是否缓存 0不缓存 1缓存")
     private String cache;
 
-    /** 菜单状态 0正常 1停用 */
+    @Schema(description = "菜单状态 0正常 1停用", example = "0")
     private String state;
 
-    /** 显示状态 0显示 1隐藏 */
+    @Schema(description = "显示状态 0显示 1隐藏")
     private String visible;
 
-    /** 重定向 */
+    @Schema(description = "重定向")
     private String redirect;
 
-    /** 图标 */
+    @Schema(description = "图标")
     private String icon;
 
-    /** 菜单类型 MENU目录 VIEW按钮 */
+    @Schema(description = "菜单类型 MENU目录 VIEW按钮")
     private String menuType;
 
-    /** 权限标识 */
+    @Schema(description = "权限标识")
     private String power;
 
-    /** 排序 */
+    @Schema(description = "排序")
     private Integer sort;
 
-    /** 权限说明 */
+    @Schema(description = "权限说明")
     private String description;
 
-    /** 创建时间 */
+    @Schema(description = "创建时间")
     private String createTime;
 
-    /** 子菜单 */
+    @Schema(description = "子菜单")
     private List<MenuRespVO> children = new ArrayList<>();
 
 }

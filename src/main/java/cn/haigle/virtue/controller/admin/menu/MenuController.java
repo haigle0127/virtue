@@ -6,6 +6,7 @@ import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.controller.admin.menu.vo.*;
 import cn.haigle.virtue.service.menu.MenuService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class MenuController {
      */
     @Operation(summary = "获取菜单列表")
     @GetMapping("/list")
-    public ApiResult<List<MenuRespVO>> list(MenuReqVO reqVO) {
+    public ApiResult<List<MenuRespVO>> list(@Parameter(description = "菜单查询请求参数") MenuReqVO reqVO) {
         return ApiResult.ok(menuService.list(reqVO));
     }
 
@@ -62,7 +63,7 @@ public class MenuController {
      */
     @Operation(summary = "获取菜单详情")
     @GetMapping("/detail")
-    public ApiResult<MenuRespVO> detail(@RequestParam(value = "menuId") Long menuId) {
+    public ApiResult<MenuRespVO> detail(@Parameter(description = "菜单ID") @RequestParam(value = "menuId") Long menuId) {
         return ApiResult.ok(menuService.detail(menuId));
     }
 
@@ -75,7 +76,7 @@ public class MenuController {
      */
     @Operation(summary = "新增菜单")
     @PostMapping("/add")
-    public ApiResult<Boolean> add(@RequestBody MenuSaveReqVO reqVO) {
+    public ApiResult<Boolean> add(@Parameter(description = "菜单保存请求参数", required = true) @RequestBody MenuSaveReqVO reqVO) {
         menuService.add(reqVO);
         return ApiResult.ok();
     }
@@ -89,7 +90,7 @@ public class MenuController {
      */
     @Operation(summary = "修改菜单")
     @PostMapping("/update")
-    public ApiResult<Boolean> update(@RequestBody MenuSaveReqVO reqVO) {
+    public ApiResult<Boolean> update(@Parameter(description = "菜单保存请求参数", required = true) @RequestBody MenuSaveReqVO reqVO) {
         menuService.update(reqVO);
         return ApiResult.ok();
     }
@@ -103,7 +104,7 @@ public class MenuController {
      */
     @Operation(summary = "删除菜单")
     @DeleteMapping("/delete")
-    public ApiResult<Boolean> delete(@RequestParam(value = "menuId") Long menuId) {
+    public ApiResult<Boolean> delete(@Parameter(description = "菜单ID") @RequestParam(value = "menuId") Long menuId) {
         menuService.delete(menuId);
         return ApiResult.ok();
     }
@@ -130,7 +131,7 @@ public class MenuController {
      */
     @Operation(summary = "获取角色菜单树")
     @GetMapping("/roleMenuTree")
-    public ApiResult<RoleMenuTreeRespVO> roleMenuTree(@RequestParam(value = "roleId") Long roleId) {
+    public ApiResult<RoleMenuTreeRespVO> roleMenuTree(@Parameter(description = "角色ID") @RequestParam(value = "roleId") Long roleId) {
         return ApiResult.ok(menuService.roleMenuTree(roleId));
     }
 

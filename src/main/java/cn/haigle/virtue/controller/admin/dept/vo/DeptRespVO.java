@@ -1,5 +1,6 @@
 package cn.haigle.virtue.controller.admin.dept.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,42 +13,43 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "部门 Response VO")
 public class DeptRespVO {
 
-    /** 编号ID */
+    @Schema(description = "编号ID")
     private Long id;
 
-    /** 父ID */
+    @Schema(description = "父ID")
     private Long parentId;
 
-    /** 祖级列表 */
+    @Schema(description = "祖级列表")
     private String ancestors;
 
-    /** 部门名称 */
+    @Schema(description = "部门名称")
     private String name;
 
-    /** 负责人 */
+    @Schema(description = "负责人")
     private String leader;
 
-    /** 联系电话 */
+    @Schema(description = "联系电话")
     private String phone;
 
-    /** 邮箱 */
+    @Schema(description = "邮箱")
     private String email;
 
-    /** 菜单状态 0正常 1停用 */
+    @Schema(description = "菜单状态 0正常 1停用", example = "0")
     private String state;
 
-    /** 排序 */
+    @Schema(description = "排序")
     private Integer sort;
 
-    /** 权限说明 */
+    @Schema(description = "权限说明")
     private String description;
 
-    /** 创建时间 */
+    @Schema(description = "创建时间")
     private String createTime;
 
-    /** 子菜单 */
+    @Schema(description = "子菜单")
     private List<DeptRespVO> children = new ArrayList<>();
 
 }

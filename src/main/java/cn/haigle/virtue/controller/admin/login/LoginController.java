@@ -7,6 +7,7 @@ import cn.haigle.virtue.service.login.LoginService;
 import cn.haigle.virtue.service.menu.MenuService;
 import cn.haigle.virtue.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Tag(name = "登录认证")
 @RestController
-@RequestMapping(Constant.API)
+@RequestMapping("/login")
 public class LoginController {
 
     @Resource
@@ -42,7 +43,7 @@ public class LoginController {
      */
     @Operation(summary = "用户登录")
     @PostMapping("/login")
-    public ApiResult<String> login(@Validated @RequestBody LoginReqVO reqVO) {
+    public ApiResult<String> login(@Parameter(description = "登录请求参数", required = true) @Validated @RequestBody LoginReqVO reqVO) {
         return ApiResult.ok(loginService.login(reqVO));
     }
 

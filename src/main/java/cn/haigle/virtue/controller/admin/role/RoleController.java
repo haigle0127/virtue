@@ -6,6 +6,7 @@ import cn.haigle.virtue.common.security.annotation.RequireLogin;
 import cn.haigle.virtue.controller.admin.role.vo.*;
 import cn.haigle.virtue.service.role.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class RoleController {
      */
     @Operation(summary = "获取角色分页列表")
     @GetMapping("/page")
-    public ApiResult<PageResult<RolePageRespVO>> page(RolePageReqVO reqVO) {
+    public ApiResult<PageResult<RolePageRespVO>> page(@Parameter(description = "角色分页查询请求参数") RolePageReqVO reqVO) {
         return ApiResult.ok(roleService.page(reqVO));
     }
 
@@ -46,7 +47,7 @@ public class RoleController {
      */
     @Operation(summary = "获取角色详情")
     @GetMapping("/detail")
-    public ApiResult<RoleRespVO> detail(@RequestParam(value = "roleId") Long roleId) {
+    public ApiResult<RoleRespVO> detail(@Parameter(description = "角色ID") @RequestParam(value = "roleId") Long roleId) {
         return ApiResult.ok(roleService.detail(roleId));
     }
 
@@ -59,7 +60,7 @@ public class RoleController {
      */
     @Operation(summary = "新增角色")
     @PostMapping("/add")
-    public ApiResult<Boolean> add(@RequestBody RoleSaveReqVO reqVO) {
+    public ApiResult<Boolean> add(@Parameter(description = "角色保存请求参数", required = true) @RequestBody RoleSaveReqVO reqVO) {
         roleService.add(reqVO);
         return ApiResult.ok();
     }
@@ -73,7 +74,7 @@ public class RoleController {
      */
     @Operation(summary = "修改角色")
     @PostMapping("/update")
-    public ApiResult<Boolean> update(@RequestBody RoleSaveReqVO reqVO) {
+    public ApiResult<Boolean> update(@Parameter(description = "角色保存请求参数", required = true) @RequestBody RoleSaveReqVO reqVO) {
         roleService.update(reqVO);
         return ApiResult.ok();
     }
@@ -87,7 +88,7 @@ public class RoleController {
      */
     @Operation(summary = "修改角色数据权限")
     @PostMapping("/updateDataScope")
-    public ApiResult<Boolean> updateDataScope(@RequestBody RoleSaveReqVO reqVO) {
+    public ApiResult<Boolean> updateDataScope(@Parameter(description = "角色保存请求参数，包含数据权限配置", required = true) @RequestBody RoleSaveReqVO reqVO) {
         roleService.updateDataScope(reqVO);
         return ApiResult.ok();
     }
@@ -101,7 +102,7 @@ public class RoleController {
      */
     @Operation(summary = "修改角色状态")
     @PostMapping("/updateState")
-    public ApiResult<Boolean> updateState(@RequestBody RoleUpdateStateReqVO reqVO) {
+    public ApiResult<Boolean> updateState(@Parameter(description = "角色状态更新请求参数", required = true) @RequestBody RoleUpdateStateReqVO reqVO) {
         roleService.updateState(reqVO);
         return ApiResult.ok();
     }
@@ -115,7 +116,7 @@ public class RoleController {
      */
     @Operation(summary = "删除角色")
     @DeleteMapping("/delete")
-    public ApiResult<Boolean> delete(@RequestParam(value = "roleId") Long roleId) {
+    public ApiResult<Boolean> delete(@Parameter(description = "角色ID") @RequestParam(value = "roleId") Long roleId) {
         roleService.delete(roleId);
         return ApiResult.ok();
     }

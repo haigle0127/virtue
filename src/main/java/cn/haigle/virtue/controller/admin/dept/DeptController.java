@@ -6,6 +6,7 @@ import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.controller.admin.dept.vo.*;
 import cn.haigle.virtue.service.dept.DeptService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class DeptController {
      */
     @Operation(summary = "获取部门列表")
     @GetMapping("/list")
-    public ApiResult<List<DeptRespVO>> list(DeptReqVO reqVO) {
+    public ApiResult<List<DeptRespVO>> list(@Parameter(description = "部门查询请求参数") DeptReqVO reqVO) {
         return ApiResult.ok(deptService.list(reqVO));
     }
 
@@ -48,7 +49,7 @@ public class DeptController {
      */
     @Operation(summary = "获取部门详情")
     @GetMapping("/detail")
-    public ApiResult<DeptRespVO> detail(@RequestParam(value = "deptId") Long deptId) {
+    public ApiResult<DeptRespVO> detail(@Parameter(description = "部门ID") @RequestParam(value = "deptId") Long deptId) {
         return ApiResult.ok(deptService.detail(deptId));
     }
 
@@ -61,7 +62,7 @@ public class DeptController {
      */
     @Operation(summary = "新增部门")
     @PostMapping("/add")
-    public ApiResult<Boolean> add(@RequestBody DeptSaveReqVO reqVO) {
+    public ApiResult<Boolean> add(@Parameter(description = "部门保存请求参数", required = true) @RequestBody DeptSaveReqVO reqVO) {
         deptService.add(reqVO);
         return ApiResult.ok();
     }
@@ -75,7 +76,7 @@ public class DeptController {
      */
     @Operation(summary = "修改部门")
     @PostMapping("/update")
-    public ApiResult<Boolean> update(@RequestBody DeptSaveReqVO reqVO) {
+    public ApiResult<Boolean> update(@Parameter(description = "部门保存请求参数", required = true) @RequestBody DeptSaveReqVO reqVO) {
         deptService.update(reqVO);
         return ApiResult.ok();
     }
@@ -89,7 +90,7 @@ public class DeptController {
      */
     @Operation(summary = "删除部门")
     @DeleteMapping("/delete")
-    public ApiResult<Boolean> delete(@RequestParam(value = "deptId") Long deptId) {
+    public ApiResult<Boolean> delete(@Parameter(description = "部门ID") @RequestParam(value = "deptId") Long deptId) {
         deptService.delete(deptId);
         return ApiResult.ok();
     }
@@ -116,7 +117,7 @@ public class DeptController {
      */
     @Operation(summary = "获取角色部门树")
     @GetMapping("/roleDeptTree")
-    public ApiResult<RoleDeptTreeRespVO> roleDeptTree(@RequestParam(value = "roleId") Long roleId) {
+    public ApiResult<RoleDeptTreeRespVO> roleDeptTree(@Parameter(description = "角色ID") @RequestParam(value = "roleId") Long roleId) {
         return ApiResult.ok(deptService.roleDeptTree(roleId));
     }
 

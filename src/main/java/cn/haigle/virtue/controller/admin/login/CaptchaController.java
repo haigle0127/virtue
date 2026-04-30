@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Tag(name = "验证码")
 @RestController
-@RequestMapping(Constant.API)
+@RequestMapping("/captcha")
 public class CaptchaController {
 
     private static final String CAPTCHA_CODE = "virtue-login-captcha:";

@@ -1,11 +1,13 @@
 package cn.haigle.virtue.controller.admin.menu.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * 管理后台 - 路由显示信息 Response VO
  */
 @Data
+@Schema(description = "路由显示信息 Response VO")
 public class MetaVO {
 
     public MetaVO() {}
@@ -30,16 +32,16 @@ public class MetaVO {
         }
     }
 
-    /** 设置该路由在侧边栏和面包屑中展示的名字 */
+    @Schema(description = "设置该路由在侧边栏和面包屑中展示的名字")
     private String title;
 
-    /** 置该路由的图标，对应路径src/assets/icons/svg */
+    @Schema(description = "置该路由的图标，对应路径src/assets/icons/svg")
     private String icon;
 
-    /** 设置为true，则不会被 <keep-alive>缓存 */
+    @Schema(description = "设置为true，则不会被 <keep-alive>缓存")
     private boolean noCache;
 
-    /** 内链地址（http(s)://开头） */
+    @Schema(description = "内链地址（http(s)://开头）")
     private String link;
 
 }

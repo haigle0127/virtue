@@ -7,6 +7,7 @@ import cn.haigle.virtue.common.security.context.SecurityContext;
 import cn.haigle.virtue.controller.admin.user.vo.*;
 import cn.haigle.virtue.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class UserController {
      */
     @Operation(summary = "获取用户分页列表")
     @GetMapping("/page")
-    public ApiResult<PageResult<UserPageRespVO>> page(UserPageReqVO reqVO) {
+    public ApiResult<PageResult<UserPageRespVO>> page(@Parameter(description = "用户分页查询请求参数") UserPageReqVO reqVO) {
         return ApiResult.ok(userService.page(reqVO));
     }
 
@@ -60,7 +61,7 @@ public class UserController {
      */
     @Operation(summary = "获取用户详情")
     @GetMapping("/detail")
-    public ApiResult<UserRespVO> detail(@RequestParam(value = "userId", required = false) Long userId) {
+    public ApiResult<UserRespVO> detail(@Parameter(description = "用户ID") @RequestParam(value = "userId", required = false) Long userId) {
         return ApiResult.ok(userService.detail(userId));
     }
 
@@ -73,7 +74,7 @@ public class UserController {
      */
     @Operation(summary = "新增用户")
     @PostMapping("/add")
-    public ApiResult<Boolean> add(@RequestBody UserSaveReqVO reqVO) {
+    public ApiResult<Boolean> add(@Parameter(description = "用户保存请求参数", required = true) @RequestBody UserSaveReqVO reqVO) {
         userService.add(reqVO);
         return ApiResult.ok();
     }
@@ -87,7 +88,7 @@ public class UserController {
      */
     @Operation(summary = "修改用户")
     @PostMapping("/update")
-    public ApiResult<Boolean> update(@RequestBody UserSaveReqVO reqVO) {
+    public ApiResult<Boolean> update(@Parameter(description = "用户保存请求参数", required = true) @RequestBody UserSaveReqVO reqVO) {
         userService.update(reqVO);
         return ApiResult.ok();
     }
