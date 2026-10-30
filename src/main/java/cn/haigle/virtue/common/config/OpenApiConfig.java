@@ -42,7 +42,7 @@ public class OpenApiConfig {
                                 .url("https://gitee.com/haigle/virtue"))
                         .license(new License()
                                 .name("MIT")
-                                .url("https://gitee.com/haigle/virtue/blob/master/LICENSE")))
+                                .url("https://gitee.com/haigle/virtue/blob/main/LICENSE")))
                 .components(new Components().addSecuritySchemes(SECURITY_SCHEME_NAME,
                         new SecurityScheme()
                                 .name(SECURITY_SCHEME_NAME)
