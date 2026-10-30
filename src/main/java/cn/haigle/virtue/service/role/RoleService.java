@@ -3,6 +3,8 @@ package cn.haigle.virtue.service.role;
 import cn.haigle.virtue.common.pojo.PageResult;
 import cn.haigle.virtue.controller.admin.role.vo.*;
 
+import java.util.List;
+
 /**
  * 角色接口
  * @author haigle
@@ -18,10 +20,8 @@ public interface RoleService {
 
     void update(RoleSaveReqVO reqVO);
 
-    void updateDataScope(RoleSaveReqVO reqVO);
+    void delete(Long roleId);
 
-    void updateState(RoleUpdateStateReqVO reqVO);
-
-    void delete(Long menuId);
+    List<RoleRespVO> simpleList();
 
 }

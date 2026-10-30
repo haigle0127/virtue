@@ -1,12 +1,15 @@
 package cn.haigle.virtue.common.enums;
 
+import lombok.Getter;
+
 /**
  * 登录类型枚举
- * <p>区分不同端口的登录类型，不同登录类型可对应不同用户表或同一张用户表的不同逻辑</p>
+ * 区分不同端口的登录类型，不同登录类型可对应不同用户表或同一张用户表的不同逻辑
  *
  * @author haigle
  * @date 2026/4/30
  */
+@Getter
 public enum LoginTypeEnum {
 
     ADMIN("admin", "管理端登录"),
@@ -19,14 +22,6 @@ public enum LoginTypeEnum {
     LoginTypeEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getDesc() {
-        return desc;
     }
 
     /**

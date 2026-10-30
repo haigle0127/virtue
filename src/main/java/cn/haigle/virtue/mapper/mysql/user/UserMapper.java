@@ -16,7 +16,24 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper extends BaseMapperX<SysUserDO> {
 
     default PageResult<SysUserDO> selectPage(UserPageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<>());
+        return selectPage(reqVO, new LambdaQueryWrapperX<SysUserDO>()
+                .likeIfPresent(SysUserDO::getUsername, reqVO.getUsername())
+                .likeIfPresent(SysUserDO::getPhone, reqVO.getMobile())
+                .eqIfPresent(SysUserDO::getState, reqVO.getStatus()));
+    }
+
+    /**
+     * 按用户名 / 邮箱 / 手机号查询用户
+     */
+    default SysUserDO selectByAccount(String account) {
+        return selectOne(new LambdaQueryWrapperX<SysUserDO>()
+                .and(wrapper -> wrapper
+                        .eq(SysUserDO::getUsername, account)
+                        .or()
+                        .eq(SysUserDO::getEmail, account)
+                        .or()
+                        .eq(SysUserDO::getPhone, account))
+                .last("LIMIT 1"));
     }
 
 }

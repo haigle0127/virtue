@@ -8,7 +8,7 @@ import lombok.Data;
  * @author haigle
  * @date 2021/12/3 22:51
  */
-@TableName("sys_user_role")
+@TableName("user_role")
 @Data
 public class SysUserRoleDO {
 

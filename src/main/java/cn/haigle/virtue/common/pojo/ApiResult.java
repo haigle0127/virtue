@@ -1,6 +1,6 @@
 package cn.haigle.virtue.common.pojo;
 
-import cn.haigle.virtue.common.interceptor.exception.enums.CodeConstants;
+import cn.haigle.virtue.common.exception.CodeConstants;
 import lombok.Data;
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ public class ApiResult<T> implements Serializable {
 
     private Integer code;
 
-    private String message;
+    private String msg;
 
     private T data;
 
@@ -27,30 +27,30 @@ public class ApiResult<T> implements Serializable {
         return restResult(CodeConstants.OK.getValue(), CodeConstants.OK.name(), data);
     }
 
-    public static <T> ApiResult<T> ok(String message, T data) {
-        return restResult(CodeConstants.OK.getValue(), message, data);
+    public static <T> ApiResult<T> ok(String msg, T data) {
+        return restResult(CodeConstants.OK.getValue(), msg, data);
     }
 
     public static <T> ApiResult<T> fail() {
-        return restResult(CodeConstants.FAIL.getValue(), CodeConstants.FAIL.name(), null);
+        return restResult(CodeConstants.FAIL.getValue(), CodeConstants.FAIL.getName(), null);
     }
 
-    public static <T> ApiResult<T> fail(String message) {
-        return restResult(CodeConstants.FAIL.getValue(), message, null);
+    public static <T> ApiResult<T> fail(String msg) {
+        return restResult(CodeConstants.FAIL.getValue(), msg, null);
     }
 
-    public static <T> ApiResult<T> fail(String message, T data) {
-        return restResult(CodeConstants.FAIL.getValue(), message, data);
+    public static <T> ApiResult<T> fail(String msg, T data) {
+        return restResult(CodeConstants.FAIL.getValue(), msg, data);
     }
 
-    public static <T> ApiResult<T> code(int code, String message) {
-        return restResult(code, message, null);
+    public static <T> ApiResult<T> code(int code, String msg) {
+        return restResult(code, msg, null);
     }
 
-    private static <T> ApiResult<T> restResult(Integer code, String message, T data) {
+    private static <T> ApiResult<T> restResult(Integer code, String msg, T data) {
         ApiResult<T> apiResult = new ApiResult<>();
         apiResult.setCode(code);
-        apiResult.setMessage(message);
+        apiResult.setMsg(msg);
         apiResult.setData(data);
         return apiResult;
     }

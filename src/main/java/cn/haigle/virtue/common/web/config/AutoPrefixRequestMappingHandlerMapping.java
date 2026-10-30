@@ -8,12 +8,10 @@ import java.lang.reflect.Method;
 
 /**
  * 自动前缀路由映射处理器
- * <p>根据 Controller 所在包路径自动添加 API 前缀：</p>
- * <ul>
- *   <li>{@code controller.admin} 包下自动添加 {@code /admin-api}</li>
- *   <li>{@code controller.app} 包下自动添加 {@code /app-api}</li>
- *   <li>{@code controller.pc} 包下自动添加 {@code /pc-api}</li>
- * </ul>
+ * 根据 Controller 所在包路径自动添加 API 前缀
+ * controller.admin 包下自动添加 /admin-api
+ * controller.app 包下自动添加 /app-api
+ * controller.pc 包下自动添加 /pc-api
  * @author haigle
  * @date 2026/4/29 15:10
  */

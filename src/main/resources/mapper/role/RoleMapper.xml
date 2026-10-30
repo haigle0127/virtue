@@ -3,9 +3,13 @@
 <mapper namespace="cn.haigle.virtue.mapper.mysql.role.RoleMapper">
 
     <select id="selectRoleMarkByUserId" resultType="java.lang.String">
-        SELECT mark FROM sys_role r
-        LEFT JOIN sys_user_role ur ON r.id = ur.role_id
+        SELECT r.mark FROM role_info r
+        INNER JOIN user_role ur ON r.id = ur.role_id
         WHERE ur.user_id = #{userId}
+          AND r.deleted = 0
+          AND r.state = '0'
+          AND r.mark IS NOT NULL
+          AND r.mark &lt;&gt; ''
     </select>
 
 </mapper>

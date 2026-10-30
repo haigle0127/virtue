@@ -1,8 +1,9 @@
 package cn.haigle.virtue.service.user;
 
 import cn.haigle.virtue.common.pojo.PageResult;
-import cn.haigle.virtue.controller.admin.role.vo.RoleSaveReqVO;
 import cn.haigle.virtue.controller.admin.user.vo.*;
+
+import java.util.List;
 
 /**
  * 用户接口
@@ -20,5 +21,15 @@ public interface UserService {
     void add(UserSaveReqVO reqVO);
 
     void update(UserSaveReqVO reqVO);
+
+    void delete(Long userId);
+
+    void deleteList(List<Long> ids);
+
+    void updatePassword(Long userId, String password);
+
+    void updateStatus(Long userId, Integer status);
+
+    List<UserRespVO> simpleList();
 
 }

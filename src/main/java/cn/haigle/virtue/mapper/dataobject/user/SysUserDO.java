@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * @author haigle
  * @date 2021/12/3 22:51
  */
-@TableName("sys_user")
+@TableName("user_info")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SysUserDO extends BaseDO {
@@ -22,11 +22,6 @@ public class SysUserDO extends BaseDO {
      */
     @TableId(type = IdType.AUTO)
     private Long id;
-
-    /**
-     * 部门ID
-     */
-    private Long deptId;
 
     /**
      * 用户名称
@@ -55,7 +50,7 @@ public class SysUserDO extends BaseDO {
     private String state;
 
     /**
-     * 密码
+     * 密码，BCrypt 哈希
      */
     private String password;
 

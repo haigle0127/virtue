@@ -14,14 +14,18 @@ import java.util.List;
 
 /**
  * 角色Mapper
+ *
  * @author haigle
- * @date 2019-08-04 00:02
  */
 @Mapper
 public interface RoleMapper extends BaseMapperX<SysRoleDO> {
 
     default PageResult<SysRoleDO> selectPage(RolePageReqVO reqVO) {
-        return selectPage(reqVO, new LambdaQueryWrapperX<>());
+        return selectPage(reqVO, new LambdaQueryWrapperX<SysRoleDO>()
+                .likeIfPresent(SysRoleDO::getName, reqVO.getName())
+                .likeIfPresent(SysRoleDO::getMark, reqVO.getCode())
+                .eqIfPresent(SysRoleDO::getState,
+                        reqVO.getStatus() != null ? reqVO.getStatus().toString() : null));
     }
 
     List<String> selectRoleMarkByUserId(Long userId);

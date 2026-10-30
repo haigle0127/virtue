@@ -3,11 +3,11 @@
 <mapper namespace="cn.haigle.virtue.mapper.mysql.user.UserRoleMapper">
 
     <delete id="deleteByUserId">
-        DELETE FROM sys_user_role WHERE user_id = #{userId}
+        DELETE FROM user_role WHERE user_id = #{userId}
     </delete>
 
     <delete id="deleteByRoleId">
-        DELETE FROM sys_user_role WHERE role_id = #{roleId}
+        DELETE FROM user_role WHERE role_id = #{roleId}
     </delete>
 
 </mapper>

@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * @author haigle
  * @date 2019-08-04 10:40
  */
-@TableName("sys_role")
+@TableName("role_info")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SysRoleDO extends BaseDO {
@@ -29,25 +29,9 @@ public class SysRoleDO extends BaseDO {
     private String name;
 
     /**
-     * 权限标识
+     * 角色标识，鉴权唯一依据，非空且唯一
      */
     private String mark;
-
-    /**
-     * 数据范围 1全部数据权限 2自定数据权限 3本部门数据权限 4本部门及以下数据权限
-     * {@link cn.haigle.virtue.common.constants.RoleDataScopeEnum}
-     */
-    private String dataScope;
-
-    /**
-     * 菜单树选择项关联显示 0不关联 1关联
-     */
-    private Boolean menuCheckStrictly;
-
-    /**
-     * 部门树选择项关联显示 0不关联 1关联
-     */
-    private Boolean deptCheckStrictly;
 
     /**
      * 角色说明

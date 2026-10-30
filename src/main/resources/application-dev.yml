@@ -18,8 +18,8 @@ spring:
           min-idle: 1
           max-active: 8
   mail:
-    host: smtp.qq.com
-    username: user2@example.com
+    host:
+    username:
     password:
     properties:
       mail:

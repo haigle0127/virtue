@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * 用户角色 Response VO
+ *
+ * @author haigle
  */
 @Data
 @NoArgsConstructor

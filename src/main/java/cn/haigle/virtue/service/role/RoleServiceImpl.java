@@ -1,89 +1,120 @@
 package cn.haigle.virtue.service.role;
 
+import cn.haigle.virtue.common.constants.StateEnum;
 import cn.haigle.virtue.common.pojo.PageResult;
-import cn.haigle.virtue.controller.admin.role.vo.*;
-import cn.haigle.virtue.convert.role.RoleConvert;
+import cn.haigle.virtue.controller.admin.role.vo.RolePageReqVO;
+import cn.haigle.virtue.controller.admin.role.vo.RolePageRespVO;
+import cn.haigle.virtue.controller.admin.role.vo.RoleRespVO;
+import cn.haigle.virtue.controller.admin.role.vo.RoleSaveReqVO;
 import cn.haigle.virtue.mapper.dataobject.role.SysRoleDO;
-import cn.haigle.virtue.mapper.dataobject.role.SysRoleDeptDO;
-import cn.haigle.virtue.mapper.dataobject.role.SysRoleMenuDO;
-import cn.haigle.virtue.mapper.mysql.role.RoleDeptMapper;
 import cn.haigle.virtue.mapper.mysql.role.RoleMapper;
-import cn.haigle.virtue.mapper.mysql.role.RoleMenuMapper;
-import cn.hutool.core.bean.BeanUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+import org.springframework.util.StringUtils;
+
 import java.util.List;
 
 /**
  * 角色接口实现
+ *
  * @author haigle
- * @date 2026/4/29 15:10
  */
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
-
-    @Autowired
-    private RoleMenuMapper roleMenuMapper;
-
-    @Autowired
-    private RoleDeptMapper roleDeptMapper;
 
     @Override
     public PageResult<RolePageRespVO> page(RolePageReqVO reqVO) {
         PageResult<SysRoleDO> pageResult = roleMapper.selectPage(reqVO);
-        return RoleConvert.convertPage(pageResult);
+        List<RolePageRespVO> list = pageResult.getList().stream().map(role -> {
+            RolePageRespVO vo = new RolePageRespVO();
+            BeanUtils.copyProperties(role, vo);
+            fillFrontFields(vo);
+            return vo;
+        }).toList();
+        return new PageResult<>(list, pageResult.getTotal(), pageResult.getPageNo());
     }
 
     @Override
     public RoleRespVO detail(Long roleId) {
-        SysRoleDO sysRoleDO = roleMapper.selectById(roleId);
-        return BeanUtil.toBean(sysRoleDO, RoleRespVO.class);
+        SysRoleDO role = roleMapper.selectById(roleId);
+        if (role == null) {
+            return null;
+        }
+        RoleRespVO vo = new RoleRespVO();
+        BeanUtils.copyProperties(role, vo);
+        fillFrontFields(vo);
+        return vo;
     }
 
     @Override
     public void add(RoleSaveReqVO reqVO) {
-        SysRoleDO sysRoleDO = BeanUtil.toBean(reqVO, SysRoleDO.class);
-        sysRoleDO.setCreateTime(LocalDateTime.now());
-        sysRoleDO.setUpdateTime(LocalDateTime.now());
-        roleMapper.insert(sysRoleDO);
+        SysRoleDO role = toDO(reqVO);
+        roleMapper.insert(role);
     }
 
     @Override
     public void update(RoleSaveReqVO reqVO) {
-        SysRoleDO sysRoleDO = BeanUtil.toBean(reqVO, SysRoleDO.class);
-        sysRoleDO.setUpdateTime(LocalDateTime.now());
-        roleMapper.updateById(sysRoleDO);
-        roleMenuMapper.deleteByRoleId(reqVO.getId());
-        List<SysRoleMenuDO> sysRoleMenuDOList = RoleConvert.convertRoleMenuList(reqVO.getMenuIds(), reqVO.getId());
-        roleMenuMapper.insertBatch(sysRoleMenuDOList);
+        roleMapper.updateById(toDO(reqVO));
     }
 
-    @Override
-    public void updateDataScope(RoleSaveReqVO reqVO) {
-        SysRoleDO sysRoleDO = new SysRoleDO();
-        sysRoleDO.setId(reqVO.getId());
-        sysRoleDO.setDataScope(reqVO.getDataScope());
-        sysRoleDO.setDeptCheckStrictly(reqVO.getDeptCheckStrictly());
-        sysRoleDO.setUpdateTime(LocalDateTime.now());
-        roleMapper.updateById(sysRoleDO);
-        roleDeptMapper.deleteByRoleId(reqVO.getId());
-        List<SysRoleDeptDO> sysRoleDeptDOList = RoleConvert.convertRoleDeptList(reqVO.getDeptIds(), reqVO.getId());
-        roleDeptMapper.insertBatch(sysRoleDeptDOList);
-    }
-
-    @Override
-    public void updateState(RoleUpdateStateReqVO reqVO) {
-        SysRoleDO sysRoleDO = BeanUtil.toBean(reqVO, SysRoleDO.class);
-        sysRoleDO.setUpdateTime(LocalDateTime.now());
-        roleMapper.updateById(sysRoleDO);
+    /**
+     * code / remark / status 映射到 mark / description / state
+     */
+    private SysRoleDO toDO(RoleSaveReqVO reqVO) {
+        SysRoleDO role = new SysRoleDO();
+        BeanUtils.copyProperties(reqVO, role);
+        if (StringUtils.hasText(reqVO.getCode())) {
+            role.setMark(reqVO.getCode());
+        }
+        if (StringUtils.hasText(reqVO.getRemark())) {
+            role.setDescription(reqVO.getRemark());
+        }
+        if (reqVO.getStatus() != null) {
+            role.setState(reqVO.getStatus().toString());
+        }
+        if (reqVO.getSort() != null) {
+            role.setSort(reqVO.getSort().toString());
+        }
+        return role;
     }
 
     @Override
     public void delete(Long roleId) {
         roleMapper.deleteById(roleId);
     }
+
+    @Override
+    public List<RoleRespVO> simpleList() {
+        List<SysRoleDO> roleDOList = roleMapper.selectList(SysRoleDO::getState, StateEnum.ZERO.value());
+        return roleDOList.stream().map(role -> {
+            RoleRespVO vo = new RoleRespVO();
+            BeanUtils.copyProperties(role, vo);
+            fillFrontFields(vo);
+            return vo;
+        }).toList();
+    }
+
+    private void fillFrontFields(RolePageRespVO vo) {
+        vo.setCode(vo.getMark());
+        vo.setRemark(vo.getDescription());
+        vo.setStatus(parseState(vo.getState()));
+    }
+
+    private void fillFrontFields(RoleRespVO vo) {
+        vo.setCode(vo.getMark());
+        vo.setRemark(vo.getDescription());
+        vo.setStatus(parseState(vo.getState()));
+    }
+
+    private Integer parseState(String state) {
+        if (state == null || state.isBlank()) {
+            return null;
+        }
+        return Integer.valueOf(state);
+    }
+
 }

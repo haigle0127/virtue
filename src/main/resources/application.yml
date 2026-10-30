@@ -18,6 +18,10 @@ server:
   port: 9981
   tomcat:
       uri-encoding: utf-8
+      # 接口文档的数组参数示例值会带 [ ]，Tomcat 默认按 RFC 7230 拒收导致 400
+      relaxed-query-chars:
+        - "["
+        - "]"
 mybatis-plus:
   type-aliases-package: cn.haigle.virtue.mapper.dataobject.*
   configuration:
@@ -26,7 +30,11 @@ mybatis-plus:
   global-config:
     banner: true
 
+dwagger:
+  enable: true
+
 springdoc:
+  # dwagger 依赖 springdoc 的 /v3/api-docs/swagger-config 获取分组，不能关闭 swagger-ui
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
@@ -36,12 +44,34 @@ springdoc:
   group-configs:
     - group: admin
       display-name: 管理端接口
+      # noinspection SpringBootApplicationYaml
       packages-to-scan: cn.haigle.virtue.controller.admin
     - group: app
       display-name: App端接口
+      # noinspection SpringBootApplicationYaml
       packages-to-scan: cn.haigle.virtue.controller.app
 
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
+virtue:
+  security:
+    # 测试登录开关：开启后 Authorization: Bearer test1 直接以用户1（超级管理员）身份访问，仅限本地开发
+    test-login-enabled: false
+    jwt:
+      # HS256 密钥至少 32 字节，必须通过环境变量提供，代码仓库不保存任何真实密钥
+      secret: ${VIRTUE_JWT_SECRET}
+      issuer: virtue
+      # 访问令牌短期有效，天然降低泄露风险
+      access-token-ttl: 15m
+      # 刷新令牌有效期，数据库中只保存其哈希
+      refresh-token-ttl: 7d
+    # 无需登录即可访问的路径
+    public-urls:
+      - /admin-api/auth/login
+      - /admin-api/auth/refresh-token
+      - /admin-api/captcha/**
+      - /swagger-ui/**
+      - /swagger-ui.html
+      - /v3/api-docs/**
+      - /webjars/**
+      - /doc.html
+      - /favicon.ico
+      - /error
