@@ -93,7 +93,7 @@ src/main/resources
 1. 创建数据库 `virtue`（UTF-8），导入 `sql/virtue.sql`（脚本只包含建表与初始数据，不含建库语句）。
 2. 按本机情况修改 `application-local.yml` 中的 MySQL、Redis 连接。
 3. 启动 `VirtueProApplication`，服务端口 `9981`。
-4. 打开接口文档 <http://localhost:9981/swagger-ui.html>，OpenAPI JSON 为 `/v3/api-docs`。
+4. 打开接口文档 <http://localhost:9981/doc.html>，OpenAPI JSON 为 `/v3/api-docs`。
 
 默认账号 `admin` / `123456`，种子数据中密码为 BCrypt 哈希。
 
@@ -152,7 +152,7 @@ public class UserController {
 `virtue.security.test-login-enabled: true` 时，请求头直接用 `Authorization: Bearer test1`，即以用户 1（超级管理员，`ROLE_admin`）身份访问，无需调用登录接口。
 
 - `local` 默认开启，`dev` 默认关闭，生产环境必须关闭。
-- 开启后，Swagger 中需要登录的接口会把 `Authorization: Bearer test1` 作为请求头参数预填。
+- 开启后，接口文档中需要登录的接口会把 `Authorization: Bearer test1` 作为请求头参数预填。
 
 ## 路由与统一约定
 
